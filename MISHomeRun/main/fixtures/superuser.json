@@ -1,0 +1,20 @@
+[
+    {
+        "fields": {
+            "username": "Lavender",
+            "first_name": "",
+            "last_name": "",
+            "is_active": true,
+            "is_superuser": true,
+            "is_staff": true,
+            "last_login": null,
+            "groups": [],
+            "user_permissions": [],
+            "password": "pbkdf2_sha256$20000$Ka78fRSsgn8D$DUBcJbhaPFq+KSW2XTj+9XmFAcomwqGSAwTfipOLC8E=",
+            "email": "lavender15963j@gmail.com",
+            "date_joined": "2017-02-17T12:02:07.618Z"
+        },
+        "model": "main.user",
+        "pk": 1
+    }
+]

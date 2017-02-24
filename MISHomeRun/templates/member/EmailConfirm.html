@@ -1,0 +1,18 @@
+{% extends "member/Base.html" %}
+
+{% load url from future %}
+{% load i18n %}
+
+{% block title %}{% trans "Confirm Email" %}{% endblock %}
+
+{% block body %}
+            
+    <form method="post" action="{% url "account_confirm_email" key=confirmation.key %}">
+        <fieldset>
+            {% csrf_token %}
+            <p>{% blocktrans with email=confirmation.email_address.email %}Confirm email address <b>{{ email }}</b>?{% endblocktrans %}</p>
+            <button type="submit">{% trans "Confirm" %}</button>
+        </fieldset>
+    </form>
+            
+{% endblock %}

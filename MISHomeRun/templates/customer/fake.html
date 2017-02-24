@@ -1,0 +1,21 @@
+{% extends "customer/profile_layout.html" %}
+
+{% load i18n %}
+
+{% block title %}
+    {{ page_title }}
+{% endblock %}
+
+{% block headertext %}{{ page_title }}{% endblock %}
+
+{% block right_content %}
+
+{% if notes %}
+<table class="table table-bordered">
+  ...
+</table>
+{% else %}
+<p>目前沒有筆記</p>
+{% endif %}
+
+{% endblock %}

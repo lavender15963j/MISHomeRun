@@ -1,0 +1,21 @@
+# PROJECT REQUIREMENTS LIST, PLEASE NOTE THIS FILE IS ALSO USED FOR PYTHON PIP,
+# SO ALL NON-PYTHON PACKAGES ARE MARKED AS COMMENTS.
+
+# ============ LIB ============
+
+# ============ Nuwa Developed ============
+
+Iuppiter>=2.0.8.9686
+
+Iuno<=2.1.11
+
+# ============ Third Party ============
+
+# django (https://pypi.python.org/pypi/Django)
+django==1.8.4
+
+# python-social-auth (https://pypi.python.org/pypi/python-social-auth)
+python-social-auth==0.2.21
+
+# django-compressor (https://pypi.python.org/pypi/django-compressor/)
+django-compressor==2.1

@@ -1,0 +1,15 @@
+{% extends "member/Base.html" %}
+
+{% load url from future %}
+{% load i18n %}
+
+{% block title %}{% trans "Sign up" %}{% endblock %}
+
+{% block body %}
+    <h1>{% trans "This site is in private beta" %}</h1>
+    <p>{% blocktrans %}If you have signup code you can enter it below.{% endblocktrans %}</p>
+    <form method="get" action="">
+        <input type="text" name="code" placeholder="Your signup code..." />
+        <input type="submit">
+    </form>
+{% endblock %}

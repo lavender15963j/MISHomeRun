@@ -1,0 +1,30 @@
+{% extends "member/Base.html" %}
+
+{% load i18n %}
+{% load url from future %}
+
+{% block title %}{% trans "Account" %}{% endblock %}
+
+{% block body %}
+    
+    <div>{% trans "Settings" %}</div>
+    <div>
+        <a href="{% url "account_settings" %}">
+            {% trans "Account" %}
+        </a>
+        <a href="{% url "account_password" %}">
+            {% trans "Change password" %}
+        </a>
+        <a href="{% url "account_delete" %}">
+            {% trans "Delete account" %}
+        </a>
+    </div>
+    
+    <form method="POST" action="{% url "account_settings" %}">
+        <legend>Account</legend>
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit">{% trans "Save" %}</button>
+    </form>
+
+{% endblock %}

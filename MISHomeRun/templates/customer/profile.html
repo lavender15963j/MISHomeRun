@@ -1,0 +1,29 @@
+{% extends "customer/profile_layout.html" %}
+
+{% load i18n %}
+
+{% block title %}
+    {{ page_title }}
+{% endblock %}
+
+{% block headertext %}{{ page_title }}{% endblock %}
+
+{% block right_content %}
+<table class="table table-striped table-bordered">
+        <tbody>
+            <tr>
+                <th>名字</th>
+                <td>{{ user.username|default:'-' }}</td>
+            </tr>
+            <tr>
+                <th>信箱</th>
+                <td>{{ user.email }}</td>
+            </tr>
+            <tr>
+                <th>註冊時間</th>
+                <td>{{ user.date_joined }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+{% endblock %}

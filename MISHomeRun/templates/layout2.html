@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block content_wrapper %}
+    <div class="container-fluid page">
+        <div class="page_inner">
+            <div class="row">
+
+                <div class="lfpadding col-md-3">
+                    {% block column_left %}{% endblock %}
+                </div>
+
+                <div class="lfpadding col-md-9">
+                    <div class="page-header action">
+                        <h1>{% block headertext %}{% endblock %}</h1>
+                    </div>
+
+                    {% include "partials/alert_messages.html" %}
+                    
+                    <div id="promotions">
+                        
+                    </div>
+
+                    {% block right_content %}{% endblock %}
+                </div>
+
+        </div><!-- /row -->
+    </div><!-- /page_inner -->
+</div><!-- /container-fluid -->
+{% endblock %}

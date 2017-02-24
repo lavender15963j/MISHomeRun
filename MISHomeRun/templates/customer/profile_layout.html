@@ -1,0 +1,19 @@
+{% extends "layout2.html" %}
+
+{% load i18n %}
+
+{% block title %}{{ request.user.username }} Profile{% endblock %}
+
+{% block column_left %}
+    <ul class="nav nav-pills nav-stacked">
+            <li{% if active_tab == 'profile' %} class="active"{% endif %}>
+                <a href="{% url 'customer:profile' request.user.id %}">個人資料</a>
+            </li>
+            <li{% if active_tab == 'real' %} class="active"{% endif %}>
+                <a href="{% url 'customer:real' request.user.id %}">真實投注筆記</a>
+            </li>
+            <li{% if active_tab == 'fake' %} class="active"{% endif %}>
+                <a href="{% url 'customer:fake' request.user.id %}">虛擬投注記錄</a>
+            </li>
+    </ul>
+{% endblock %}

@@ -1,0 +1,143 @@
+<button id='realNote' type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target=".bs-example-modal-lg">記錄筆記</button>
+
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">記錄筆記</h4>
+      </div>
+
+      <form action="{% url 'customer:real' request.user.id %}" method="post">
+          {% csrf_token %}
+          <input name='user' id='id_user' type="hidden" value="{{ request.user.id }}"/>
+          <input name='note_type' id='id_note_type' type="hidden" value="real"/>
+
+        <div class="modal-body">
+            {{ form.non_field_errors }}
+
+            <div class="form-group">
+                <label for="{{ form.betting.id_for_betting }}">我要投注:</label>
+                {{ form.betting }}
+                {{ form.betting.errors }}
+            </div>
+
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#lp" aria-controls="lp" role="tab" data-toggle="tab">讓分</a></li>
+                <li role="presentation"><a href="#nlp" aria-controls="nlp" role="tab" data-toggle="tab">不讓分</a></li>
+                <li role="presentation"><a href="#bs" aria-controls="bs" role="tab" data-toggle="tab">大小分</a></li>
+                <li role="presentation"><a href="#wpd" aria-controls="wpd" role="tab" data-toggle="tab">勝分差</a></li>
+            </ul>
+
+             <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="lp">
+                    <div class="form-group" style="padding-right: 80%;">
+                        <label for="{{ form.lp_home_team.id_for_lp_home_team }}">投注主場:</label>
+                        {{ form.lp_home_team }}
+                        {{ form.lp_home_team.errors }}
+                    </div>
+                    <div class="form-group" style="padding-right: 80%;">
+                        <label for="{{ form.lp_away_team.id_for_lp_away_team }}">投注客場:</label>
+                        {{ form.lp_away_team }}
+                        {{ form.lp_away_team.errors }}
+                    </div>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="nlp">
+                    <div class="form-group" style="padding-right: 80%;">
+                        <label for="{{ form.nlp_home_team.id_for_nlp_home_team }}">投注主場:</label>
+                        {{ form.nlp_home_team }}
+                        {{ form.nlp_home_team.errors }}
+                    </div>
+                    <div class="form-group" style="padding-right: 80%;">
+                        <label for="{{ form.nlp_away_team.id_for_nlp_away_team }}">投注客場:</label>
+                        {{ form.nlp_away_team }}
+                        {{ form.nlp_away_team.errors }}
+                    </div>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="bs">
+                    <div class="form-group" style="padding-right: 80%;">
+                        <label for="{{ form.big.id_for_big }}">投注大分:</label>
+                        {{ form.big }}
+                        {{ form.big.errors }}
+                    </div>
+                    <div class="form-group" style="padding-right: 80%;">
+                        <label for="{{ form.small.id_for_small }}">投注小分:</label>
+                        {{ form.small }}
+                        {{ form.small.errors }}
+                    </div>                   
+                </div>
+                <div role="tabpanel" class="tab-pane row" id="wpd">
+                    <div class="col-md-6">
+                        <div class="form-group" style="padding-right: 50%;">
+                            <label for="{{ form.wpd1.id_for_wpd1 }}">投注勝分差1:</label>
+                            {{ form.wpd1 }}
+                            {{ form.wpd1.errors }}
+                        </div>
+                        <div class="form-group" style="padding-right: 50%;">
+                            <label for="{{ form.wpd2.id_for_wpd2 }}">投注勝分差2:</label>
+                            {{ form.wpd2 }}
+                            {{ form.wpd2.errors }}
+                        </div>
+                        <div class="form-group" style="padding-right: 50%;">
+                            <label for="{{ form.wpd3.id_for_wpd3 }}">投注勝分差3:</label>
+                            {{ form.wpd3 }}
+                            {{ form.wpd3.errors }}
+                        </div>
+                        <div class="form-group" style="padding-right: 50%;">
+                            <label for="{{ form.wpd4.id_for_wpd4 }}">投注勝分差4:</label>
+                            {{ form.wpd4 }}
+                            {{ form.wpd4.errors }}
+                        </div>
+                        <div class="form-group" style="padding-right: 50%;">
+                            <label for="{{ form.wpd5.id_for_wpd5 }}">投注勝分差5:</label>
+                            {{ form.wpd5 }}
+                            {{ form.wpd5.errors }}
+                        </div>
+                        
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group" style="padding-right: 50%;">
+                            <label for="{{ form.wpd6.id_for_wpd6 }}">投注勝分差6:</label>
+                            {{ form.wpd6 }}
+                            {{ form.wpd6.errors }}
+                        </div>
+                        <div class="form-group" style="padding-right: 50%;">
+                            <label for="{{ form.wpd7.id_for_wpd7 }}">投注勝分差7:</label>
+                            {{ form.wpd7 }}
+                            {{ form.wpd7.errors }}
+                        </div>
+                        <div class="form-group" style="padding-right: 50%;">
+                            <label for="{{ form.wpd8.id_for_wpd8 }}">投注勝分差8:</label>
+                            {{ form.wpd8 }}
+                            {{ form.wpd8.errors }}
+                        </div>
+                        <div class="form-group" style="padding-right: 50%;">
+                            <label for="{{ form.wpd9.id_for_wpd9 }}">投注勝分差9:</label>
+                            {{ form.wpd9 }}
+                            {{ form.wpd9.errors }}
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">離開</button>
+            <button type="submit" class="btn btn-primary">記錄筆記</button>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+</div>
+
+<script>
+    {% if form.errors %}
+        $('#realNote').click();
+    {% endif %}
+</script>
