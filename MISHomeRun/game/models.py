@@ -19,22 +19,12 @@ class Game(models.Model):
         related_name='home_team',
     )
 
+    # data
+    winner = models.NullBooleanField()
+
+    away_team_score = models.IntegerField(null=True)
+    home_team_score = models.IntegerField(null=True)
+
+
     def __unicode__(self):
         return u"%d: %s v.s. %s" % (self.game_no, self.home_team, self.away_team)
-
-class GameData(models.Model):
-    game = models.OneToOneField(
-        'game.Game',
-        on_delete=models.CASCADE,
-    )
-
-    winner = models.ForeignKey(
-        'team.Team',
-        on_delete=models.CASCADE,
-    )
-
-    away_team_score = models.IntegerField()
-    home_team_score = models.IntegerField()
-
-    def __unicode__(self):
-        return u"GameData For No.%d" % self.game.game_no

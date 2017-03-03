@@ -3,26 +3,20 @@
 
 from django.db import models
 
-class Note(models.Model):
-    TYPE_CHOICES = (
-        ('fake', 'Fake'),
-        ('real', 'Real'),
-    )
-
-    note_type = models.CharField(max_length=5, 
-                                 choices=TYPE_CHOICES)
-
+class RealNote(models.Model):
     betting = models.ForeignKey(
         'betting.Betting',
         on_delete=models.CASCADE,
-        related_name='betting',
+        related_name='betting_real',
     )
 
     user = models.ForeignKey(
         'main.User',
         on_delete=models.CASCADE,
-        related_name='user',
+        related_name='user_real',
     )
+    
+    create_date = models.DateTimeField()
 
     # Let Point
     lp_home_team = models.IntegerField(default=0)
@@ -50,4 +44,67 @@ class Note(models.Model):
     def __unicode__(self):
         return u"%s's %s Note For No.%d" % (self.user.username, self.note_type, 
                                             self.betting.game.game_no)
+                                            
+class FakeNote(models.Model):
+    betting = models.ForeignKey(
+        'betting.Betting',
+        on_delete=models.CASCADE,
+        related_name='betting_fake',
+    )
+
+    user = models.ForeignKey(
+        'main.User',
+        on_delete=models.CASCADE,
+        related_name='user_fake',
+    )
+
+    create_date = models.DateTimeField()
+
+    # Let Point
+    lp_team = models.BooleanField()
+
+    # No Let Point
+    nlp_team = models.BooleanField()
+
+    # No Let Point
+    b_or_s = models.BooleanField()
+
+    # Win Point Diff
+    wpd1 = models.IntegerField()
+
+class SystemGiveRecord(models.Model):
+    receiver = models.ForeignKey(
+        'main.User',
+        on_delete=models.CASCADE,
+        related_name='receiver',
+    )
+
+    create_date = models.DateTimeField()
+
+    give_coins = models.IntegerField()
+
+    reason = models.TextField(blank=True)
+
+class PurchaseRecord(models.Model):
+    buyer = models.ForeignKey(
+        'main.User',
+        on_delete=models.CASCADE,
+        related_name='buyer',
+    )
+
+    buy_note = models.ForeignKey(
+        'customer.FakeNote',
+        on_delete=models.CASCADE,
+        related_name='buy_note',
+    )
+
+    b_lp = models.BooleanField()
+    b_nlp = models.BooleanField()
+    b_bsp = models.BooleanField()
+    b_wpd = models.BooleanField()
+
+    create_date = models.DateTimeField()
+
+    cost = models.IntegerField()
+
 
