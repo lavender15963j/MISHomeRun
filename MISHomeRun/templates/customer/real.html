@@ -24,63 +24,69 @@
       <th>總合</th>
   </tr>
   {% for note in notes %}
-    <tr {% if note.betting.game.gamedata %}class="success"{% endif %}>
-      <th>
-        <h4>No. {{ note.betting.game.game_no }}</h4>
-        <p>主場: {{ note.betting.game.home_team }}-{{ note.betting.game.gamedata.home_team_score }}<span style="color:red;">{% if note.betting.game.home_team == note.betting.game.gamedata.winner %}(勝){% endif %}</span></p>
-        <p>客場: {{ note.betting.game.away_team }}-{{ note.betting.game.gamedata.away_team_score }}<span style="color:red;">{% if note.betting.game.away_team == note.betting.game.gamedata.winner %}(勝){% endif %}</span></p>
-      </th>
-      <th>
-        <h4>讓分數: {{ note.betting.letpoint.let_point_number }}</h4>
-        <p>主場投注: {{ note.lp_home_team }}({{ note.betting.letpoint.home_team_odds }})</p>
-        <p>客場投注: {{ note.lp_away_team }}({{ note.betting.letpoint.away_team_odds }})</p>
-      </th>
-      <th>
+  {% with game=note.betting.game betting=note.betting %}
+    <tr {% if game.is_final %}class="success"{% endif %}>
+      <td>
+        <h4>No.{{ game.game_no }}</h4>
+        <p>主場: {{ game.home_team }} - <span style="color:red;">{{ game.home_team_score }}{% if game.winner == True %}(勝){% endif %}</span></p>
+        <p>客場: {{ game.away_team }} - <span style="color:red;">{{ game.away_team_score }}{% if game.winner == False %}(勝){% endif %}</span></p>
+      </td>
+      <td>
+        <h4>讓分數: {{ betting.let_point_number }}</h4>
+        <p>主場投注: {{ note.lp_home_team }}({{ betting.lp_home_team_odds }})</p>
+        <p>客場投注: {{ note.lp_away_team }}({{ betting.lp_away_team_odds }})</p>
+      </td>
+      <td>
         <br />
          <br />
-        <p>主場投注: {{ note.nlp_home_team }}({{ note.betting.noletpoint.home_team_odds }})</p>
-        <p>客場投注: {{ note.nlp_away_team }}({{ note.betting.noletpoint.away_team_odds }})</p>
-      </th>
-      <th>
-          <h4>大小分數: {{ note.betting.bigsmallpoint.big_small_point_number }}</h4>
-        <p>主場投注: {{ note.big }}({{ note.betting.bigsmallpoint.big_odds }})</p>
-        <p>客場投注: {{ note.small }}({{ note.betting.bigsmallpoint.small_odds }})</p>
+        <p>主場投注: {{ note.nlp_home_team }}({{ betting.nlp_home_team_odds }})</p>
+        <p>客場投注: {{ note.nlp_away_team }}({{ betting.nlp_away_team_odds }})</p>
+      </td>
+      <td>
+          <h4>大小分數: {{ betting.big_small_point_number }}</h4>
+        <p>主場投注: {{ note.big }}({{ betting.big_odds }})</p>
+        <p>客場投注: {{ note.small }}({{ betting.small_odds }})</p>
 
-      </th>
-      <th>
+      </td>
+      <td>
           {% if not note.wpd1 == 0 %}
-            <p>勝分差1投注: {{ note.wpd1 }}({{ note.betting.winpointdiff.odds1 }})</p>
+            <p>勝分差1投注: {{ note.wpd1 }}({{ betting.odds1 }})</p>
           {% endif %}
           {% if not note.wpd2 == 0 %}
-            <p>勝分差2投注: {{ note.wpd2 }}({{ note.betting.winpointdiff.odds2 }})</p>
+            <p>勝分差2投注: {{ note.wpd2 }}({{ betting.odds2 }})</p>
           {% endif %}
           {% if not note.wpd3 == 0 %}
-            <p>勝分差3投注: {{ note.wpd3 }}({{ note.betting.winpointdiff.odds3 }})</p>
+            <p>勝分差3投注: {{ note.wpd3 }}({{ betting.odds3 }})</p>
           {% endif %}
           {% if not note.wpd4 == 0 %}
-            <p>勝分差4投注: {{ note.wpd4 }}({{ note.betting.winpointdiff.odds4 }})</p>
+            <p>勝分差4投注: {{ note.wpd4 }}({{ betting.odds4 }})</p>
           {% endif %}
           {% if not note.wpd5 == 0 %}
-            <p>勝分差5投注: {{ note.wpd5 }}({{ note.betting.winpointdiff.odds5 }})</p>
+            <p>勝分差5投注: {{ note.wpd5 }}({{ betting.odds5 }})</p>
           {% endif %}
            {% if not note.wpd6 == 0 %}
-            <p>勝分差6投注: {{ note.wpd6 }}({{ note.betting.winpointdiff.odds6 }})</p>
+            <p>勝分差6投注: {{ note.wpd6 }}({{ betting.odds6 }})</p>
           {% endif %}
            {% if not note.wpd7 == 0 %}
-            <p>勝分差7投注: {{ note.wpd7 }}({{ note.betting.winpointdiff.odds7 }})</p>
+            <p>勝分差7投注: {{ note.wpd7 }}({{ betting.odds7 }})</p>
           {% endif %}
            {% if not note.wpd8 == 0 %}
-            <p>勝分差8投注: {{ note.wpd8 }}({{ note.betting.winpointdiff.odds8 }})</p>
+            <p>勝分差8投注: {{ note.wpd8 }}({{ betting.odds8 }})</p>
           {% endif %}
            {% if not note.wpd9 == 0 %}
-            <p>勝分差9投注: {{ note.wpd9 }}({{ note.betting.winpointdiff.odds9 }})</p>
+            <p>勝分差9投注: {{ note.wpd9 }}({{ betting.odds9 }})</p>
           {% endif %}
 
-      </th>
-      <th>總合
-
-      </th>
+      </td>
+      <td>
+        {% if game.is_final %}
+            {{ note.get_money }}
+        {% else %}
+            <p>尚未比賽</p>
+        {% endif %}
+      </td>
   </tr>
+  {% endwith %}
   {% endfor %}
 </table>
 {% else %}

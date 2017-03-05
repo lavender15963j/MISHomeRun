@@ -35,4 +35,7 @@ urlpatterns = [
     # customer
     url(r'^customer/', include("customer.urls", namespace='customer')),
 
+    # betting
+    url(r'^betting/', include("betting.urls", namespace='betting')),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

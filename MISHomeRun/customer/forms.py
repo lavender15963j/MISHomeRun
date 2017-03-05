@@ -3,9 +3,9 @@
 
 from django import forms
 
-from customer.models import Note
+from customer.models import RealNote
 
-class NoteForm(forms.ModelForm):
+class RealNoteForm(forms.ModelForm):
     lp_home_team = forms.IntegerField(label='lp_home_team', min_value=0,
         widget=forms.NumberInput(attrs={'class': 'form-control',
                                         'value': 0,}))
@@ -67,10 +67,8 @@ class NoteForm(forms.ModelForm):
                                         'value': 0,}))
 
     class Meta:
-        model = Note
+        model = RealNote
         fields = [
-            'user', 
-            'note_type', 
             'betting', 
             'lp_home_team', 
             'lp_away_team', 

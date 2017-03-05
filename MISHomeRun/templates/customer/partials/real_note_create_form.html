@@ -11,8 +11,6 @@
 
       <form action="{% url 'customer:real' request.user.id %}" method="post">
           {% csrf_token %}
-          <input name='user' id='id_user' type="hidden" value="{{ request.user.id }}"/>
-          <input name='note_type' id='id_note_type' type="hidden" value="real"/>
 
         <div class="modal-body">
             {{ form.non_field_errors }}

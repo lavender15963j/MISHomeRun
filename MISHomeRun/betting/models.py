@@ -13,12 +13,12 @@ class Betting(models.Model):
 
     # Let Point
     let_point_number = models.DecimalField(max_digits=4, decimal_places=2)
-    home_team_odds = models.DecimalField(max_digits=4, decimal_places=2)
-    away_team_odds = models.DecimalField(max_digits=4, decimal_places=2)
+    lp_home_team_odds = models.DecimalField(max_digits=4, decimal_places=2)
+    lp_away_team_odds = models.DecimalField(max_digits=4, decimal_places=2)
 
     # No Let Point
-    home_team_odds = models.DecimalField(max_digits=4, decimal_places=2)
-    away_team_odds = models.DecimalField(max_digits=4, decimal_places=2)
+    nlp_home_team_odds = models.DecimalField(max_digits=4, decimal_places=2)
+    nlp_away_team_odds = models.DecimalField(max_digits=4, decimal_places=2)
 
     # No Let Point
     big_small_point_number = models.DecimalField(max_digits=4, decimal_places=2)

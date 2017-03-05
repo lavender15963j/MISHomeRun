@@ -16,7 +16,7 @@ class RealNote(models.Model):
         related_name='user_real',
     )
     
-    create_date = models.DateTimeField()
+    create_date = models.DateTimeField(auto_now_add=True)
 
     # Let Point
     lp_home_team = models.IntegerField(default=0)
@@ -41,8 +41,44 @@ class RealNote(models.Model):
     wpd8 = models.IntegerField(default=0)
     wpd9 = models.IntegerField(default=0)
 
+    @property
+    def get_money(self):
+        is_home_team_winner = self.betting.game.winner == True
+        is_away_team_winner = not is_home_team_winner
+        money = 0
+
+        if self.betting.game.home_team_score > self.betting.game.away_team_score:
+            lp = self.betting.game.home_team_score - self.betting.game.away_team_score
+        else:
+            lp = self.betting.game.away_team_score - self.betting.game.home_team_score
+
+        if lp > self.betting.let_point_number:
+            if is_home_team_winner:
+                money += self.lp_home_team * self.betting.lp_home_team_odds
+            if is_away_team_winner:
+                money += self.lp_away_team * self.betting.lp_away_team_odds
+
+        if is_home_team_winner:
+            money += self.nlp_home_team * self.betting.nlp_home_team_odds
+        if is_away_team_winner:
+            money += self.nlp_away_team * self.betting.lp_away_team_odds
+
+        allScore = self.betting.game.home_team_score + self.betting.game.away_team_score
+        if allScore > self.betting.big_small_point_number:
+            money += self.big * self.betting.big_odds
+        else:
+            money += self.small * self.betting.small_odds
+
+        wpd = [self.wpd1, self.wpd2, self.wpd3, self.wpd4, self.wpd5, self.wpd6, self.wpd7, self.wpd8, self.wpd9,]
+        odds = [self.betting.odds1, self.betting.odds2, self.betting.odds3, self.betting.odds4, self.betting.odds5, self.betting.odds6, self.betting.odds7, self.betting.odds8, self.betting.odds9,]
+        for i in range(1, 10):   
+            if lp > i:
+                 money += wpd[i - 1] * odds[i - 1]
+
+        return money
+
     def __unicode__(self):
-        return u"%s's %s Note For No.%d" % (self.user.username, self.note_type, 
+        return u"%s's Note For No.%d" % (self.user.username, 
                                             self.betting.game.game_no)
                                             
 class FakeNote(models.Model):
@@ -58,7 +94,7 @@ class FakeNote(models.Model):
         related_name='user_fake',
     )
 
-    create_date = models.DateTimeField()
+    create_date = models.DateTimeField(auto_now_add=True)
 
     # Let Point
     lp_team = models.BooleanField()
@@ -70,7 +106,59 @@ class FakeNote(models.Model):
     b_or_s = models.BooleanField()
 
     # Win Point Diff
-    wpd1 = models.IntegerField()
+    wpd_num = models.IntegerField()
+
+    @property
+    def get_coin(self):
+        is_home_team_winner = self.betting.game.winner == True
+        is_away_team_winner = not is_home_team_winner
+        
+        coins = 0
+
+        if self.betting.game.home_team_score > self.betting.game.away_team_score:
+            lp = self.betting.game.home_team_score - self.betting.game.away_team_score
+        else:
+            lp = self.betting.game.away_team_score - self.betting.game.home_team_score
+
+        if lp > self.betting.let_point_number:
+            if self.lp_team == True:
+                if is_home_team_winner:
+                    coins = coins + 1
+            if self.lp_team == False:
+                if is_away_team_winner:
+                    coins = coins + 1
+
+        if self.nlp_team == True:
+            if is_home_team_winner:
+                coins = coins + 1
+        if self.nlp_team == False:
+            if is_away_team_winner:
+                coins = coins + 1
+
+        allScore = self.betting.game.home_team_score + self.betting.game.away_team_score
+        if allScore > self.betting.big_small_point_number:
+            bs = True
+        else:
+            bs = False
+        if bs == self.b_or_s:
+            coins = coins + 1
+
+        num = None
+        for i in range(1, 10):
+            if self.betting.game.home_team_score > self.betting.game.away_team_score:
+                temp = self.betting.game.home_team_score - self.betting.game.away_team_score
+            else:
+                temp = self.betting.game.away_team_score - self.betting.game.home_team_score
+            if  (temp > 0 and temp <=1) or (i == 9 and i > 1):
+                num = i
+                break
+        
+        if num == self.wpd_num:
+            coins = coins + 1
+
+        return coins
+        
+
 
 class SystemGiveRecord(models.Model):
     receiver = models.ForeignKey(
@@ -79,7 +167,7 @@ class SystemGiveRecord(models.Model):
         related_name='receiver',
     )
 
-    create_date = models.DateTimeField()
+    create_date = models.DateTimeField(auto_now_add=True)
 
     give_coins = models.IntegerField()
 
@@ -103,7 +191,7 @@ class PurchaseRecord(models.Model):
     b_bsp = models.BooleanField()
     b_wpd = models.BooleanField()
 
-    create_date = models.DateTimeField()
+    create_date = models.DateTimeField(auto_now_add=True)
 
     cost = models.IntegerField()
 

@@ -22,8 +22,15 @@ class Game(models.Model):
     # data
     winner = models.NullBooleanField()
 
-    away_team_score = models.IntegerField(null=True)
-    home_team_score = models.IntegerField(null=True)
+    away_team_score = models.IntegerField(blank=True, null=True)
+    home_team_score = models.IntegerField(blank=True, null=True)
+
+    @property
+    def is_final(self):
+        if self.winner is None:
+            return False
+        else:
+            return True
 
 
     def __unicode__(self):

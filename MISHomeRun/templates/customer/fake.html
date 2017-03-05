@@ -9,10 +9,76 @@
 {% block headertext %}{{ page_title }}{% endblock %}
 
 {% block right_content %}
-
+<a id href="{% url 'betting:prediction' %}" class="btn btn-primary btn-sm">虛擬投注</a>
+<br />
+<br />
 {% if notes %}
 <table class="table table-bordered">
-  ...
+  <tr>
+      <th>賽事編號</th>
+      <th>球隊</th>
+      <th>讓分</th>
+      <th>不讓分</th>
+      <th>大小分</th>
+      <th>勝分差</th>
+      <th>金幣</th>
+  </tr>
+  {% for note in notes %}
+  {% with game=note.betting.game betting=note.betting %}
+    <tr {% if game.is_final %}class="success"{% endif %}>
+      <td>
+          <h4>No.{{ game.game_no }}</h4>
+          <p>{{ game.date }}</p>
+      </td>
+      <td>
+        <p>主場: {{ game.home_team }}{% if game.is_final %}:<span style="color:red;">{{ game.home_team_score }}{% if game.winner == True %}(勝){% endif %}{% endif %}</span></p>
+        <p>客場: {{ game.away_team }}{% if game.is_final %}:<span style="color:red;">{{ game.away_team_score }}{% if game.winner == False %}(勝){% endif %}{% endif %}</span></p>
+      </td>
+      <td>
+        <label>{% if betting.home_team_PN == True %}+{% else %}-{% endif %}{{ betting.let_point_number }}({{ betting.lp_home_team_odds }})</label>                       
+        <input type="checkbox" disabled {% if note.lp_team == True %}checked{% endif %}/>
+        <br />
+        <label>{% if betting.home_team_PN == False %}+{% else %}-{% endif %}{{ betting.let_point_number }}({{ betting.lp_away_team_odds }})</label>                            
+        <input type="checkbox" disabled {% if note.lp_team == False %}checked{% endif %}>     
+      </td>
+      <td class="checkboxGroup change_nlp">
+          <label>({{ betting.nlp_home_team_odds }})</label>                       
+          <input type="checkbox" disabled {% if note.nlp_team == True %}checked{% endif %}/>
+          <br />
+          <label>({{ betting.nlp_away_team_odds }})</label>                            
+          <input type="checkbox" disabled {% if note.nlp_team == False %}checked{% endif %}/>
+      </td>
+      <td class="checkboxGroup change_bs">
+          <label>{{ betting.big_small_point_number }}({{ betting.big_odds }})</label>                       
+          <input type="checkbox" disabled {% if note.b_or_s == True %}checked{% endif %}/>
+          <br />
+          <label>{{ betting.big_small_point_number }}({{ betting.small_odds }})</label>                            
+          <input type="checkbox" disabled {% if note.b_or_s == False %}checked{% endif %}/>
+      </td>
+      <td>
+          <br />
+          <select class='change_wdp' disabled>
+              <option {% if note.wpd_num == 1 %}selected{% endif %}>剩分差1({{ betting.odds1 }})</option>
+              <option {% if note.wpd_num == 2 %}selected{% endif %}>剩分差2({{ betting.odds2 }})</option>
+              <option {% if note.wpd_num == 3 %}selected{% endif %}>剩分差3({{ betting.odds3 }})</option>
+              <option {% if note.wpd_num == 4 %}selected{% endif %}>剩分差4({{ betting.odds4 }})</option>
+              <option {% if note.wpd_num == 5 %}selected{% endif %}>剩分差5({{ betting.odds5 }})</option>
+              <option {% if note.wpd_num == 6 %}selected{% endif %}>剩分差6({{ betting.odds6 }})</option>
+              <option {% if note.wpd_num == 7 %}selected{% endif %}>剩分差7({{ betting.odds7 }})</option>
+              <option {% if note.wpd_num == 8 %}selected{% endif %}>剩分差8({{ betting.odds8 }})</option>
+              <option {% if note.wpd_num == 9 %}selected{% endif %}>剩分差9({{ betting.odds9 }})</option>
+          </select>
+      </td>
+      <td>
+        {% if game.is_final %}
+            {{ note.get_coin }}
+        {% else %}
+            <p>尚未比賽</p>
+        {% endif %}
+      </td>
+  </tr>
+  {% endwith %}
+  {% endfor %}
 </table>
 {% else %}
 <p>目前沒有筆記</p>
