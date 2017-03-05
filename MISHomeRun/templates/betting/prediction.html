@@ -36,10 +36,10 @@
                 <td class="checkboxGroup change_lp">
                     {% if not note %}
                     <label>{% if betting.home_team_PN == True %}+{% else %}-{% endif %}{{ betting.let_point_number }}({{ betting.lp_home_team_odds }})</label>                       
-                    <input type="checkbox" name='h'/>
+                    <input type="checkbox" name='h' {% if game.is_final %}disabled{% endif %}/>
                     <br />
                     <label>{% if betting.home_team_PN == False %}+{% else %}-{% endif %}{{ betting.let_point_number }}({{ betting.lp_away_team_odds }})</label>                            
-                    <input type="checkbox" name='a'/>   
+                    <input type="checkbox" name='a' {% if game.is_final %}disabled{% endif %}/>   
                     {% else %}
                     <label>{% if betting.home_team_PN == True %}+{% else %}-{% endif %}{{ betting.let_point_number }}({{ betting.lp_home_team_odds }})</label>                       
                     <input type="checkbox" disabled {% if note.lp_team == True %}checked{% endif %}/>
@@ -51,10 +51,10 @@
                 <td class="checkboxGroup change_nlp">
                     {% if not note %}
                     <label>({{ betting.nlp_home_team_odds }})</label>                       
-                    <input type="checkbox" name='h'/>
+                    <input type="checkbox" name='h' {% if game.is_final %}disabled{% endif %}/>
                     <br />
                     <label>({{ betting.nlp_away_team_odds }})</label>                            
-                    <input type="checkbox" name='a'/>
+                    <input type="checkbox" name='a' {% if game.is_final %}disabled{% endif %}/>
                     {% else %}
                     <label>({{ betting.nlp_home_team_odds }})</label>                       
                     <input type="checkbox" disabled {% if note.nlp_team == True %}checked{% endif %}/>
@@ -66,10 +66,10 @@
                 <td class="checkboxGroup change_bs">
                     {% if not note %}
                     <label>{{ betting.big_small_point_number }}({{ betting.big_odds }})</label>                       
-                    <input type="checkbox" name='h'/>
+                    <input type="checkbox" name='h' {% if game.is_final %}disabled{% endif %}/>
                     <br />
                     <label>{{ betting.big_small_point_number }}({{ betting.small_odds }})</label>                            
-                    <input type="checkbox" name='a'/>
+                    <input type="checkbox" name='a' {% if game.is_final %}disabled{% endif %}/>
                     {% else %}
                     <label>{{ betting.big_small_point_number }}({{ betting.big_odds }})</label>                       
                     <input type="checkbox" disabled {% if note.b_or_s == True %}checked{% endif %}/>
@@ -81,7 +81,7 @@
                 <td>
                     <br />
                     {% if not note %}
-                    <select class='change_wdp'>
+                    <select class='change_wdp' {% if game.is_final %}disabled{% endif %}>
                         <option value=1>剩分差1({{ betting.odds1 }})</option>
                         <option value=2>剩分差2({{ betting.odds2 }})</option>
                         <option value=3>剩分差3({{ betting.odds3 }})</option>
@@ -107,20 +107,23 @@
                     {% endif %} 
                 </td>
                 <td>
-                    {% has_fake_note request.user.id betting.id as note %}
-                    {% if not note %}
-                    <form action="{% url 'betting:prediction' %}" method="POST">
-                         {% csrf_token %}
-                        <input type="hidden" name='betting' value="{{ betting.id }}" required/>
-                        <input class='lp' type="hidden" name='lp' required/>
-                        <input class='nlp' type="hidden" name='nlp' required/>
-                        <input class='bs' type="hidden" name='bs' required/>
-                        <input class='wdp' type="hidden" name='wpd' required/>
-                        <br />
-                        <input type='submit' />
-                    </form>
+                    {% if game.is_final %}
+                        <p>比賽結束</p>
                     {% else %}
-                        <p>投注過</p>
+                        {% if not note %}
+                        <form action="{% url 'betting:prediction' %}" method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name='betting' value="{{ betting.id }}" required/>
+                            <input class='lp' type="hidden" name='lp' required/>
+                            <input class='nlp' type="hidden" name='nlp' required/>
+                            <input class='bs' type="hidden" name='bs' required/>
+                            <input class='wdp' type="hidden" name='wpd' required/>
+                            <br />
+                            <input type='submit' />
+                        </form>
+                        {% else %}
+                            <p>投注過</p>
+                        {% endif %}
                     {% endif %}
                 </td>
             </tr>

@@ -5,6 +5,8 @@ from django.shortcuts import render
 from django.views.generic.edit import FormView
 from django.core.urlresolvers import reverse_lazy
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 
 from betting.models import Betting
 from customer.models import FakeNote
@@ -15,6 +17,10 @@ class PredictionView(PageTitleMixin, FormView):
     template_name = 'betting/prediction.html'
     page_title = '投注資訊'
     form_class = FakeNoteForm
+    
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(PredictionView, self).dispatch(*args, **kwargs)
 
     def get_context_data(self, **kwargs):
         ctx = super(PredictionView, self).get_context_data(**kwargs)
