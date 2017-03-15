@@ -38,4 +38,10 @@ urlpatterns = [
     # betting
     url(r'^betting/', include("betting.urls", namespace='betting')),
 
+    # team
+    url(r'^team/', include("team.urls", namespace='team')),
+
+    # forum
+    url(r'^forum/', include("forum.urls", namespace='forum')),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

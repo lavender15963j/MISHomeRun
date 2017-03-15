@@ -57,5 +57,6 @@ class FakeNoteView(PageTitleMixin, generic.TemplateView):
 
     def get_context_data(self, **kwargs):
         ctx = super(FakeNoteView, self).get_context_data(**kwargs)
-        ctx['notes'] = FakeNote.objects.filter(user=self.request.user).order_by('-betting__game__date')
+        ctx['notes'] = FakeNote.objects.filter(
+            user=self.request.user).order_by('-betting__game__date')
         return ctx  
