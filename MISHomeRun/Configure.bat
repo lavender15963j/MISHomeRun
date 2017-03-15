@@ -1,5 +1,6 @@
 virtualenv ..\Env
 call ..\Env\Scripts\activate.bat
+python -m pip install --upgrade pip
 
 pip install -r REQUIREMENTS.txt
 

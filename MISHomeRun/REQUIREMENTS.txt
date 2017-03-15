@@ -5,9 +5,11 @@
 
 # ============ Nuwa Developed ============
 
-Iuppiter>=2.0.8.9686
+#Iuppiter>=2.0.8.9686
+./lib/Iuno-2.1.11.9716.tar.gz
 
-Iuno==2.1.11.9716
+#Iuno==2.1.11.9716
+./lib/Iuppiter-2.0.17.9752.zip
 
 # ============ Third Party ============
 
