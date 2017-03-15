@@ -144,6 +144,8 @@ Iuno.attachSettings(locals())
 
 # Iuno.member
 
+ACCOUNT_EMAIL_CONFIRMATION_REQUIRED = False
+
 
 # Always use localhost static, not static.nuwainfo.com.
 STATIC_URL = '/static/' 

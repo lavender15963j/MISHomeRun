@@ -35,9 +35,8 @@ class PredictionView(PageTitleMixin, FormView):
 
         betting_id = int(self.request.POST.get('betting'))
         betting = Betting.objects.get(id=betting_id)
-
+        print self.lp, self.nlp, self.bs, self.wpd
         self.clearData(form)
-
         # FIXME: 需要做個檢察betting date是否結束
 
         if not FakeNote.objects.filter(user=self.request.user, betting=betting):
@@ -68,12 +67,15 @@ class PredictionView(PageTitleMixin, FormView):
         print self.lp, self.nlp, self.bs, self.wpd
         if self.lp not in [1, 0] or self.nlp not in [1, 0] or self.bs not in [1, 0]:
             return self.form_invalid(form)
+        print self.lp, self.nlp, self.bs, self.wpd
         if self.wpd not in [1, 2, 3, 4, 5, 6, 7, 8, 9,]:
             return self.form_invalid(form)
+        print self.lp, self.nlp, self.bs, self.wpd
         if self.lp == 1:
             self.lp = True
         else:
            self.lp = False
+        
         if self.nlp == 1:
             self.nlp = True
         else:

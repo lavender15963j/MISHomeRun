@@ -34,7 +34,7 @@ class RealNoteView(PageTitleMixin, FormView):
         betting =  Betting.objects.get(id=self.request.POST.get('betting'))
         if not RealNote.objects.filter(user=self.request.user, betting=betting):
             messages.success(self.request, "成功新增了一筆筆記")
-
+            
             realNote = form.save(commit=False)
             realNote.user = self.request.user
             realNote.betting = betting
