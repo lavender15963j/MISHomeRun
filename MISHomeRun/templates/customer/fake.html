@@ -1,6 +1,7 @@
 {% extends "customer/profile_layout.html" %}
 
 {% load i18n %}
+{% load has_buyed %}
 
 {% block title %}
     {{ page_title }}
@@ -9,7 +10,9 @@
 {% block headertext %}{{ page_title }}{% endblock %}
 
 {% block right_content %}
-<a id href="{% url 'betting:prediction' %}" class="btn btn-primary btn-sm">虛擬投注</a>
+{% if user == request.user %}
+    <a id href="{% url 'betting:prediction' %}" class="btn btn-primary btn-sm">虛擬投注</a>
+{% endif %}
 <br />
 <br />
 {% if notes %}
@@ -35,27 +38,62 @@
         <p>客場: {{ game.away_team }}{% if game.is_final %}:<span style="color:red;">{{ game.away_team_score }}{% if game.winner == False %}(勝){% endif %}{% endif %}</span></p>
       </td>
       <td>
-        <label>{% if betting.home_team_PN == True %}+{% else %}-{% endif %}{{ betting.let_point_number }}({{ betting.lp_home_team_odds }})</label>                       
-        <input type="checkbox" disabled {% if note.lp_team == True %}checked{% endif %}/>
-        <br />
-        <label>{% if betting.home_team_PN == False %}+{% else %}-{% endif %}{{ betting.let_point_number }}({{ betting.lp_away_team_odds }})</label>                            
-        <input type="checkbox" disabled {% if note.lp_team == False %}checked{% endif %}>     
+        {% has_buyed request.user note 'lp' as lp %}
+        {% if user == request.user or lp %}
+            <label>{% if betting.home_team_PN == True %}+{% else %}-{% endif %}{{ betting.let_point_number }}({{ betting.lp_home_team_odds }})</label>                       
+            <input type="checkbox" disabled {% if note.lp_team == True %}checked{% endif %}/>
+            <br />
+            <label>{% if betting.home_team_PN == False %}+{% else %}-{% endif %}{{ betting.let_point_number }}({{ betting.lp_away_team_odds }})</label>                            
+            <input type="checkbox" disabled {% if note.lp_team == False %}checked{% endif %}>
+        {% else %}
+            <form action="{% url 'customer:purchase' %}" method='POST'>
+                {% csrf_token %}
+                <input type='hidden' value='lp' name='buy_for'/>
+                <input type='hidden' value='{{ note.id }}' name='buy_note'/>
+                <input type='hidden' value='1' name='cost'/>
+                <input type='submit' value='1金幣購買'/>
+            </form>
+        {% endif %}   
       </td>
       <td class="checkboxGroup change_nlp">
-          <label>({{ betting.nlp_home_team_odds }})</label>                       
-          <input type="checkbox" disabled {% if note.nlp_team == True %}checked{% endif %}/>
-          <br />
-          <label>({{ betting.nlp_away_team_odds }})</label>                            
-          <input type="checkbox" disabled {% if note.nlp_team == False %}checked{% endif %}/>
+          {% has_buyed request.user note 'nlp' as nlp %}
+          {% if user == request.user or nlp %}
+            <label>({{ betting.nlp_home_team_odds }})</label>                       
+            <input type="checkbox" disabled {% if note.nlp_team == True %}checked{% endif %}/>
+            <br />
+            <label>({{ betting.nlp_away_team_odds }})</label>                            
+            <input type="checkbox" disabled {% if note.nlp_team == False %}checked{% endif %}/>
+        {% else %}
+            <form action="{% url 'customer:purchase' %}" method='POST'>
+                {% csrf_token %}
+                <input type='hidden' value='nlp' name='buy_for'/>
+                <input type='hidden' value='{{ note.id }}' name='buy_note'/>
+                <input type='hidden' value='1' name='cost'/>
+                <input type='submit' value='1金幣購買'/>
+            </form>
+        {% endif %}   
       </td>
       <td class="checkboxGroup change_bs">
-          <label>{{ betting.big_small_point_number }}({{ betting.big_odds }})</label>                       
-          <input type="checkbox" disabled {% if note.b_or_s == True %}checked{% endif %}/>
-          <br />
-          <label>{{ betting.big_small_point_number }}({{ betting.small_odds }})</label>                            
-          <input type="checkbox" disabled {% if note.b_or_s == False %}checked{% endif %}/>
+          {% has_buyed request.user note 'bs' as bs %}
+          {% if user == request.user or bs %}
+            <label>{{ betting.big_small_point_number }}({{ betting.big_odds }})</label>                       
+            <input type="checkbox" disabled {% if note.b_or_s == True %}checked{% endif %}/>
+            <br />
+            <label>{{ betting.big_small_point_number }}({{ betting.small_odds }})</label>                            
+            <input type="checkbox" disabled {% if note.b_or_s == False %}checked{% endif %}/>
+        {% else %}
+            <form action="{% url 'customer:purchase' %}" method='POST'>
+                {% csrf_token %}
+                <input type='hidden' value='bs' name='buy_for'/>
+                <input type='hidden' value='{{ note.id }}' name='buy_note'/>
+                <input type='hidden' value='1' name='cost'/>
+                <input type='submit' value='1金幣購買'/>
+            </form>
+        {% endif %}   
       </td>
       <td>
+          {% has_buyed request.user note 'wdp' as wdp %}
+          {% if user == request.user or wdp %}
           <br />
           <select class='change_wdp' disabled>
               <option {% if note.wpd_num == 1 %}selected{% endif %}>剩分差1({{ betting.odds1 }})</option>
@@ -68,6 +106,15 @@
               <option {% if note.wpd_num == 8 %}selected{% endif %}>剩分差8({{ betting.odds8 }})</option>
               <option {% if note.wpd_num == 9 %}selected{% endif %}>剩分差9({{ betting.odds9 }})</option>
           </select>
+          {% else %}
+            <form action="{% url 'customer:purchase' %}" method='POST'>
+                {% csrf_token %}
+                <input type='hidden' value='wdp' name='buy_for'/>
+                <input type='hidden' value='{{ note.id }}' name='buy_note'/>
+                <input type='hidden' value='1' name='cost'/>
+                <input type='submit' value='1金幣購買'/>
+            </form>
+        {% endif %}   
       </td>
       <td>
         {% if game.is_final %}

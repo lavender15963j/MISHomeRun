@@ -4,20 +4,11 @@
 from django import forms
 
 from customer.models import RealNote
-from customer.models import PurchaseRecord
 
-class PurchaseForm(forms.ModelForm):
-    class Meta:
-        model = PurchaseRecord
-        fields = [
-            'buyer', 
-            'buy_note', 
-            'b_lp', 
-            'b_nlp', 
-            'b_bsp',
-            'b_wpd',
-            'cost',
-        ]
+class PurchaseForm(forms.Form):
+    buy_for = forms.CharField(max_length=5)
+    buy_note = forms.CharField(max_length=10)
+    cost = forms.CharField(max_length=5)
 
 
 class RealNoteForm(forms.ModelForm):

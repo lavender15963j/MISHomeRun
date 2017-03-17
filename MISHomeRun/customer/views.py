@@ -10,6 +10,7 @@ from customer.models import RealNote, FakeNote
 from main.models import User
 from betting.models import Betting
 from customer.forms import RealNoteForm, PurchaseForm
+from customer.models import PurchaseRecord
 from main.mixins import PageTitleMixin
 
 class ProfileView(PageTitleMixin, generic.TemplateView):
@@ -65,3 +66,59 @@ class FakeNoteView(PageTitleMixin, generic.TemplateView):
             user= ctx['user']).order_by('-betting__game__date')
         
         return ctx  
+
+class PurchaseView(FormView):
+    form_class = PurchaseForm
+
+    def form_valid(self, form):
+        buy_for = self.request.POST.get('buy_for')
+        buy_note = int(self.request.POST.get('buy_note'))
+        cost = int(self.request.POST.get('cost'))
+        note = FakeNote.objects.get(id=buy_note)
+        self.username = note.user.username
+        b_lp = False
+        b_nlp = False
+        b_bsp = False
+        b_wpd = False
+
+        if buy_for == 'lp':
+            b_lp = True
+        elif buy_for == 'nlp':
+            b_nlp = True
+        elif buy_for == 'bs':
+            b_bsp = True
+        elif buy_for == 'wdp':
+            b_wpd = True
+        else:
+            return self.form_invalid(form)
+
+        if not PurchaseRecord.objects.filter(
+            buyer=self.request.user, 
+            buy_note=note,
+            b_lp=b_lp,
+            b_nlp=b_nlp,
+            b_bsp=b_bsp,
+            b_wpd=b_wpd,):
+
+            pr = PurchaseRecord(
+                buyer=self.request.user,
+                buy_note=note,
+                b_lp=b_lp,
+                b_nlp=b_nlp,
+                b_bsp=b_bsp,
+                b_wpd=b_wpd,
+                cost=cost,
+            )
+            pr.save()
+            # 要扣錢
+            messages.success(self.request, "成功購買了一筆虛擬投注記錄項目")
+        else:
+            messages.warning(self.request, "您已購買過此筆記錄項目")
+        return super(PurchaseView, self).form_valid(form)
+
+    def form_invalid(self, form):
+        messages.warning(self.request, "不成功")
+        return super(PurchaseView, self).form_invalid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('customer:fake', args=(self.username,))
