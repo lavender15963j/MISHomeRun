@@ -9,7 +9,7 @@
         <h4 class="modal-title">記錄筆記</h4>
       </div>
 
-      <form action="{% url 'customer:real' request.user.id %}" method="post">
+      <form action="{% url 'customer:real' request.user.username %}" method="post">
           {% csrf_token %}
 
         <div class="modal-body">

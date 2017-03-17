@@ -7,13 +7,15 @@
 {% block column_left %}
     <ul class="nav nav-pills nav-stacked">
             <li{% if active_tab == 'profile' %} class="active"{% endif %}>
-                <a href="{% url 'customer:profile' request.user.id %}">個人資料</a>
+                <a href="{% url 'customer:profile' user.username %}">個人資料</a>
             </li>
-            <li{% if active_tab == 'real' %} class="active"{% endif %}>
-                <a href="{% url 'customer:real' request.user.id %}">真實投注筆記</a>
-            </li>
+            {% if user == request.user %}
+                <li{% if active_tab == 'real' %} class="active"{% endif %}>
+                    <a href="{% url 'customer:real' user.username %}">真實投注筆記</a>
+                </li>
+            {% endif %}
             <li{% if active_tab == 'fake' %} class="active"{% endif %}>
-                <a href="{% url 'customer:fake' request.user.id %}">虛擬投注記錄</a>
+                <a href="{% url 'customer:fake' user.username %}">虛擬投注記錄</a>
             </li>
     </ul>
 {% endblock %}

@@ -7,8 +7,9 @@ from django.core.urlresolvers import reverse_lazy
 from django.contrib import messages
 
 from customer.models import RealNote, FakeNote
+from main.models import User
 from betting.models import Betting
-from customer.forms import RealNoteForm
+from customer.forms import RealNoteForm, PurchaseForm
 from main.mixins import PageTitleMixin
 
 class ProfileView(PageTitleMixin, generic.TemplateView):
@@ -18,6 +19,7 @@ class ProfileView(PageTitleMixin, generic.TemplateView):
 
     def get_context_data(self, **kwargs):
         ctx = super(ProfileView, self).get_context_data(**kwargs)
+        ctx['user'] = User.objects.get(username=kwargs.get('username'))
         return ctx
 
 class RealNoteView(PageTitleMixin, FormView):
@@ -57,6 +59,9 @@ class FakeNoteView(PageTitleMixin, generic.TemplateView):
 
     def get_context_data(self, **kwargs):
         ctx = super(FakeNoteView, self).get_context_data(**kwargs)
+        username = kwargs.get('username')
+        ctx['user'] = User.objects.get(username=username)
         ctx['notes'] = FakeNote.objects.filter(
-            user=self.request.user).order_by('-betting__game__date')
+            user= ctx['user']).order_by('-betting__game__date')
+        
         return ctx  

@@ -164,7 +164,7 @@
         });
 
         $('.change_wdp').change(function(){
-            var number = $('.change_wdp option:selected').val();
+            var number = $(this).parent().find('.change_wdp option:selected').val();
             $(this).parent().parent().find(".wdp").prop('value', number);
         });
     </script>

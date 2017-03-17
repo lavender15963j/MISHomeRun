@@ -8,7 +8,7 @@ from . import views
 app_name = 'customer'
 
 urlpatterns = [
-    url(r'^(?P<pk>\d+)/$', views.ProfileView.as_view(), name='profile'),
-    url(r'^(?P<pk>\d+)/realnote/$', views.RealNoteView.as_view(), name='real'),
-    url(r'^(?P<pk>\d+)/fakenote/$', views.FakeNoteView.as_view(), name='fake'),
+    url(r'^(?P<username>\w+)/$', views.ProfileView.as_view(), name='profile'),
+    url(r'^(?P<username>\w+)/realnote/$', views.RealNoteView.as_view(), name='real'),
+    url(r'^(?P<username>\w+)/fakenote/$', views.FakeNoteView.as_view(), name='fake'),
 ]

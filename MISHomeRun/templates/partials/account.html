@@ -11,7 +11,7 @@
             <ul class="nav navbar-nav navbar-right">
                 {% if request.user.is_authenticated %}
                     <li>
-                        <a id="logout_link" href="{% url 'customer:profile' request.user.id %}">
+                        <a id="logout_link" href="{% url 'customer:profile' request.user.username %}">
                             <span class="glyphicon glyphicon-user"></span>&nbsp;{{ request.user.username }}
                         </a>
                     </li>
