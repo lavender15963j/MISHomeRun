@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block title %}
+    {{ page_title }}
+{% endblock %}
+
+{% block content %}
+	<div class='panel panel-default'>
+            <div class='panel-heading'>
+                <p style='font-family:微軟正黑體;font-size:14pt;font-weight:bold;'>
+                    {{teamdata.name}}
+                </p>
+            </div>
+            <div class='panel-body'>
+            <div class="row">
+                <div class="col-md-4"><img src='{{teamdata.image.url}}' width='300' height='300'></div>
+                <div class="col-md-8"><p>球隊簡介:</p>
+                                      <p>{{teamdata.description}}</p>
+                </div>
+            </div>                
+                
+            </div>
+            <div class='panel-body'>
+                <p>
+                    球隊總教練: {{teamdata.Coach}}
+                </p>
+            </div>
+            <div class='panel-body' style='background-color: white'>
+                <p>
+                    官方網站: <a href='{{teamdata.URL}}' style='color: darkcyan ;text-decoration: underline'>{{teamdata.URL}}</a>
+                </p>
+            </div>
+    </div>
+
+
+
+    <script>
+        $('.checkboxGroup input').click(function(){
+            if($(this).prop('checked')){
+                $(this).parent().find("input").prop('checked', false);
+                $(this).prop('checked',true);
+            };
+        });
+
+        $('.change_lp input').click(function(){
+            if($(this).attr('name') == 'h'){
+                $(this).parent().parent().find(".lp").prop('value', 1);
+            } else {
+                $(this).parent().parent().find(".lp").prop('value', 0);
+            };
+        });
+
+        $('.change_nlp input').click(function(){
+            if($(this).attr('name') == 'h'){
+                $(this).parent().parent().find(".nlp").prop('value', 1);
+            } else {
+                $(this).parent().parent().find(".nlp").prop('value', 0);
+            };
+        });
+
+        $('.change_bs input').click(function(){
+            if($(this).attr('name') == 'h'){
+                $(this).parent().parent().find(".bs").prop('value', 1);
+            } else {
+                $(this).parent().parent().find(".bs").prop('value', 0);
+            };
+        });
+
+        $('.change_wdp').change(function(){
+            var number = $('.change_wdp option:selected').val();
+            $(this).parent().parent().find(".wdp").prop('value', number);
+        });
+    </script>
+{% endblock %}

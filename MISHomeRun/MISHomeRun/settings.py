@@ -144,8 +144,10 @@ Iuno.attachSettings(locals())
 
 # Iuno.member
 
-ACCOUNT_EMAIL_CONFIRMATION_REQUIRED = False
-
 
 # Always use localhost static, not static.nuwainfo.com.
 STATIC_URL = '/static/' 
+
+# STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR),"static")
+# MEDIA_URL = "/media/"
+# MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR),"media")
