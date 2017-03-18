@@ -23,6 +23,32 @@
                 <th>註冊時間</th>
                 <td>{{ user.date_joined }}</td>
             </tr>
+            {% if user == request.user %}
+             <tr>
+                <th>金幣</th>
+                <td>{{ user.coin }}</td>
+            </tr>
+            {% endif %}
+            <tr>
+                <th>階級</th>
+                <td>{{ user.team.name }}lv{{ user.level }}</td>
+            </tr>
+            <tr>
+                <th>讓分勝率</th>
+                <td>{{ user.lp_wp|default:'-' }}</td>
+            </tr>
+            <tr>
+                <th>不讓分勝率</th>
+                <td>{{ user.nlp_wp|default:'-' }}</td>
+            </tr>
+            <tr>
+                <th>大小分勝率</th>
+                <td>{{ user.bs_wp|default:'-' }}</td>
+            </tr>
+            <tr>
+                <th>勝分差勝率</th>
+                <td>{{ user.wdp_wp|default:'-' }}</td>
+            </tr>
         </tbody>
     </table>
 

@@ -35,74 +35,120 @@
                 </td>
                 <td class="checkboxGroup change_lp">
                     {% if not note %}
-                    <label>{% if betting.home_team_PN == True %}+{% else %}-{% endif %}{{ betting.let_point_number }}({{ betting.lp_home_team_odds }})</label>                       
                     <input type="checkbox" name='h' {% if game.is_final %}disabled{% endif %}/>
-                    <br />
-                    <label>{% if betting.home_team_PN == False %}+{% else %}-{% endif %}{{ betting.let_point_number }}({{ betting.lp_away_team_odds }})</label>                            
-                    <input type="checkbox" name='a' {% if game.is_final %}disabled{% endif %}/>   
-                    {% else %}
                     <label>{% if betting.home_team_PN == True %}+{% else %}-{% endif %}{{ betting.let_point_number }}({{ betting.lp_home_team_odds }})</label>                       
-                    <input type="checkbox" disabled {% if note.lp_team == True %}checked{% endif %}/>
                     <br />
+                    <input type="checkbox" name='a' {% if game.is_final %}disabled{% endif %}/>
                     <label>{% if betting.home_team_PN == False %}+{% else %}-{% endif %}{{ betting.let_point_number }}({{ betting.lp_away_team_odds }})</label>                            
+                       
+                    {% else %}
+                    <input type="checkbox" disabled {% if note.lp_team == True %}checked{% endif %}/>
+                    <label>{% if betting.home_team_PN == True %}+{% else %}-{% endif %}{{ betting.let_point_number }}({{ betting.lp_home_team_odds }})</label>                       
+                    
+                    <br />
                     <input type="checkbox" disabled {% if note.lp_team == False %}checked{% endif %}> 
+                    <label>{% if betting.home_team_PN == False %}+{% else %}-{% endif %}{{ betting.let_point_number }}({{ betting.lp_away_team_odds }})</label>                            
+                    
                     {% endif %}                  
                 </td>
                 <td class="checkboxGroup change_nlp">
                     {% if not note %}
-                    <label>({{ betting.nlp_home_team_odds }})</label>                       
                     <input type="checkbox" name='h' {% if game.is_final %}disabled{% endif %}/>
-                    <br />
-                    <label>({{ betting.nlp_away_team_odds }})</label>                            
-                    <input type="checkbox" name='a' {% if game.is_final %}disabled{% endif %}/>
-                    {% else %}
                     <label>({{ betting.nlp_home_team_odds }})</label>                       
-                    <input type="checkbox" disabled {% if note.nlp_team == True %}checked{% endif %}/>
+                    
                     <br />
+                    <input type="checkbox" name='a' {% if game.is_final %}disabled{% endif %}/>
                     <label>({{ betting.nlp_away_team_odds }})</label>                            
+                    
+                    {% else %}
+                    <input type="checkbox" disabled {% if note.nlp_team == True %}checked{% endif %}/>
+                    <label>({{ betting.nlp_home_team_odds }})</label>                       
+                    
+                    <br />
                     <input type="checkbox" disabled {% if note.nlp_team == False %}checked{% endif %}/>
+                    <label>({{ betting.nlp_away_team_odds }})</label>                            
+                    
                     {% endif %} 
                 </td>
                 <td class="checkboxGroup change_bs">
                     {% if not note %}
-                    <label>{{ betting.big_small_point_number }}({{ betting.big_odds }})</label>                       
                     <input type="checkbox" name='h' {% if game.is_final %}disabled{% endif %}/>
-                    <br />
-                    <label>{{ betting.big_small_point_number }}({{ betting.small_odds }})</label>                            
-                    <input type="checkbox" name='a' {% if game.is_final %}disabled{% endif %}/>
-                    {% else %}
                     <label>{{ betting.big_small_point_number }}({{ betting.big_odds }})</label>                       
-                    <input type="checkbox" disabled {% if note.b_or_s == True %}checked{% endif %}/>
+                    
                     <br />
+                    <input type="checkbox" name='a' {% if game.is_final %}disabled{% endif %}/>
                     <label>{{ betting.big_small_point_number }}({{ betting.small_odds }})</label>                            
+                    
+                    {% else %}
+                    <input type="checkbox" disabled {% if note.b_or_s == True %}checked{% endif %}/>
+                    <label>{{ betting.big_small_point_number }}({{ betting.big_odds }})</label>                       
+                    
+                    <br />
                     <input type="checkbox" disabled {% if note.b_or_s == False %}checked{% endif %}/>
+                    <label>{{ betting.big_small_point_number }}({{ betting.small_odds }})</label>                            
+                    
                     {% endif %} 
                 </td>
-                <td>
-                    <br />
+                <td class='checkboxGroup_wdp change_wdp'>
                     {% if not note %}
-                    <select class='change_wdp' {% if game.is_final %}disabled{% endif %}>
-                        <option value=1>剩分差1({{ betting.odds1 }})</option>
-                        <option value=2>剩分差2({{ betting.odds2 }})</option>
-                        <option value=3>剩分差3({{ betting.odds3 }})</option>
-                        <option value=4>剩分差4({{ betting.odds4 }})</option>
-                        <option value=5>剩分差5({{ betting.odds5 }})</option>
-                        <option value=6>剩分差6({{ betting.odds6 }})</option>
-                        <option value=7>剩分差7({{ betting.odds7 }})</option>
-                        <option value=8>剩分差8({{ betting.odds8 }})</option>
-                        <option value=9>剩分差9({{ betting.odds9 }})</option>
+                    <input type="checkbox" name='h' {% if game.is_final %}disabled{% endif %}/>
+                    <select class='select_wdp_change' {% if game.is_final %}disabled{% endif %}>
+                        <option value=0>未選擇</option>
+                        <option value=1>剩分差1({{ betting.h_odds1 }})</option>
+                        <option value=2>剩分差2({{ betting.h_odds2 }})</option>
+                        <option value=3>剩分差3({{ betting.h_odds3 }})</option>
+                        <option value=4>剩分差4({{ betting.h_odds4 }})</option>
+                        <option value=5>剩分差5({{ betting.h_odds5 }})</option>
+                        <option value=6>剩分差6({{ betting.h_odds6 }})</option>
+                        <option value=7>剩分差7({{ betting.h_odds7 }})</option>
+                        <option value=8>剩分差8({{ betting.h_odds8 }})</option>
+                        <option value=9>剩分差9({{ betting.h_odds9 }})</option>
+                    </select>
+                    <br/>
+                    <input type="checkbox" name='a' {% if game.is_final %}disabled{% endif %}/>
+                    <select class='select_wdp_change' {% if game.is_final %}disabled{% endif %}>
+                        <option value=0>未選擇</option>
+                        <option value=1>剩分差1({{ betting.a_odds1 }})</option>
+                        <option value=2>剩分差2({{ betting.a_odds2 }})</option>
+                        <option value=3>剩分差3({{ betting.a_odds3 }})</option>
+                        <option value=4>剩分差4({{ betting.a_odds4 }})</option>
+                        <option value=5>剩分差5({{ betting.a_odds5 }})</option>
+                        <option value=6>剩分差6({{ betting.a_odds6 }})</option>
+                        <option value=7>剩分差7({{ betting.a_odds7 }})</option>
+                        <option value=8>剩分差8({{ betting.a_odds8 }})</option>
+                        <option value=9>剩分差9({{ betting.a_odds9 }})</option>
                     </select>
                     {% else %}
-                    <select class='change_wdp' disabled>
-                        <option {% if note.wpd_num == 1 %}selected{% endif %}>剩分差1({{ betting.odds1 }})</option>
-                        <option {% if note.wpd_num == 2 %}selected{% endif %}>剩分差2({{ betting.odds2 }})</option>
-                        <option {% if note.wpd_num == 3 %}selected{% endif %}>剩分差3({{ betting.odds3 }})</option>
-                        <option {% if note.wpd_num == 4 %}selected{% endif %}>剩分差4({{ betting.odds4 }})</option>
-                        <option {% if note.wpd_num == 5 %}selected{% endif %}>剩分差5({{ betting.odds5 }})</option>
-                        <option {% if note.wpd_num == 6 %}selected{% endif %}>剩分差6({{ betting.odds6 }})</option>
-                        <option {% if note.wpd_num == 7 %}selected{% endif %}>剩分差7({{ betting.odds7 }})</option>
-                        <option {% if note.wpd_num == 8 %}selected{% endif %}>剩分差8({{ betting.odds8 }})</option>
-                        <option {% if note.wpd_num == 9 %}selected{% endif %}>剩分差9({{ betting.odds9 }})</option>
+                    <input type="checkbox" disabled {% if note.choice_team == True %}checked{% endif %}/>
+                    <select disabled>
+                        <option value=0>未選擇</option>
+                        {% if note.choice_team == True %}
+                        <option {% if note.wpd_num == 1 %}selected{% endif %}>剩分差1({{ betting.h_odds1 }})</option>
+                        <option {% if note.wpd_num == 2 %}selected{% endif %}>剩分差2({{ betting.h_odds2 }})</option>
+                        <option {% if note.wpd_num == 3 %}selected{% endif %}>剩分差3({{ betting.h_odds3 }})</option>
+                        <option {% if note.wpd_num == 4 %}selected{% endif %}>剩分差4({{ betting.h_odds4 }})</option>
+                        <option {% if note.wpd_num == 5 %}selected{% endif %}>剩分差5({{ betting.h_odds5 }})</option>
+                        <option {% if note.wpd_num == 6 %}selected{% endif %}>剩分差6({{ betting.h_odds6 }})</option>
+                        <option {% if note.wpd_num == 7 %}selected{% endif %}>剩分差7({{ betting.h_odds7 }})</option>
+                        <option {% if note.wpd_num == 8 %}selected{% endif %}>剩分差8({{ betting.h_odds8 }})</option>
+                        <option {% if note.wpd_num == 9 %}selected{% endif %}>剩分差9({{ betting.h_odds9 }})</option>
+                        {% endif %}
+                    </select>
+                    <br />
+                    <input type="checkbox" disabled {% if note.choice_team == False %}checked{% endif %}/>
+                    <select disabled>
+                        <option value=0>未選擇</option>
+                        {% if note.choice_team == False %}
+                        <option {% if note.wpd_num == 1 %}selected{% endif %}>剩分差1({{ betting.a_odds1 }})</option>
+                        <option {% if note.wpd_num == 2 %}selected{% endif %}>剩分差2({{ betting.a_odds2 }})</option>
+                        <option {% if note.wpd_num == 3 %}selected{% endif %}>剩分差3({{ betting.a_odds3 }})</option>
+                        <option {% if note.wpd_num == 4 %}selected{% endif %}>剩分差4({{ betting.a_odds4 }})</option>
+                        <option {% if note.wpd_num == 5 %}selected{% endif %}>剩分差5({{ betting.a_odds5 }})</option>
+                        <option {% if note.wpd_num == 6 %}selected{% endif %}>剩分差6({{ betting.a_odds6 }})</option>
+                        <option {% if note.wpd_num == 7 %}selected{% endif %}>剩分差7({{ betting.a_odds7 }})</option>
+                        <option {% if note.wpd_num == 8 %}selected{% endif %}>剩分差8({{ betting.a_odds8 }})</option>
+                        <option {% if note.wpd_num == 9 %}selected{% endif %}>剩分差9({{ betting.a_odds9 }})</option>
+                        {% endif %}
                     </select>
                     {% endif %} 
                 </td>
@@ -111,20 +157,24 @@
                         <p>比賽結束</p>
                     {% else %}
                         {% if not note %}
-                        <form action="{% url 'betting:prediction' %}" method="POST">
+                        <form action="{% url 'betting:prediction' %}" method="POST" onsubmit="return CheckForm();">
                             {% csrf_token %}
                             <input type="hidden" name='betting' value="{{ betting.id }}" required/>
                             <input class='lp' type="hidden" name='lp' required/>
                             <input class='nlp' type="hidden" name='nlp' required/>
                             <input class='bs' type="hidden" name='bs' required/>
+                            <input class='choice' type="hidden" name='choice' required/>
                             <input class='wdp' type="hidden" name='wpd' required/>
                             <br />
-                            <input type='submit' />
+                            <input type='submit' value='花4金幣投注'/>
                         </form>
-                        {% else %}
-                            <p>投注過</p>
                         {% endif %}
                     {% endif %}
+
+                    {% if note or game.is_final %}
+                         <a href="{% url 'betting:detail' betting.id %}">投注情形</a>
+                    {% endif %}
+
                 </td>
             </tr>
             {% endwith %}
@@ -137,6 +187,17 @@
                 $(this).parent().find("input").prop('checked', false);
                 $(this).prop('checked',true);
             };
+        });
+
+        $('.checkboxGroup_wdp input').click(function(){
+            if($(this).prop('checked')){
+                $(this).parent().find("input").prop('checked', false);
+                $(this).prop('checked',true);
+            };
+            $(this).parent().find('select option:first-child').prop('selected', true);
+            $(this).parent().find('select').prop('disabled', true);
+            $(this).next().prop('disabled', false);
+            $(this).parent().parent().find(".wdp").prop('value', 0);
         });
 
         $('.change_lp input').click(function(){
@@ -163,9 +224,24 @@
             };
         });
 
-        $('.change_wdp').change(function(){
-            var number = $(this).parent().find('.change_wdp option:selected').val();
+        $('.change_wdp input').change(function(){
+            if($(this).attr('name') == 'h'){
+                $(this).parent().parent().find(".choice").prop('value', 1);
+            } else {
+                $(this).parent().parent().find(".choice").prop('value', 0);
+            };
+        });
+
+        $('.select_wdp_change').change(function(){
+            var number = $(this).find('option:selected').val();
             $(this).parent().parent().find(".wdp").prop('value', number);
         });
+
+        function CheckForm(){
+            if(confirm("確定要投注嗎？")==true)   
+                return true;
+            else  
+                return false;
+        };
     </script>
 {% endblock %}

@@ -1,0 +1,139 @@
+{% extends "customer/profile_layout.html" %}
+
+{% load i18n %}
+
+{% block title %}
+    {{ page_title }}
+{% endblock %}
+
+{% block headertext %}{{ page_title }}{% endblock %}
+
+{% block right_content %}
+<ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#out1" aria-controls="out1" role="tab" data-toggle="tab">投注支出</a></li>
+    <li role="presentation"><a href="#out2" aria-controls="out2" role="tab" data-toggle="tab">購買支出</a></li>
+    <li role="presentation"><a href="#in" aria-controls="in" role="tab" data-toggle="tab">收入</a></li>
+    <li role="presentation"><a href="#sys" aria-controls="sys" role="tab" data-toggle="tab">系統發放</a></li>
+</ul>
+
+<div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="out1">
+        <br />
+        <table class="table table-bordered">
+            <tr>
+                <th>投注時間</th>
+                <th>投注比賽資訊</th>
+                <th>花費</th>
+            </tr>
+            {% for note in fakenote %}
+            {% with game=note.betting.game %}
+                <tr>
+                    <td>
+                        <p>{{ note.create_date }}</p>
+                    </td>
+                     <td>
+                        <p>賽程編號 : {{ game.game_no }}</p>
+                        <p>比賽時間 : {{ game.date }}</p>
+                    </td>
+                     <td>
+                        <p>4</p>
+                    </td>
+                </tr>
+            {% endwith %}
+            {% endfor %}
+        </table>
+    </div>
+
+    <div role="tabpanel" class="tab-pane" id="out2">
+        <br />
+        <table class="table table-bordered">
+            <tr>
+                <th>購買時間</th>
+                <th>虛擬投注擁有者</th>
+                <th>購買賽事</th>
+                <th>購買項目</th>
+                <th>花費</th>
+            </tr>
+            {% for p in purchase %}
+            {% with note=p.buy_note %}
+                <tr>
+                    <td>
+                        <p>{{ p.create_date }}</p>
+                    </td>
+                     <td>
+                        <a href="{% url 'customer:profile' note.user.username %}">{{ note.user }}</a>
+                    </td>
+                     <td>
+                        <p>No.{{ note.betting.game.game_no }}</p>
+                     </td>
+                     <td>
+                        {% if p.buy_for == 'lp' %}
+                            <p>讓分</p>
+                        {% elif p.buy_for == 'nlp' %}
+                            <p>不讓分</p>
+                        {% elif p.buy_for == 'bs' %}
+                            <p>大小分</p>
+                        {% elif p.buy_for == 'wdp' %}
+                            <p>勝分差</p>
+                        {% else %}
+                            <p>系統錯誤</p>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <p>{{ p.cost }}</p>
+                    </td>
+                </tr>
+            {% endwith %}
+            {% endfor %}
+        </table>
+    </div>
+
+    <div role="tabpanel" class="tab-pane" id="in">
+        <br />
+        <table class="table table-bordered">
+            <tr>
+                <th>購買時間</th>
+                <th>購買者</th>
+                <th>購買賽事</th>
+                <th>購買項目</th>
+                <th>花費</th>
+            </tr>
+            {% for i in income %}
+            {% with note=i.buy_note %}
+                <tr>
+                    <td>
+                        <p>{{ i.create_date }}</p>
+                    </td>
+                    <td>
+                        <a href="{% url 'customer:profile' i.buyer.username %}">{{ i.buyer }}</a>
+                    </td>
+                     <td>
+                        <p>No.{{ note.betting.game.game_no }}</p>
+                     </td>
+                     <td>
+                        {% if i.buy_for == 'lp' %}
+                            <p>讓分</p>
+                        {% elif i.buy_for == 'nlp' %}
+                            <p>不讓分</p>
+                        {% elif i.buy_for == 'bs' %}
+                            <p>大小分</p>
+                        {% elif i.buy_for == 'wdp' %}
+                            <p>勝分差</p>
+                        {% else %}
+                            <p>系統錯誤</p>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <p>{{ i.cost }}</p>
+                    </td>
+                </tr>
+            {% endwith %}
+            {% endfor %}
+        </table>
+    </div>
+
+    <div role="tabpanel" class="tab-pane" id="sys">
+        
+    </div>
+</div>
+{% endblock%}

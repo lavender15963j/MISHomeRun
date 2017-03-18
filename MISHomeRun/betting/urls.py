@@ -9,4 +9,5 @@ app_name = 'betting'
 
 urlpatterns = [
     url(r'^prediction/$', views.PredictionView.as_view(), name='prediction'),
+    url(r'^prediction/(?P<pk>\d+)/$', views.BettingDetailView.as_view(), name='detail'),
 ]

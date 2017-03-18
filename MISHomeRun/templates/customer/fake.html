@@ -46,7 +46,7 @@
             <label>{% if betting.home_team_PN == False %}+{% else %}-{% endif %}{{ betting.let_point_number }}({{ betting.lp_away_team_odds }})</label>                            
             <input type="checkbox" disabled {% if note.lp_team == False %}checked{% endif %}>
         {% else %}
-            <form action="{% url 'customer:purchase' %}" method='POST'>
+            <form action="{% url 'customer:purchase' %}" method='POST' onsubmit="return CheckForm();">
                 {% csrf_token %}
                 <input type='hidden' value='lp' name='buy_for'/>
                 <input type='hidden' value='{{ note.id }}' name='buy_note'/>
@@ -64,7 +64,7 @@
             <label>({{ betting.nlp_away_team_odds }})</label>                            
             <input type="checkbox" disabled {% if note.nlp_team == False %}checked{% endif %}/>
         {% else %}
-            <form action="{% url 'customer:purchase' %}" method='POST'>
+            <form action="{% url 'customer:purchase' %}" method='POST' onsubmit="return CheckForm();">
                 {% csrf_token %}
                 <input type='hidden' value='nlp' name='buy_for'/>
                 <input type='hidden' value='{{ note.id }}' name='buy_note'/>
@@ -82,7 +82,7 @@
             <label>{{ betting.big_small_point_number }}({{ betting.small_odds }})</label>                            
             <input type="checkbox" disabled {% if note.b_or_s == False %}checked{% endif %}/>
         {% else %}
-            <form action="{% url 'customer:purchase' %}" method='POST'>
+            <form action="{% url 'customer:purchase' %}" method='POST' onsubmit="return CheckForm();">
                 {% csrf_token %}
                 <input type='hidden' value='bs' name='buy_for'/>
                 <input type='hidden' value='{{ note.id }}' name='buy_note'/>
@@ -94,20 +94,39 @@
       <td>
           {% has_buyed request.user note 'wdp' as wdp %}
           {% if user == request.user or wdp %}
-          <br />
-          <select class='change_wdp' disabled>
-              <option {% if note.wpd_num == 1 %}selected{% endif %}>剩分差1({{ betting.odds1 }})</option>
-              <option {% if note.wpd_num == 2 %}selected{% endif %}>剩分差2({{ betting.odds2 }})</option>
-              <option {% if note.wpd_num == 3 %}selected{% endif %}>剩分差3({{ betting.odds3 }})</option>
-              <option {% if note.wpd_num == 4 %}selected{% endif %}>剩分差4({{ betting.odds4 }})</option>
-              <option {% if note.wpd_num == 5 %}selected{% endif %}>剩分差5({{ betting.odds5 }})</option>
-              <option {% if note.wpd_num == 6 %}selected{% endif %}>剩分差6({{ betting.odds6 }})</option>
-              <option {% if note.wpd_num == 7 %}selected{% endif %}>剩分差7({{ betting.odds7 }})</option>
-              <option {% if note.wpd_num == 8 %}selected{% endif %}>剩分差8({{ betting.odds8 }})</option>
-              <option {% if note.wpd_num == 9 %}selected{% endif %}>剩分差9({{ betting.odds9 }})</option>
-          </select>
+          <input type="checkbox" disabled {% if note.choice_team == True %}checked{% endif %}/>
+                    <select disabled>
+                        <option value=0>未選擇</option>
+                        {% if note.choice_team == True %}
+                        <option {% if note.wpd_num == 1 %}selected{% endif %}>剩分差1({{ betting.h_odds1 }})</option>
+                        <option {% if note.wpd_num == 2 %}selected{% endif %}>剩分差2({{ betting.h_odds2 }})</option>
+                        <option {% if note.wpd_num == 3 %}selected{% endif %}>剩分差3({{ betting.h_odds3 }})</option>
+                        <option {% if note.wpd_num == 4 %}selected{% endif %}>剩分差4({{ betting.h_odds4 }})</option>
+                        <option {% if note.wpd_num == 5 %}selected{% endif %}>剩分差5({{ betting.h_odds5 }})</option>
+                        <option {% if note.wpd_num == 6 %}selected{% endif %}>剩分差6({{ betting.h_odds6 }})</option>
+                        <option {% if note.wpd_num == 7 %}selected{% endif %}>剩分差7({{ betting.h_odds7 }})</option>
+                        <option {% if note.wpd_num == 8 %}selected{% endif %}>剩分差8({{ betting.h_odds8 }})</option>
+                        <option {% if note.wpd_num == 9 %}selected{% endif %}>剩分差9({{ betting.h_odds9 }})</option>
+                        {% endif %}
+                    </select>
+                    <br />
+                    <input type="checkbox" disabled {% if note.choice_team == False %}checked{% endif %}/>
+                    <select disabled>
+                        <option value=0>未選擇</option>
+                        {% if note.choice_team == False %}
+                        <option {% if note.wpd_num == 1 %}selected{% endif %}>剩分差1({{ betting.a_odds1 }})</option>
+                        <option {% if note.wpd_num == 2 %}selected{% endif %}>剩分差2({{ betting.a_odds2 }})</option>
+                        <option {% if note.wpd_num == 3 %}selected{% endif %}>剩分差3({{ betting.a_odds3 }})</option>
+                        <option {% if note.wpd_num == 4 %}selected{% endif %}>剩分差4({{ betting.a_odds4 }})</option>
+                        <option {% if note.wpd_num == 5 %}selected{% endif %}>剩分差5({{ betting.a_odds5 }})</option>
+                        <option {% if note.wpd_num == 6 %}selected{% endif %}>剩分差6({{ betting.a_odds6 }})</option>
+                        <option {% if note.wpd_num == 7 %}selected{% endif %}>剩分差7({{ betting.a_odds7 }})</option>
+                        <option {% if note.wpd_num == 8 %}selected{% endif %}>剩分差8({{ betting.a_odds8 }})</option>
+                        <option {% if note.wpd_num == 9 %}selected{% endif %}>剩分差9({{ betting.a_odds9 }})</option>
+                        {% endif %}
+                    </select>
           {% else %}
-            <form action="{% url 'customer:purchase' %}" method='POST'>
+            <form action="{% url 'customer:purchase' %}" method='POST' onsubmit="return CheckForm();">
                 {% csrf_token %}
                 <input type='hidden' value='wdp' name='buy_for'/>
                 <input type='hidden' value='{{ note.id }}' name='buy_note'/>
@@ -130,5 +149,14 @@
 {% else %}
 <p>目前沒有筆記</p>
 {% endif %}
+
+<script>
+    function CheckForm(){
+        if(confirm("確定要購買嗎？")==true)   
+            return true;
+        else  
+            return false;
+    };
+</script>
 
 {% endblock %}

@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+{% load has_fake_note %}
+
+{% block title %}
+    {{ page_title }}
+{% endblock %}
+
+{% block extrastyles %}
+
+{% endblock %}
+
+	
+{% block extrascript %}
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+{% endblock %}
+
+{% block content %}
+    {% with game=betting.game %}
+    <h3>{{ page_title }} No.{{ game.game_no }}</h3>
+    <hr />
+    <p>這裡要放賽事資訊</p>
+    
+    <hr />
+    {% include "betting/partials/graph.html" %}
+    {% endwith %}
+{% endblock %}

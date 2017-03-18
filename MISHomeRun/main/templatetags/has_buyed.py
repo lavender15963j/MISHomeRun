@@ -6,27 +6,12 @@ register = template.Library()
 @register.assignment_tag
 def has_buyed(user, note, buy_for):
 
-    b_lp = False
-    b_nlp = False
-    b_bsp = False
-    b_wpd = False
-    if buy_for == 'lp':
-        b_lp = True
-    elif buy_for == 'nlp':
-        b_nlp = True
-    elif buy_for == 'bs':
-        b_bsp = True
-    elif buy_for == 'wdp':
-        b_wpd = True
-    else:
+    if buy_for not in ['lp', 'nlp', 'bs', 'wdp',]:
         return False
 
     if not PurchaseRecord.objects.filter(
         buyer=user, 
         buy_note=note,
-        b_lp=b_lp,
-        b_nlp=b_nlp,
-        b_bsp=b_bsp,
-        b_wpd=b_wpd,):
+        buy_for=buy_for):
         return False
     return True

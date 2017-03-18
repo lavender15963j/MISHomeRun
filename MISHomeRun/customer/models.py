@@ -31,16 +31,27 @@ class RealNote(models.Model):
     small = models.IntegerField(default=0)
 
     # Win Point Diff
-    wpd1 = models.IntegerField(default=0)
-    wpd2 = models.IntegerField(default=0)
-    wpd3 = models.IntegerField(default=0)
-    wpd4 = models.IntegerField(default=0)
-    wpd5 = models.IntegerField(default=0)
-    wpd6 = models.IntegerField(default=0)
-    wpd7 = models.IntegerField(default=0)
-    wpd8 = models.IntegerField(default=0)
-    wpd9 = models.IntegerField(default=0)
+    h_wpd1 = models.IntegerField(default=0)
+    h_wpd2 = models.IntegerField(default=0)
+    h_wpd3 = models.IntegerField(default=0)
+    h_wpd4 = models.IntegerField(default=0)
+    h_wpd5 = models.IntegerField(default=0)
+    h_wpd6 = models.IntegerField(default=0)
+    h_wpd7 = models.IntegerField(default=0)
+    h_wpd8 = models.IntegerField(default=0)
+    h_wpd9 = models.IntegerField(default=0)
 
+    a_wpd1 = models.IntegerField(default=0)
+    a_wpd2 = models.IntegerField(default=0)
+    a_wpd3 = models.IntegerField(default=0)
+    a_wpd4 = models.IntegerField(default=0)
+    a_wpd5 = models.IntegerField(default=0)
+    a_wpd6 = models.IntegerField(default=0)
+    a_wpd7 = models.IntegerField(default=0)
+    a_wpd8 = models.IntegerField(default=0)
+    a_wpd9 = models.IntegerField(default=0)
+
+    """
     @property
     def get_money(self):
         is_home_team_winner = self.betting.game.winner == True
@@ -76,6 +87,7 @@ class RealNote(models.Model):
                  money += wpd[i - 1] * odds[i - 1]
 
         return money
+    """
 
     def __unicode__(self):
         return u"%s's Note For No.%d" % (self.user.username, 
@@ -106,8 +118,10 @@ class FakeNote(models.Model):
     b_or_s = models.BooleanField()
 
     # Win Point Diff
+    choice_team = models.BooleanField()
     wpd_num = models.IntegerField()
 
+    """
     @property
     def get_coin(self):
         is_home_team_winner = self.betting.game.winner == True
@@ -157,7 +171,8 @@ class FakeNote(models.Model):
             coins = coins + 1
 
         return coins
-        
+    """
+
 
 
 class SystemGiveRecord(models.Model):
@@ -186,10 +201,9 @@ class PurchaseRecord(models.Model):
         related_name='buy_note',
     )
 
-    b_lp = models.BooleanField()
-    b_nlp = models.BooleanField()
-    b_bsp = models.BooleanField()
-    b_wpd = models.BooleanField()
+    buy_for = models.CharField(max_length=5, null=True)
+
+    
 
     create_date = models.DateTimeField(auto_now_add=True)
 

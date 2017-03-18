@@ -26,15 +26,25 @@ class Betting(models.Model):
     small_odds = models.DecimalField(max_digits=4, decimal_places=2)
 
     # Win Point Diff
-    odds1 = models.DecimalField(max_digits=4, decimal_places=2)
-    odds2 = models.DecimalField(max_digits=4, decimal_places=2)
-    odds3 = models.DecimalField(max_digits=4, decimal_places=2)
-    odds4 = models.DecimalField(max_digits=4, decimal_places=2)
-    odds5 = models.DecimalField(max_digits=4, decimal_places=2)
-    odds6 = models.DecimalField(max_digits=4, decimal_places=2)
-    odds7 = models.DecimalField(max_digits=4, decimal_places=2)
-    odds8 = models.DecimalField(max_digits=4, decimal_places=2)
-    odds9 = models.DecimalField(max_digits=4, decimal_places=2)
+    h_odds1 = models.DecimalField(max_digits=4, decimal_places=2)
+    h_odds2 = models.DecimalField(max_digits=4, decimal_places=2)
+    h_odds3 = models.DecimalField(max_digits=4, decimal_places=2)
+    h_odds4 = models.DecimalField(max_digits=4, decimal_places=2)
+    h_odds5 = models.DecimalField(max_digits=4, decimal_places=2)
+    h_odds6 = models.DecimalField(max_digits=4, decimal_places=2)
+    h_odds7 = models.DecimalField(max_digits=4, decimal_places=2)
+    h_odds8 = models.DecimalField(max_digits=4, decimal_places=2)
+    h_odds9 = models.DecimalField(max_digits=4, decimal_places=2)
+
+    a_odds1 = models.DecimalField(max_digits=4, decimal_places=2)
+    a_odds2 = models.DecimalField(max_digits=4, decimal_places=2)
+    a_odds3 = models.DecimalField(max_digits=4, decimal_places=2)
+    a_odds4 = models.DecimalField(max_digits=4, decimal_places=2)
+    a_odds5 = models.DecimalField(max_digits=4, decimal_places=2)
+    a_odds6 = models.DecimalField(max_digits=4, decimal_places=2)
+    a_odds7 = models.DecimalField(max_digits=4, decimal_places=2)
+    a_odds8 = models.DecimalField(max_digits=4, decimal_places=2)
+    a_odds9 = models.DecimalField(max_digits=4, decimal_places=2)
 
     def __unicode__(self):
         return u"Betting For No.%d" % self.game.game_no

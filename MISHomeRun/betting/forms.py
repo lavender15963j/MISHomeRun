@@ -8,4 +8,5 @@ class FakeNoteForm(forms.Form):
     lp = forms.CharField(max_length=1)
     nlp = forms.CharField(max_length=1)
     bs = forms.CharField(max_length=1)
+    choice = forms.CharField(max_length=1)
     wpd = forms.CharField(max_length=1)

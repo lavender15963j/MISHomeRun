@@ -22,3 +22,5 @@ python-social-auth==0.2.21
 
 # django-compressor (https://pypi.python.org/pypi/django-compressor/)
 django-compressor==2.1
+
+pillow

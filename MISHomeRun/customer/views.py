@@ -73,45 +73,35 @@ class PurchaseView(FormView):
     def form_valid(self, form):
         buy_for = self.request.POST.get('buy_for')
         buy_note = int(self.request.POST.get('buy_note'))
-        cost = int(self.request.POST.get('cost'))
-        note = FakeNote.objects.get(id=buy_note)
-        self.username = note.user.username
-        b_lp = False
-        b_nlp = False
-        b_bsp = False
-        b_wpd = False
 
-        if buy_for == 'lp':
-            b_lp = True
-        elif buy_for == 'nlp':
-            b_nlp = True
-        elif buy_for == 'bs':
-            b_bsp = True
-        elif buy_for == 'wdp':
-            b_wpd = True
-        else:
+        #FIXME: cost 之後別用form帶，直接用user的level在view裡計算
+        cost = int(self.request.POST.get('cost'))
+
+        note = FakeNote.objects.get(id=buy_note)
+        self.username = note.user.username 
+
+        if buy_for not in ['lp', 'nlp', 'bs', 'wdp',]:
             return self.form_invalid(form)
 
         if not PurchaseRecord.objects.filter(
             buyer=self.request.user, 
             buy_note=note,
-            b_lp=b_lp,
-            b_nlp=b_nlp,
-            b_bsp=b_bsp,
-            b_wpd=b_wpd,):
+            buy_for=buy_for):
 
-            pr = PurchaseRecord(
-                buyer=self.request.user,
-                buy_note=note,
-                b_lp=b_lp,
-                b_nlp=b_nlp,
-                b_bsp=b_bsp,
-                b_wpd=b_wpd,
-                cost=cost,
-            )
-            pr.save()
-            # 要扣錢
-            messages.success(self.request, "成功購買了一筆虛擬投注記錄項目")
+            coin = self.request.user.coin
+            if coin - cost >= 0:
+                pr = PurchaseRecord(
+                    buyer=self.request.user,
+                    buy_note=note,
+                    buy_for=buy_for,
+                    cost=cost,
+                )
+                self.request.user.coin = coin - cost
+                self.request.user.save()
+                pr.save()
+                messages.success(self.request, "成功購買了一筆虛擬投注記錄項目，花費%d枚金幣，剩餘%d枚金幣" % (cost, self.request.user.coin))
+            else:
+                messages.warning(self.request, "金幣不足，您只剩下%d枚金幣" % coin)
         else:
             messages.warning(self.request, "您已購買過此筆記錄項目")
         return super(PurchaseView, self).form_valid(form)
@@ -122,3 +112,26 @@ class PurchaseView(FormView):
 
     def get_success_url(self):
         return reverse_lazy('customer:fake', args=(self.username,))
+
+class CoinView(PageTitleMixin, generic.TemplateView):
+    template_name = 'customer/coin.html'
+    page_title = '金幣花費資訊'
+    active_tab = 'coin'
+
+    def get_context_data(self, **kwargs):
+        ctx = super(CoinView, self).get_context_data(**kwargs)
+        username = kwargs.get('username')
+        ctx['user'] = User.objects.get(username=username)
+
+        # 投注支出
+        ctx['fakenote'] = FakeNote.objects.filter(user=ctx['user']).order_by('-create_date')
+
+        # 購買支出
+        ctx['purchase'] = PurchaseRecord.objects.filter(buyer=ctx['user']).order_by('-create_date')
+
+        # 收入
+        ctx['income'] = PurchaseRecord.objects.filter(buy_note__user=ctx['user']).order_by('-create_date')
+
+        # 系統發放
+        
+        return ctx  
