@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from django.db import models
+from django.utils import timezone
 
 class Game(models.Model):
     game_no = models.IntegerField()
@@ -28,6 +29,9 @@ class Game(models.Model):
     @property
     def is_final(self):
         if self.winner is None:
+            nowtime = timezone.now()
+            if self.date < nowtime:
+                return True
             return False
         else:
             return True

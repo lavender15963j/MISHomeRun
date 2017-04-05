@@ -10,7 +10,7 @@ from customer.models import RealNote, FakeNote
 from main.models import User
 from betting.models import Betting
 from customer.forms import RealNoteForm, PurchaseForm
-from customer.models import PurchaseRecord
+from customer.models import PurchaseRecord, SystemGiveRecord
 from main.mixins import PageTitleMixin
 
 class ProfileView(PageTitleMixin, generic.TemplateView):
@@ -99,6 +99,8 @@ class PurchaseView(FormView):
                 self.request.user.coin = coin - cost
                 self.request.user.save()
                 pr.save()
+                note.user.coin = note.user.coin + cost
+                note.user.save()
                 messages.success(self.request, "成功購買了一筆虛擬投注記錄項目，花費%d枚金幣，剩餘%d枚金幣" % (cost, self.request.user.coin))
             else:
                 messages.warning(self.request, "金幣不足，您只剩下%d枚金幣" % coin)
@@ -133,5 +135,6 @@ class CoinView(PageTitleMixin, generic.TemplateView):
         ctx['income'] = PurchaseRecord.objects.filter(buy_note__user=ctx['user']).order_by('-create_date')
 
         # 系統發放
+        ctx['system'] = SystemGiveRecord.objects.filter(receiver=ctx['user']).order_by('-create_date')
         
         return ctx  

@@ -121,6 +121,68 @@ class FakeNote(models.Model):
     choice_team = models.BooleanField()
     wpd_num = models.IntegerField()
 
+    def is_win_lp(self):
+        is_home_team_winner = self.betting.game.winner == True
+        is_away_team_winner = not is_home_team_winner
+
+        if self.betting.game.home_team_score > self.betting.game.away_team_score:
+            lp = self.betting.game.home_team_score - self.betting.game.away_team_score
+        else:
+            lp = self.betting.game.away_team_score - self.betting.game.home_team_score
+
+        if lp >= self.betting.let_point_number:
+            if self.lp_team == True:
+                if is_home_team_winner:
+                    return True
+            if self.lp_team == False:
+                if is_away_team_winner:
+                    return True
+        return False
+
+    def is_win_nlp(self):
+        is_home_team_winner = self.betting.game.winner == True
+        is_away_team_winner = not is_home_team_winner
+
+        if self.nlp_team == True:
+            if is_home_team_winner:
+                return True
+        if self.nlp_team == False:
+            if is_away_team_winner:
+                return True
+
+        return False
+
+    def is_win_bs(self):
+        allScore = self.betting.game.home_team_score + self.betting.game.away_team_score
+        if allScore >= self.betting.big_small_point_number:
+            bs = True
+        else:
+            bs = False
+        if bs == self.b_or_s:
+            return True
+        return False
+
+    def is_win_wpd(self):
+        is_home_team_winner = self.betting.game.winner == True
+        is_away_team_winner = not is_home_team_winner
+
+        if self.choice_team == True:
+            if not is_home_team_winner:
+                return False
+        if self.choice_team == False:
+            if not is_away_team_winner:
+                return False
+        
+        if self.betting.game.home_team_score > self.betting.game.away_team_score:
+            temp = self.betting.game.home_team_score - self.betting.game.away_team_score
+        else:
+            temp = self.betting.game.away_team_score - self.betting.game.home_team_score
+        
+        if temp == self.wpd_num:
+            return True
+        return False
+
+
     """
     @property
     def get_coin(self):
@@ -182,11 +244,23 @@ class SystemGiveRecord(models.Model):
         related_name='receiver',
     )
 
+    note = models.ForeignKey(
+        'customer.FakeNote',
+        on_delete=models.CASCADE,
+        related_name='by_note',
+        null=True,
+    )
+
     create_date = models.DateTimeField(auto_now_add=True)
 
     give_coins = models.IntegerField()
 
-    reason = models.TextField(blank=True)
+    reason = models.TextField(blank=True, null=True)
+
+    w_lp = models.BooleanField(default=False)
+    w_nlp = models.BooleanField(default=False)
+    w_bs = models.BooleanField(default=False)
+    w_wpd = models.BooleanField(default=False)
 
 class PurchaseRecord(models.Model):
     buyer = models.ForeignKey(

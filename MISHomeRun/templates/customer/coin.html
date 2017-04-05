@@ -133,7 +133,57 @@
     </div>
 
     <div role="tabpanel" class="tab-pane" id="sys">
-        
+        <br />
+        <table class="table table-bordered">
+            <tr>
+                <th>給予時間</th>
+                <th>投注賽事</th>
+                <th>讓分</th>
+                <th>不讓分</th>
+                <th>大小分</th>
+                <th>勝分差</th>
+                <th>獲得</th>
+                <th>備註</th>
+            </tr>
+            {% for s in system %}
+            {% with note=s.note game=s.note.betting.game %}
+                <tr>
+                    <td>
+                        <p>{{ s.create_date }}</p>
+                    </td>
+                     <td>
+                        <p>No.{{ game.game_no }}</p>
+                     </td>
+                     <td>
+                       {% if s.w_lp %}
+                          +2
+                       {% endif %}
+                    </td>
+                    <td>
+                       {% if s.w_nlp %}
+                          +2
+                       {% endif %}
+                    </td>
+                    <td>
+                       {% if s.w_bs %}
+                          +2
+                       {% endif %}
+                    </td>
+                    <td>
+                       {% if s.w_wpd %}
+                          +4
+                       {% endif %}
+                    </td>
+                    <td>
+                        <p>{{ s.give_coins }}</p>
+                    </td>
+                    <td>
+                        <p>{{ s.reason }}</p>
+                    </td>
+                </tr>
+            {% endwith %}
+            {% endfor %}
+        </table>
     </div>
 </div>
 {% endblock%}
