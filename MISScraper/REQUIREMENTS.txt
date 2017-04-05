@@ -1,0 +1,11 @@
+# PROJECT REQUIREMENTS LIST, PLEASE NOTE THIS FILE IS ALSO USED FOR PYTHON PIP,
+# SO ALL NON-PYTHON PACKAGES ARE MARKED AS COMMENTS.
+
+# ============ LIB ============
+
+# ============ Nuwa Developed ============
+
+# ============ Third Party ============
+
+lxml
+Scrapy

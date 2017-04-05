@@ -26,5 +26,3 @@ django-compressor==2.1
 pillow
 
 django-machina
-
-Whoosh
