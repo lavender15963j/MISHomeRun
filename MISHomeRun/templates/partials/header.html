@@ -19,14 +19,14 @@
 					<div class='submenu'>
 						<a href="{% url 'team:team1' %}">介紹</a>
 						<a href="#">賽程</a>
-						<a href="#">球隊戰績</a>
+						<a href="{% url 'team:stat1' %}">球隊戰績</a>
 					</div>
 				</li>
 				<li>
 					<a href="#">球員</a>
 				</li>
 				<li>
-					<a href="#">討論區</a>
+					<a href="{% url 'forum:index' %}">討論區</a>
 				</li>
 			</ul>
 		</div>

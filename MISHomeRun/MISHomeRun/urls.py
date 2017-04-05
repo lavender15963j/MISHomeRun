@@ -20,6 +20,7 @@ from django.conf.urls import include, url
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
+from machina.app import board
 
 from main import views as mainView
 
@@ -42,6 +43,6 @@ urlpatterns = [
     url(r'^team/', include("team.urls", namespace='team')),
 
     # forum
-    url(r'^forum/', include("forum.urls", namespace='forum')),
+    url(r'^forum/', include(board.urls)),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -24,3 +24,7 @@ python-social-auth==0.2.21
 django-compressor==2.1
 
 pillow
+
+django-machina
+
+Whoosh

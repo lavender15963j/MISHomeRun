@@ -1,0 +1,235 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block title %}
+    {{ page_title }}
+{% endblock %}
+
+{% block content %}
+	<div class='panel panel-default'>
+            <div class='panel-heading'>
+                <p style='font-family:微軟正黑體;font-size:14pt;font-weight:bold;'>
+                    {{team.name}}
+                </p>
+            </div>
+            <div class='panel-body' style='font-family:微軟正黑體;background-color: white'>
+                <div class="row">
+                    <div class="col-md-3"><img src='{{team.image.url}}' width='250' height='250'></div>
+                    <div class="col-md-9">
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active"><a href="#record" aria-controls="record" role="tab" data-toggle="tab">團隊戰績</a></li>
+                            <li role="presentation"><a href="#pitch" aria-controls="pitch" role="tab" data-toggle="tab">團隊投手成績</a></li>
+                            <li role="presentation"><a href="#hit" aria-controls="hit" role="tab" data-toggle="tab">團隊打擊成績</a></li>
+                            <li role="presentation"><a href="#defense" aria-controls="defense" role="tab" data-toggle="tab">團隊守備成績</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane active" id="record">
+                            <table class="table table-bordered">
+                                <tr>
+                                    <th>年份</th>
+                                    <th>賽季</th>
+                                    <th>G</th>
+                                    <th>W</th>
+                                    <th>L</th>
+                                    <th>TIE</th>
+                                    <th>PCT</th>
+                                    <th>W(H)</th>
+                                    <th>L(H)</th>
+                                    <th>TIE(H)</th>
+                                    <th>W(A)</th>
+                                    <th>L(A)</th>
+                                    <th>TIE(A)</th>
+                                </tr>
+                                {% for statdata in statdatas%}
+                                <tr>
+                                    <th>{{statdata.year}}</th>
+                                    <th>上半季</th>
+                                    <th>{{statdata.Team_1_G}}</th>
+                                    <th>{{statdata.Team_1_W}}</th>
+                                    <th>{{statdata.Team_1_L}}</th>
+                                    <th>{{statdata.Team_1_T}}</th>
+                                    <th>{{statdata.Team_1_PCT}}</th>
+                                    <th>{{statdata.Team_1_Whome}}</th>
+                                    <th>{{statdata.Team_1_Lhome}}</th>
+                                    <th>{{statdata.Team_1_Thome}}</th>
+                                    <th>{{statdata.Team_1_Waway}}</th>
+                                    <th>{{statdata.Team_1_Laway}}</th>
+                                    <th>{{statdata.Team_1_Taway}}</th>
+                                </tr>
+                                <tr>
+                                    <th>{{statdata.year}}</th>
+                                    <th>下半季</th>
+                                    <th>{{statdata.Team_2_G}}</th>
+                                    <th>{{statdata.Team_2_W}}</th>
+                                    <th>{{statdata.Team_2_L}}</th>
+                                    <th>{{statdata.Team_2_T}}</th>
+                                    <th>{{statdata.Team_2_PCT}}</th>
+                                    <th>{{statdata.Team_2_Whome}}</th>
+                                    <th>{{statdata.Team_2_Lhome}}</th>
+                                    <th>{{statdata.Team_2_Thome}}</th>
+                                    <th>{{statdata.Team_2_Waway}}</th>
+                                    <th>{{statdata.Team_2_Laway}}</th>
+                                    <th>{{statdata.Team_2_Taway}}</th>
+                                </tr>
+                                {% endfor %}
+                            </table>
+                            </div>
+                        
+                            <div role="tabpanel" class="tab-pane" id="pitch">
+                            <table class="table table-bordered">
+                                <tr>
+                                    <th>年份</th>
+                                    <th>ERA</th>
+                                    <th>IP</th>
+                                    <th>BF</th>
+                                    <th>H</th>
+                                    <th>HR</th>
+                                    <th>SO</th>
+                                    <th>WP</th>
+                                    <th>BK</th>
+                                    <th>R</th>
+                                   <th>ER</th>
+                                </tr>
+                                {% for statdata in statdatas%}
+                                <tr>
+                                    <th>{{statdata.year}}</th>
+                                    <th>{{statdata.Pitch_ERA}}</th>
+                                    <th>{{statdata.Pitch_IP}}</th>
+                                    <th>{{statdata.Pitch_BF}}</th>
+                                    <th>{{statdata.Pitch_H}}</th>
+                                    <th>{{statdata.Pitch_HR}}</th>
+                                    <th>{{statdata.Pitch_SO}}</th>
+                                    <th>{{statdata.Pitch_WP}}</th>
+                                    <th>{{statdata.Pitch_BK}}</th>
+                                    <th>{{statdata.Pitch_R}}</th>
+                                    <th>{{statdata.Pitch_ER}}</th>
+                                </tr>
+                                {% endfor %}
+                            </table>
+                            </div>
+
+                            <div role="tabpanel" class="tab-pane" id="hit">
+                            <table class="table table-bordered">
+                                <tr>
+                                    <th>年份</th>
+                                    <th>AVG</th>
+                                    <th>G</th>
+                                    <th>AB</th>
+                                    <th>R</th>
+                                    <th>RBI</th>
+                                    <th>H</th>
+                                    <th>HR</th>
+                                    <th>SAC</th>
+                                    <th>SO</th>
+                                    <th>SB</th>
+                                    <th>OBP</th>
+                                    <th>SLG</th>
+                                </tr>
+                                {% for statdata in statdatas%}
+                                <tr>
+                                    <th>{{statdata.year}}</th>                            
+                                    <th>{{statdata.Hit_AVG}}</th>
+                                    <th>{{statdata.Hit_G}}</th>
+                                    <th>{{statdata.Hit_AB}}</th>
+                                    <th>{{statdata.Hit_R}}</th>
+                                    <th>{{statdata.Hit_RBI}}</th>
+                                    <th>{{statdata.Hit_H}}</th>
+                                    <th>{{statdata.Hit_HR}}</th>
+                                    <th>{{statdata.Hit_SAC}}</th>
+                                    <th>{{statdata.Hit_SO}}</th>
+                                    <th>{{statdata.Hit_SB}}</th>
+                                    <th>{{statdata.Hit_OBP}}</th>
+                                    <th>{{statdata.Hit_SLG}}</th>
+                                </tr>
+                                {% endfor %}
+                            </table>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="defense">
+                            <table class="table table-bordered">
+                                <tr>
+                                    <th>年份</th>
+                                    <th>FPCT</th>
+                                    <th>TC</th>
+                                    <th>PO</th>
+                                    <th>A</th>
+                                    <th>DP</th>
+                                    <th>E</th>
+                                    <th>CS</th>
+                                    <th>PB</th>
+                                </tr>
+                                {% for statdata in statdatas%}
+                                <tr>
+                                    <th>{{statdata.year}}</th>                            
+                                    <th>{{statdata.Defense_FPCT}}</th>
+                                    <th>{{statdata.Defense_TC}}</th>
+                                    <th>{{statdata.Defense_PO}}</th>
+                                    <th>{{statdata.Defense_A}}</th>
+                                    <th>{{statdata.Defense_DP}}</th>
+                                    <th>{{statdata.Defense_E}}</th>
+                                    <th>{{statdata.Defense_CS}}</th>
+                                    <th>{{statdata.Defense_PB}}</th>
+                                </tr>
+                                {% endfor %}
+                            </table>
+                            </div>
+                    </div>
+                </div>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <div class='panel-body' style='background-color: white'>
+                <p>
+                    官方網站: <a href='{{team.URL}}' style='color: darkcyan ;text-decoration: underline'>{{team.URL}}</a>
+                </p>
+            </div>
+    </div>
+
+
+
+    <script>
+        $('.checkboxGroup input').click(function(){
+            if($(this).prop('checked')){
+                $(this).parent().find("input").prop('checked', false);
+                $(this).prop('checked',true);
+            };
+        });
+
+        $('.change_lp input').click(function(){
+            if($(this).attr('name') == 'h'){
+                $(this).parent().parent().find(".lp").prop('value', 1);
+            } else {
+                $(this).parent().parent().find(".lp").prop('value', 0);
+            };
+        });
+
+        $('.change_nlp input').click(function(){
+            if($(this).attr('name') == 'h'){
+                $(this).parent().parent().find(".nlp").prop('value', 1);
+            } else {
+                $(this).parent().parent().find(".nlp").prop('value', 0);
+            };
+        });
+
+        $('.change_bs input').click(function(){
+            if($(this).attr('name') == 'h'){
+                $(this).parent().parent().find(".bs").prop('value', 1);
+            } else {
+                $(this).parent().parent().find(".bs").prop('value', 0);
+            };
+        });
+
+        $('.change_wdp').change(function(){
+            var number = $('.change_wdp option:selected').val();
+            $(this).parent().parent().find(".wdp").prop('value', number);
+        });
+    </script>
+{% endblock %}
