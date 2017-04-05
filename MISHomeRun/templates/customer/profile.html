@@ -35,19 +35,23 @@
             </tr>
             <tr>
                 <th>讓分勝率</th>
-                <td>{{ user.lp_wp|default:'-' }}</td>
+                <td>{% if not user.lp_wp == 0 %}{{ user.lp_wp|default:'-' }}{% if user.lp_wp %}%{% endif %}{% else %}0%{% endif %}</td>
             </tr>
             <tr>
                 <th>不讓分勝率</th>
-                <td>{{ user.nlp_wp|default:'-' }}</td>
+                <td>{% if not user.nlp_wp == 0 %}{{ user.nlp_wp|default:'-' }}{% if user.nlp_wp %}%{% endif %}{% else %}0%{% endif %}</td>
             </tr>
             <tr>
                 <th>大小分勝率</th>
-                <td>{{ user.bs_wp|default:'-' }}</td>
+                <td>{% if not user.bs_wp == 0 %}{{ user.bs_wp|default:'-' }}{% if user.bs_wp %}%{% endif %}{% else %}0%{% endif %}</td>
             </tr>
             <tr>
                 <th>勝分差勝率</th>
-                <td>{{ user.wdp_wp|default:'-' }}</td>
+                <td>{% if not user.wdp_wp == 0 %}{{ user.wdp_wp|default:'-' }}{% if user.wdp_wp %}%{% endif %}{% else %}0%{% endif %}</td>
+            </tr>
+            <tr>
+                <th>總勝率</th>
+                <td>{% if not user.all_wp == 0 %}{{ user.all_wp|default:'-' }}{% if user.all_wp %}%{% endif %}{% else %}0%{% endif %}</td>
             </tr>
         </tbody>
     </table>

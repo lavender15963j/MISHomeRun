@@ -170,13 +170,7 @@ class BettingDetailView(PageTitleMixin, generic.detail.DetailView):
             ctx['s_p'] = float(ctx['s']) / ctx['num'] * 100
 
             ctx['h_wdp_p'] = [float(wdp) / ctx['num'] * 100 for wdp in ctx['h_wdp']]
-            ctx['a_wdp_p'] = [float(wdp) / ctx['num'] * 100 for wdp in ctx['a_wdp']]
-
-
-
-
-
-        
+            ctx['a_wdp_p'] = [float(wdp) / ctx['num'] * 100 for wdp in ctx['a_wdp']] 
         return ctx
 
         
