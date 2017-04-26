@@ -21,7 +21,7 @@
                 <a href="{% url 'customer:fake' user.username %}">虛擬投注記錄</a>
             </li>
              <li{% if active_tab == 'forum' %} class="active"{% endif %}>
-                <a href="#">發表文章</a>
+                <a href="{% url 'customer:forum' user.username %}">發表文章</a>
             </li>
     </ul>
 {% endblock %}

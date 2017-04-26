@@ -1,43 +1,16 @@
-{% extends 'board_base.html' %}
+{% extends "customer/profile_layout.html" %}
+
 {% load i18n %}
 
-{% block sub_title %}{% blocktrans with username=profile.user.username %}{{ username }} profile{% endblocktrans %}{% endblock sub_title %}
+{% block title %}
+    {{ page_title }}
+{% endblock %}
 
-{% block content %}
-<script>
-    window.location.replace("{% url 'customer:profile' profile.user.username%}");
-</script>
-<!--
-<div class="row">
-  <div class="col-xs-12">
-    <h1>{% blocktrans with username=profile.user.username %}{{ username }} profile{% endblocktrans %}</h1>
-    <br />
-  </div>
-</div>-->
-<!--
-<div class="row profile">
-  <div class="col-md-3">
-    <div class="profile-sidebar">
-      <div class="panel panel-default">
-        {% if profile.avatar %}
-        <div class="profile-avatar">
-          <img src="{{ profile.avatar.url }}" class="img-responsive" alt="{{ profile.user.username }}" />
-        </div>
-        {% else %}
-        <div class="profile-avatar empty">
-          <i class="fa fa-user fa-4x" ></i>
-        </div>
-        {% endif %}
-        <div class="profile-username">
-          <h3 class="text-center text-muted">{{ profile.user.username }}</h3>
-        </div>
-      </div>
-    </div>
-    {% if profile.user == request.user %}
-    <a href="{%url 'forum_member:profile_update' %}" class="btn btn-block btn-primary">{% trans "Edit profile" %}</a>
-    {% endif %}
-  </div>
-  <div class="col-md-9" style='left:50%;margin-left:-35%'>
+{% block headertext %}{{ page_title }}{% endblock %}
+
+{% block right_content %}
+
+<div class="col-md-9" style='left:50%;margin-left:-35%'>
     <div class="row">
       <div class="col-md-12">
         <div class="profile-content">
@@ -90,6 +63,5 @@
       </div>
     </div>
   </div>
-</div>
--->
-{% endblock content %}
+
+{% endblock %}

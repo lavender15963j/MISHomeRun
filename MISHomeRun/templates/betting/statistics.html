@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+{% load has_fake_note %}
+
+{% block title %}
+    {{ page_title }}
+{% endblock %}
+
+{% block extrascript %}
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+{% endblock %}
+
+{% block content %}
+	<h1>{{ page_title }}</h1>
+    <div>
+        <form>
+            <select name='win'>
+                <option {% if wtc == '0' %}selected{% endif %} value='0'>-------</option>
+                <option {% if wtc == 'E02' %}selected{% endif %} value='E02'>中信兄弟</option>
+                <option {% if wtc == 'A02' %}selected{% endif %} value='A02'>Lamigo</option>
+                <option {% if wtc == 'B04' %}selected{% endif %} value='B04'>富邦悍將</option>
+                <option {% if wtc == 'L01' %}selected{% endif %} value='L01'>統一7-ELEVEn</option>
+            </select>
+            <label>贏</label>
+            <select name='lose'>
+                <option {% if ltc == '0' %}selected{% endif %} value='0'>-------</option>
+                <option {% if ltc == 'E02' %}selected{% endif %} value='E02'>中信兄弟</option>
+                <option {% if ltc == 'A02' %}selected{% endif %} value='A02'>Lamigo</option>
+                <option {% if ltc == 'B04' %}selected{% endif %} value='B04'>富邦悍將</option>
+                <option {% if ltc == 'L01' %}selected{% endif %} value='L01'>統一7-ELEVEn</option>
+            </select>
+            <label>在過去</label>
+            <select name='t'>
+                <option {% if t == 150 %}selected{% endif %}>150</option>
+                <option {% if t == 100 %}selected{% endif %}>100</option>
+                <option {% if t == 50 %}selected{% endif %}>50</option>
+                <option {% if t == 30 %}selected{% endif %}>30</option>
+            </select>
+            <label>場</label>
+            <input type="submit" />
+        </form>    
+    </div>
+    <hr />
+
+    <div class="row">
+        <div class="col-md-4" id="chart1" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+        <div class="col-md-4" id="chart2" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+        <div class="col-md-4" id="chart3" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-4" id="chart4" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+        <div class="col-md-4" id="chart5" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+        <div class="col-md-4">
+            <table>
+                <tr>
+                    <td><img src='{{win_t.image.url}}' width="150" height="140" /></td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td><label>V.S.</label></td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td><img src='{{lose_t.image.url}}' width="150" height="140" /></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    {% include "betting/partials/statisticsjs.html" %}
+
+{% endblock %}

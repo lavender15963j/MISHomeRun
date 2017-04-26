@@ -15,7 +15,7 @@
   <a href="{% url 'forum_conversation:post_create' forum.slug forum.pk topic.slug topic.pk %}" class="btn btn-primary btn-sm"><i class="fa fa-comment fa-lg"></i>&nbsp;{% trans "Post reply" %}</a>
 {% endif %}
 {% if user_can_subscribe_to_topic %}
-  <a href="{% url 'forum_member:topic_subscribe' topic.pk %}" class="btn btn-info btn-sm btn-subscription"><i class="fa fa-check">&nbsp;</i>{% trans "Subscribe" %}</a>
+  <!--<a href="{% url 'forum_member:topic_subscribe' topic.pk %}" class="btn btn-info btn-sm btn-subscription"><i class="fa fa-check">&nbsp;</i>{% trans "Subscribe" %}</a>-->
 {% elif user_can_unsubscribe_from_topic %}
   <a href="{% url 'forum_member:topic_unsubscribe' topic.pk %}" class="btn btn-info btn-sm btn-subscription"><i class="fa fa-times">&nbsp;</i>{% trans "Unsubscribe" %}</a>
 {% endif %}

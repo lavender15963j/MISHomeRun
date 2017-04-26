@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import pytz
+import datetime
+
 from django.shortcuts import render
 from django.views import generic
 from django.views.generic.edit import FormView
@@ -8,11 +11,142 @@ from django.core.urlresolvers import reverse_lazy
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from django.utils.dateparse import parse_datetime
+from django.db.models import Q
 
 from betting.models import Betting
+from team.models import Team
+from game.models import Game
 from customer.models import FakeNote
 from main.mixins import PageTitleMixin
 from betting.forms import FakeNoteForm
+
+class StatisticsView(PageTitleMixin, generic.TemplateView):
+    template_name = 'betting/statistics.html'
+    page_title = '數據分析'
+
+    def get_context_data(self, **kwargs):
+        ctx = super(StatisticsView, self).get_context_data(**kwargs)
+
+        ctx['t'] = int(self.request.GET.get('t', 150))
+        wt = self.request.GET.get('win', None)
+        lt = self.request.GET.get('lose', None)
+        if not lt == "0" and not wt == "0":
+            if lt and wt:
+                ctx['win_t'] = Team.objects.get(code=wt)
+                ctx['lose_t'] = Team.objects.get(code=lt)
+
+                ctx['wtc'] = wt
+                ctx['ltc'] = lt
+            else:
+                ctx['win_t'] = Team.objects.get(code='E02')
+                ctx['lose_t'] = Team.objects.get(code='A02')
+
+                ctx['wtc'] = '0'
+                ctx['ltc'] = '0'
+        else:
+            ctx['win_t'] = Team.objects.get(code='E02')
+            ctx['lose_t'] = Team.objects.get(code='A02')
+
+            ctx['wtc'] = '0'
+            ctx['ltc'] = '0'
+
+        games = Game.objects.filter(Q(away_team=ctx['win_t'], home_team=ctx['lose_t'])|Q(home_team=ctx['win_t'], away_team=ctx['lose_t'])).order_by('-date')
+        t_num = Game.objects.filter(Q(away_team=ctx['win_t'], home_team=ctx['lose_t'])|Q(home_team=ctx['win_t'], away_team=ctx['lose_t'])).count()
+       
+        if t_num > ctx['t']:
+            games = games[:ctx['t']]
+        else:
+            ctx['t'] = t_num
+        
+        # G1
+        lp_p = []
+        lp_wt = []
+        lp_lt = []
+        for g in games:
+            if g.winner == True:
+                winner = g.home_team
+                lp = g.home_team_score - g.away_team_score
+            elif g.winner == False:
+                winner = g.away_team
+                lp = g.away_team_score - g.home_team_score
+            else:
+                continue
+            lp = abs(lp)
+            if len(lp_p) < lp:
+                lp_p = [i for i in range(1, lp + 1)]
+                for i in range(0, len(lp_p) - len(lp_wt)):
+                    lp_wt.append(0)
+                    lp_lt.append(0)
+
+            if ctx['win_t'] == winner:
+                lp_wt[lp - 1] += 1
+            else:
+                lp_lt[lp - 1] += 1
+
+        ctx['lp_p'] = lp_p
+        ctx['lp_wt'] = lp_wt
+        ctx['lp_lt'] = lp_lt
+
+        # G2
+        tp_dir = {}
+        for g in games:
+            total = g.away_team_score + g.home_team_score
+            if str(total) in tp_dir:
+                tp_dir[str(total)] += 1
+            else:
+                tp_dir[str(total)] = 1
+
+        tp_p = []
+        tp = []
+
+        key = []
+        for k in tp_dir:
+            key.append(int(k))
+        
+        for k in sorted(key):
+            tp_p.append(int(k))
+            tp.append(tp_dir[str(k)])
+        ctx['tp_p'] = tp_p
+        ctx['tp'] = tp
+
+        # G3
+        w_t = [0, 0]
+        for g in games:
+            if g.winner == True:
+                winner = g.home_team
+            elif g.winner == False:
+                winner = g.away_team
+            else:
+                continue
+
+            if ctx['win_t'] == winner:
+                w_t[0] += 1
+            else:
+                w_t[1] += 1
+        ctx['w_t'] = w_t
+
+        # G4
+        wpd = [0, 0, 0, 0, 0, 0, 0, 0, 0]
+        for g in games:
+            if g.winner == True:
+                winner = g.home_team
+                lp = g.home_team_score - g.away_team_score
+            elif g.winner == False:
+                winner = g.away_team
+                lp = g.away_team_score - g.home_team_score
+            else:
+                continue
+            lp = abs(lp)
+
+            if ctx['win_t'] == ctx['win_t']:
+                if lp >= 9:
+                    wpd[8] += 1
+                else:
+                    wpd[lp - 1] += 1
+        ctx['wpd'] = wpd
+        
+        return ctx
 
 class PredictionView(PageTitleMixin, FormView):
     template_name = 'betting/prediction.html'
@@ -25,7 +159,11 @@ class PredictionView(PageTitleMixin, FormView):
 
     def get_context_data(self, **kwargs):
         ctx = super(PredictionView, self).get_context_data(**kwargs)
-        ctx['bettings'] = Betting.objects.all().order_by('-game__date')
+
+        td = datetime.datetime.today()
+        td = td + datetime.timedelta(days=1)
+        td = td.strftime("%Y-%m-%d")
+        ctx['bettings'] = Betting.objects.filter(game__date__lt=td).order_by('-game__date')
         return ctx
 
     def form_valid(self, form):

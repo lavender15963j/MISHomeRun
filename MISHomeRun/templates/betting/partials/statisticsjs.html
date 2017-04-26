@@ -1,0 +1,183 @@
+<script>
+$(function () {
+    Highcharts.chart('chart1', {
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: '得分差距表'
+        },
+        subtitle: {
+            text: '得分差距次數 (過去{{ t }}場)'
+        },
+        xAxis: {
+            categories: {{lp_p}},
+            crosshair: true
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: '次數 (次)'
+            }
+        },
+        tooltip: {
+            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                '<td style="padding:0"><b>{point.y:.1f} 次</b></td></tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true
+        },
+        plotOptions: {
+            column: {
+                pointPadding: 0.2,
+                borderWidth: 0
+            }
+        },
+        series: [{
+            name: '{{ win_t.name }}贏',
+            data: {{lp_wt}}
+        },
+        {
+            name: '{{ lose_t.name }}贏',
+            data: {{lp_lt}}
+        }
+        ]
+    });
+
+    Highcharts.chart('chart2', {
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: '總分合'
+        },
+        subtitle: {
+            text: '{{ win_t.name }}和{{ lose_t.name }}得分合 (過去{{ t }}場)'
+        },
+        xAxis: {
+            categories: {{tp_p}},
+            crosshair: true
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: '次數 (次)'
+            }
+        },
+        tooltip: {
+            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                '<td style="padding:0"><b>{point.y:.1f} 次</b></td></tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true
+        },
+        plotOptions: {
+            column: {
+                pointPadding: 0.2,
+                borderWidth: 0
+            }
+        },
+        series: [{
+            name: '總分合',
+            data: {{tp}}
+        }]
+    });
+
+    
+
+    Highcharts.chart('chart4', {
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: '贏者次數'
+        },
+        subtitle: {
+            text: '{{ win_t.name }}和{{ lose_t.name }} (過去{{ t }}場)'
+        },
+        xAxis: {
+            categories: [
+                '{{ win_t.name }}贏',
+                '{{ lose_t.name }}贏'
+            ],
+            crosshair: true
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: '次數 (次)'
+            }
+        },
+        tooltip: {
+            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                '<td style="padding:0"><b>{point.y:.1f} 次</b></td></tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true
+        },
+        plotOptions: {
+            column: {
+                pointPadding: 0.2,
+                borderWidth: 0
+            }
+        },
+        series: [{
+            name: '勝者',
+            data: {{w_t}}
+        }]
+    });
+
+    Highcharts.chart('chart5', {
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: '勝分差'
+        },
+        subtitle: {
+            text: '{{ win_t.name }}贏{{ lose_t.name }} (過去{{ t }}場)'
+        },
+        xAxis: {
+            categories: [
+                '贏1分',
+                '贏2分',
+                '贏3分',
+                '贏4分',
+                '贏5分',
+                '贏6分',
+                '贏7分',
+                '贏8分',
+                '贏9分'
+            ],
+            crosshair: true
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: '勝分差 (分)'
+            }
+        },
+        tooltip: {
+            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                '<td style="padding:0"><b>{point.y:.1f} 次</b></td></tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true
+        },
+        plotOptions: {
+            column: {
+                pointPadding: 0.2,
+                borderWidth: 0
+            }
+        },
+        series: [{
+            name: '勝分差',
+            data: {{wpd}}
+        }]
+    });
+});
+</script>

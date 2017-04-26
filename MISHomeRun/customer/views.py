@@ -5,6 +5,8 @@ from django.views import generic
 from django.views.generic.edit import FormView
 from django.core.urlresolvers import reverse_lazy
 from django.contrib import messages
+from machina.core.db.models import get_model
+from machina.conf import settings as machina_settings
 
 from customer.models import RealNote, FakeNote
 from main.models import User
@@ -12,6 +14,11 @@ from betting.models import Betting
 from customer.forms import RealNoteForm, PurchaseForm
 from customer.models import PurchaseRecord, SystemGiveRecord
 from main.mixins import PageTitleMixin
+
+Forum = get_model('forum', 'Forum')
+ForumProfile = get_model('forum_member', 'ForumProfile')
+Post = get_model('forum_conversation', 'Post')
+Topic = get_model('forum_conversation', 'Topic')
 
 class ProfileView(PageTitleMixin, generic.TemplateView):
     template_name = 'customer/profile.html'
@@ -21,6 +28,8 @@ class ProfileView(PageTitleMixin, generic.TemplateView):
     def get_context_data(self, **kwargs):
         ctx = super(ProfileView, self).get_context_data(**kwargs)
         ctx['user'] = User.objects.get(username=kwargs.get('username'))
+        profile, dummy = ForumProfile.objects.get_or_create(user=ctx['user'])
+        ctx['profile'] = profile
         return ctx
 
 class RealNoteView(PageTitleMixin, FormView):
@@ -138,3 +147,25 @@ class CoinView(PageTitleMixin, generic.TemplateView):
         ctx['system'] = SystemGiveRecord.objects.filter(receiver=ctx['user']).order_by('-create_date')
         
         return ctx  
+
+class ForumView(PageTitleMixin, generic.TemplateView):
+    template_name = 'customer/forum.html'
+    page_title = '發表文章'
+    active_tab = 'forum'
+
+    def get_context_data(self, **kwargs):
+        ctx = super(ForumView, self).get_context_data(**kwargs)
+        ctx['user'] = User.objects.get(username=kwargs.get('username'))
+        profile, dummy = ForumProfile.objects.get_or_create(user=ctx['user'])
+        ctx['profile'] = profile
+
+        ctx['topics_count'] = Topic.objects.filter(
+            approved=True, poster=profile.user).count()
+        # Fetches the recent posts added by the considered user
+        forums = self.request.forum_permission_handler.forum_list_filter(
+            Forum.objects.all(), self.request.user)
+        recent_posts = Post.approved_objects.filter(
+            topic__forum__in=forums, poster=profile.user).order_by('-created')
+        ctx['recent_posts'] = recent_posts[:machina_settings.PROFILE_RECENT_POSTS_NUMBER]
+
+        return ctx

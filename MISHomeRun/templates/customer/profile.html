@@ -9,7 +9,30 @@
 {% block headertext %}{{ page_title }}{% endblock %}
 
 {% block right_content %}
-<table class="table table-striped table-bordered">
+<div class="row">
+    <div class="col-md-3">
+        <div class="profile-sidebar">
+        <div class="panel panel-default">
+            {% if profile.avatar %}
+            <div class="profile-avatar">
+            <img src="{{ profile.avatar.url }}" class="img-responsive" alt="{{ profile.user.username }}" />
+            </div>
+            {% else %}
+            <div class="profile-avatar empty">
+            <i class="fa fa-user fa-4x" ></i>
+            </div>
+            {% endif %}
+            <div class="profile-username">
+            <h3 class="text-center text-muted">{{ profile.user.username }}</h3>
+            </div>
+        </div>
+        </div>
+    {% if profile.user == request.user %}
+    <a href="{%url 'forum_member:profile_update' %}" class="btn btn-block btn-primary">{% trans "Edit profile" %}</a>
+    {% endif %}
+  </div>
+  <div class="col-md-9">
+    <table class="table table-striped table-bordered">
         <tbody>
             <tr>
                 <th>名字</th>
@@ -55,5 +78,7 @@
             </tr>
         </tbody>
     </table>
+  </div>
+</div>
 
 {% endblock %}
