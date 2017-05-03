@@ -1,50 +1,149 @@
+<!--
+author: W3layouts
+author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE html>
 {% load staticfiles %}
-
-<!DOCTYPE HTML>
-<!-- Website template by freewebsitetemplates.com -->
-<html>
+<html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>資管全壘打-{% block title %}{% endblock %}</title>
-	<link rel="stylesheet" href="{% static 'css/main/style.css' %}" type="text/css">
+<title>資管全壘打-{% block title %}{% endblock %}</title>
+<!-- custom-theme -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="Marathon Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+		function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!-- //custom-theme -->
+<link href="{% static 'css/bootstrap.css' %}" rel="stylesheet" type="text/css" media="all" />
+<link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css" media="all" />
+<!-- js -->
+<script type="text/javascript" src="{% static 'js/jquery-2.1.4.min.js' %}"></script>
+<!-- //js -->
+<!-- font-awesome-icons -->
+<link href="{% static 'css/font-awesome.css' %}" rel="stylesheet"> 
+<!-- //font-awesome-icons -->
+<link href="//fonts.googleapis.com/css?family=Yanone+Kaffeesatz:200,300,400,700&amp;subset=latin-ext" rel="stylesheet">
+<link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
 
-	<!-- jquery -->
-	<script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+<!-- jquery -->
+<script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
 
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-        crossorigin="anonymous">
 
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
-        crossorigin="anonymous">
 
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-        crossorigin="anonymous"></script>
+<!-- Main JS CSS -->
+<link href="{% static 'css/main/main.css' %}" rel="stylesheet" type="text/css">
+<script src="{% static 'js/main/main.js '%}" type="text/javascript"></script>
 
-	<!-- Main JS CSS -->
-	<link href="{% static 'css/main/main.css' %}" rel="stylesheet" type="text/css">
-    <script src="{% static 'js/main/main.js '%}" type="text/javascript"></script>
+<!-- 額外的 CSS -->
+{% block extrastyles %}{% endblock %}
 
-	<!-- 額外的 CSS -->
-	{% block extrastyles %}{% endblock %}
-
-	<!-- 額外的 JS -->
-	{% block extrascript %}{% endblock %}
+<!-- 額外的 JS -->
+{% block extrascript %}{% endblock %}
 
 </head>
+	
 <body>
-	{% include "partials/account.html" %}
-	{% include "partials/header.html" %}
-    
-	{% block content_wrapper %}
-        <div class="container-fluid page">
-            <div class="page_inner">
-                {% block content %}{% endblock %}
-            </div>
-        </div>
+<!-- banner -->
+	<div class="banner1">
+		<div class="container">
+			<div class="header">
+				<div class="w3_agile_logo">
+                    <a href="{% url 'main:home' %}"><img src="{% static 'logo.png' %}" alt=" " class="img-responsive" style="float:left;width:150px;height:150px"/></a>
+					<h1  style="float:left;padding-top:5%;"><a href="{% url 'main:home' %}" style="float:left;">Bet For Baseball<span>Bet For Better Chance</span></a></h1>
+				</div>
+				<div class="w3_menu">
+					<div class="mobile-nav-button">
+						<div class="mobile-nav-button__line"></div>
+						<div class="mobile-nav-button__line"></div>
+						<div class="mobile-nav-button__line"></div>
+					</div>
+					{% include "partials/header.html" %}
+				</div>
+				<div class="clearfix"> </div>
+			</div>
+			<div class="agileinfo_banner1_info" style="padding-bottom:3%;">
+				<h2>{{ page_title }}</h2>
+			</div>
+		</div>
+	</div>
+<!-- //banner -->
+<!-- breadcrumbs -->
+	
+<!-- //breadcrumbs -->
+<!-- about -->
+    {% block content_wrapper %}
+	<div class="features">
+		<div class="container">
+			{% block content %}{% endblock %}
+		</div>
+		<br/>
+		<br/>
+	</div>
     {% endblock %}
-
+<!-- //about -->
+<!-- team -->
+	
+<!-- //team -->
+<script src="{% static 'js/jquery.gauge.js' %}"></script>
+<script>
+	$(document).ready(function (){
+		$("#gauge1").gauge(30,{color: "#ef3708",unit: " %",type: "halfcircle"});
+		$("#gauge2").gauge(70, {color: "#5f48f9", unit: " %",type: "halfcircle"});
+		$("#gauge3").gauge(75, {color: "#10b55d",unit: " %",type: "halfcircle"});
+		$("#gauge4").gauge(90, {color: "#20c4da",unit: " %",type: "halfcircle"});
+	});
+</script>
+<!-- footer -->
 	{% include "partials/footer.html" %}
+<!-- //footer -->
+<!-- menu -->
+<script>
+	$(document).ready(function () {
+	  $('.mobile-nav-button').on('click', function() {
+	  $( ".mobile-nav-button .mobile-nav-button__line:nth-of-type(1)" ).toggleClass( "mobile-nav-button__line--1");
+	  $( ".mobile-nav-button .mobile-nav-button__line:nth-of-type(2)" ).toggleClass( "mobile-nav-button__line--2");  
+	  $( ".mobile-nav-button .mobile-nav-button__line:nth-of-type(3)" ).toggleClass( "mobile-nav-button__line--3");  
+	  
+	  $('.mobile-menu').toggleClass('mobile-menu--open');
+	  return false;
+	}); 
+	});
+</script>
+<!-- //menu -->
+<!-- start-smoth-scrolling -->
+<script type="text/javascript" src="{% static 'js/move-top.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/easing.js' %}"></script>
+<script type="text/javascript">
+	jQuery(document).ready(function($) {
+		$(".scroll").click(function(event){		
+			event.preventDefault();
+			$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
+		});
+	});
+</script>
+<!-- start-smoth-scrolling -->
+<!-- here stars scrolling icon -->
+	<script type="text/javascript">
+		$(document).ready(function() {
+			/*
+				var defaults = {
+				containerID: 'toTop', // fading element id
+				containerHoverID: 'toTopHover', // fading element hover id
+				scrollSpeed: 1200,
+				easingType: 'linear' 
+				};
+			*/
+								
+			$().UItoTop({ easingType: 'easeOutQuart' });
+								
+			});
+	</script>
+<!-- //here ends scrolling icon -->
+<!-- for bootstrap working -->
+	<script src="{% static 'js/bootstrap.js' %}"></script>
+<!-- //for bootstrap working -->
 </body>
+</html>

@@ -139,7 +139,7 @@ class StatisticsView(PageTitleMixin, generic.TemplateView):
                 continue
             lp = abs(lp)
 
-            if ctx['win_t'] == ctx['win_t']:
+            if winner == ctx['win_t']:
                 if lp >= 9:
                     wpd[8] += 1
                 else:

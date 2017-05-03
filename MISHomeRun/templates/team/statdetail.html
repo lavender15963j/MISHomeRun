@@ -192,44 +192,7 @@
                 </p>
             </div>
     </div>
+    </div>
 
 
-
-    <script>
-        $('.checkboxGroup input').click(function(){
-            if($(this).prop('checked')){
-                $(this).parent().find("input").prop('checked', false);
-                $(this).prop('checked',true);
-            };
-        });
-
-        $('.change_lp input').click(function(){
-            if($(this).attr('name') == 'h'){
-                $(this).parent().parent().find(".lp").prop('value', 1);
-            } else {
-                $(this).parent().parent().find(".lp").prop('value', 0);
-            };
-        });
-
-        $('.change_nlp input').click(function(){
-            if($(this).attr('name') == 'h'){
-                $(this).parent().parent().find(".nlp").prop('value', 1);
-            } else {
-                $(this).parent().parent().find(".nlp").prop('value', 0);
-            };
-        });
-
-        $('.change_bs input').click(function(){
-            if($(this).attr('name') == 'h'){
-                $(this).parent().parent().find(".bs").prop('value', 1);
-            } else {
-                $(this).parent().parent().find(".bs").prop('value', 0);
-            };
-        });
-
-        $('.change_wdp').change(function(){
-            var number = $('.change_wdp option:selected').val();
-            $(this).parent().parent().find(".wdp").prop('value', number);
-        });
-    </script>
 {% endblock %}

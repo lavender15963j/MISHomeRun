@@ -1,0 +1,96 @@
+<div class="panel panel-default">
+    <ul class="nav nav-tabs panel-heading" role="tablist">
+        <li role="presentation" class="active"><a href="#out1" aria-controls="out1" role="tab" data-toggle="tab">讓分</a></li>
+        <li role="presentation"><a href="#out2" aria-controls="out2" role="tab" data-toggle="tab">不讓分</a></li>
+        <li role="presentation"><a href="#in" aria-controls="in" role="tab" data-toggle="tab">大小分</a></li>
+        <li role="presentation"><a href="#sys" aria-controls="sys" role="tab" data-toggle="tab">勝分差</a></li>
+        <li role="presentation"><a href="#all" aria-controls="all" role="tab" data-toggle="tab">總勝率</a></li>
+    </ul>
+
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="out1">
+            <table class="table table-hover">
+                <tr>
+                    <th>名次</th>
+                    <th>會員名稱</th>
+                    <th>勝率</th>
+                </tr>
+                {% for user in lp_users %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td><a id="logout_link" href="{% url 'customer:profile' user.username %}">{{ user.username }}</a></td>
+                        <td>{{ user.lp_wp }} %</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+
+        <div role="tabpanel" class="tab-pane" id="out2">
+            <table class="table table-hover">
+                <tr>
+                    <th>名次</th>
+                    <th>會員名稱</th>
+                    <th>勝率</th>
+                </tr>
+                {% for user in nlp_users %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td><a id="logout_link" href="{% url 'customer:profile' user.username %}">{{ user.username }}</a></td>
+                        <td>{{ user.nlp_wp }} %</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+
+        <div role="tabpanel" class="tab-pane" id="in">
+            <table class="table table-hover">
+                <tr>
+                    <th>名次</th>
+                    <th>會員名稱</th>
+                    <th>勝率</th>
+                </tr>
+                {% for user in bs_users %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td><a id="logout_link" href="{% url 'customer:profile' user.username %}">{{ user.username }}</a></td>
+                        <td>{{ user.bs_wp }} %</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+
+        <div role="tabpanel" class="tab-pane" id="sys">
+            <table class="table table-hover">
+                <tr>
+                    <th>名次</th>
+                    <th>會員名稱</th>
+                    <th>勝率</th>
+                </tr>
+                {% for user in wdp_users %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td><a id="logout_link" href="{% url 'customer:profile' user.username %}">{{ user.username }}</a></td>
+                        <td>{{ user.wdp_wp }} %</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+
+        <div role="tabpanel" class="tab-pane" id="all">
+            <table class="table table-hover">
+                <tr>
+                    <th>名次</th>
+                    <th>會員名稱</th>
+                    <th>勝率</th>
+                </tr>
+                {% for user in all_users %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td><a id="logout_link" href="{% url 'customer:profile' user.username %}">{{ user.username }}</a></td>
+                        <td>{{ user.all_wp }} %</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</div>

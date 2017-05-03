@@ -1,33 +1,25 @@
-<div id="header">
-		<div>
-			<div class="logo">
-				<a href="#">資管全壘打</a>
-			</div>
-			<ul id="navigation">
-				<li class="active">
-					<a href="{% url 'main:home' %}">首頁</a>
-				</li>
-				<li>
-					<a href="#">投注</a>
-					<div class='submenu'>
-						<a href="{% url 'betting:prediction' %}">投注資訊</a>
-						<a href="{% url 'betting:statistics' %}">數據分析</a>
-					</div>
-				</li>
-				<li>
-					<a href="#">球隊</a>
-					<div class='submenu'>
-						<a href="{% url 'team:team1' %}">介紹</a>
-						<a href="#">賽程</a>
-						<a href="{% url 'team:stat1' %}">球隊戰績</a>
-					</div>
-				</li>
-				<li>
-					<a href="#">球員</a>
-				</li>
-				<li>
-					<a href="{% url 'forum:index' %}">討論區</a>
-				</li>
-			</ul>
-		</div>
-	</div>
+<nav class="mobile-menu">
+    {% include "partials/account.html" %}
+    <ul>
+        <li><a href="{% url 'main:home' %}">首頁</a></li>
+        
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="投注">投注 <b class="caret"></b></a>
+            <ul class="dropdown-menu agile_short_dropdown">
+                <li><a href="{% url 'betting:prediction' %}">投注資訊</a></li>
+                <li><a href="{% url 'betting:statistics' %}">數據分析</a></li>
+            </ul>
+        </li>
+        
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="球隊">球隊 <b class="caret"></b></a>
+            <ul class="dropdown-menu agile_short_dropdown">
+                <li><a href="{% url 'team:team1' %}">介紹</a></li>
+                <li><a href="#">賽程</a></li>
+                <li><a href="{% url 'team:stat1' %}">球隊戰績</a></li>
+            </ul>
+        </li>
+        
+        <li><a href="{% url 'forum:index' %}">討論區</a></li>
+    </ul>
+</nav>

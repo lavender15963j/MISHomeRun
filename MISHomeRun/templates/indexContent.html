@@ -1,0 +1,50 @@
+{% extends "index.html" %}
+
+{% load staticfiles %}
+
+{% block content_wrapper %}
+    <style>
+    @font-face {
+        font-family: Font1;
+        src: url({% static 'fonts/font1.TTC' %});
+    }
+
+    h3.title {
+        font-family: Font1, serif;
+    }
+    </style>
+
+    <div class="features">
+		<div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h3 class="w3_agile_header title">投注 <span>排行榜</span></h3>
+                    {% include "partials/index_user_rank.html" %}
+                </div>
+                <div class="col-md-6">
+                    <h3 class="w3_agile_header title">本季 <span>戰績</span></h3>
+                    {% include "partials/index_team_stat.html" %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="features" style="background:#FFFFFF">
+		<div class="container">	
+            <h3 class="w3_agile_header title">最近 <span>賽事</span></h3>
+            {% include "partials/index_betting.html" %}
+        </div>
+    </div>
+
+    <div class="features">
+		<div class="container">
+            <h3 class="w3_agile_header title">熱門 <span>文章</span></h3>
+            {% include "partials/index_topics.html" %}
+        </div>
+    </div>
+
+    <div class="features" style="background:#FFFFFF">
+		<div class="container">	
+            <h3 class="w3_agile_header title"><span>賽程表</span></h3>
+        </div>
+    </div>
+{% endblock %}

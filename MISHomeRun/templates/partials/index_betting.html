@@ -1,0 +1,24 @@
+<div class="row">
+  <div class="col-xs-12">
+    <div class="panel panel-default topiclist">
+      <div class="panel-heading">
+        <div class="row panel-row">
+          <div class="col-md-3 col-sm-9 col-xs-12 topic-name-col"><h3 class="panel-title"><i class="fa fa-users"></i>賽事編號</h3></div>
+          <div class="col-md-3 topic-count-col hidden-sm hidden-xs">日期</div>
+          <div class="col-md-3 topic-count-col hidden-sm hidden-xs">主場</div>
+          <div class="col-md-3 topic-count-col hidden-sm hidden-xs">客場</div>
+        </div>
+      </div>
+      <div class="panel-body">
+        {% for b in bettings %}
+          <div class="row panel-row">
+            <div class="col-md-3 col-sm-9 col-xs-12 topic-name-col"><a href="{% url 'betting:prediction' %}">No. {{ b.game.game_no }}</a><br /><br /></div>
+            <div class="col-md-3 topic-count-col hidden-sm hidden-xs">{{ b.game.date }}</div>
+            <div class="col-md-3 topic-count-col hidden-sm hidden-xs">{{ b.game.home_team.name }}</div>
+            <div class="col-md-3 topic-count-col hidden-sm hidden-xs">{{ b.game.away_team.name }}</div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,4 +1,4 @@
-<div id="top_page" class="navbar navbar-default navbar-static-top accounts">
+<!--<div id="top_page" class="navbar navbar-default navbar-static-top accounts">
     <div class="navbar-header">
         <a class="btn btn-default navbar-toggle collapsed" data-toggle="collapse" data-target=".account-collapse">
             <span class="icon-bar"></span>
@@ -35,4 +35,35 @@
             </ul>
         </div>
     </div>
+</div>-->
+<div class="navbar-collapse account-collapse collapse" style="padding-top: 0%;">
+    <div class="container-fluid">
+        <ul class="nav navbar-nav navbar-right account-nav">
+            {% if request.user.is_authenticated %}
+                <li>
+                    <a id="logout_link" href="{% url 'customer:profile' request.user.username %}">
+                        <!--<img src="{{ request.user.forum_profile.avatar.url }}" style="position:fixed;left: 95%; max-width:100px;"/>-->
+                        <span class="glyphicon glyphicon-user" style="color: white;"></span>&nbsp;{{ request.user.username }}
+                    </a>
+                </li>
+                <li>
+                    <a id="logout_link" href="{% url 'account_logout' %}">
+                        <span class="glyphicon glyphicon-log-out" style="color: white;"></span>&nbsp;登出
+                    </a>
+                </li>
+            {% else %}
+                <li>
+                    <a id="login_link" href="{% url 'account_signup' %}">
+                        <span class="glyphicon glyphicon-registration-mark" style="color: white;"></span>&nbsp;註冊
+                    </a>
+                </li>
+                <li>
+                    <a id="login_link" href="{% url 'account_login' %}">
+                        <span class="glyphicon glyphicon-log-in" style="color: white;"></span>&nbsp;登入
+                    </a>
+                </li>
+            {% endif %}
+        </ul>
+    </div>
+    
 </div>
