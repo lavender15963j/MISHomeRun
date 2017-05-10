@@ -1,5 +1,5 @@
 from django import template
-from customer.models import PurchaseRecord
+from customer2.models import PurchaseRecord
 
 register = template.Library()
 

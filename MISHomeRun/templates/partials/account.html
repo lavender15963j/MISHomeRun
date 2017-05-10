@@ -11,7 +11,7 @@
             <ul class="nav navbar-nav navbar-right">
                 {% if request.user.is_authenticated %}
                     <li>
-                        <a id="logout_link" href="{% url 'customer:profile' request.user.username %}">
+                        <a id="logout_link" href="{% url 'customer2:profile' request.user.username %}">
                             <span class="glyphicon glyphicon-user"></span>&nbsp;{{ request.user.username }}
                         </a>
                     </li>
@@ -41,7 +41,7 @@
         <ul class="nav navbar-nav navbar-right account-nav">
             {% if request.user.is_authenticated %}
                 <li>
-                    <a id="logout_link" href="{% url 'customer:profile' request.user.username %}">
+                    <a id="logout_link" href="{% url 'customer2:profile' request.user.username %}">
                         <!--<img src="{{ request.user.forum_profile.avatar.url }}" style="position:fixed;left: 95%; max-width:100px;"/>-->
                         <span class="glyphicon glyphicon-user" style="color: white;"></span>&nbsp;{{ request.user.username }}
                     </a>

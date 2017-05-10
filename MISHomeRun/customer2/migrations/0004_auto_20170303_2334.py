@@ -7,13 +7,13 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('customer', '0010_systemgiverecord_note'),
+        ('customer2', '0003_auto_20170303_2038'),
     ]
 
     operations = [
-        migrations.AlterField(
-            model_name='systemgiverecord',
-            name='reason',
-            field=models.TextField(null=True, blank=True),
+        migrations.RenameField(
+            model_name='fakenote',
+            old_name='wpd1',
+            new_name='wpd_num',
         ),
     ]

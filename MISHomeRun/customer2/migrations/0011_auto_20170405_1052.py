@@ -7,13 +7,13 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('customer', '0007_auto_20170318_1510'),
+        ('customer2', '0010_systemgiverecord_note'),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='fakenote',
-            name='choice_team',
-            field=models.BooleanField(),
+            model_name='systemgiverecord',
+            name='reason',
+            field=models.TextField(null=True, blank=True),
         ),
     ]

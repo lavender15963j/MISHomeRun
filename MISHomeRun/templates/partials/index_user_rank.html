@@ -18,7 +18,7 @@
                 {% for user in lp_users %}
                     <tr>
                         <td>{{ forloop.counter }}</td>
-                        <td><a id="logout_link" href="{% url 'customer:profile' user.username %}">{{ user.username }}</a></td>
+                        <td><a id="logout_link" href="{% url 'customer2:profile' user.username %}">{{ user.username }}</a></td>
                         <td>{{ user.lp_wp }} %</td>
                     </tr>
                 {% endfor %}
@@ -35,7 +35,7 @@
                 {% for user in nlp_users %}
                     <tr>
                         <td>{{ forloop.counter }}</td>
-                        <td><a id="logout_link" href="{% url 'customer:profile' user.username %}">{{ user.username }}</a></td>
+                        <td><a id="logout_link" href="{% url 'customer2:profile' user.username %}">{{ user.username }}</a></td>
                         <td>{{ user.nlp_wp }} %</td>
                     </tr>
                 {% endfor %}
@@ -52,7 +52,7 @@
                 {% for user in bs_users %}
                     <tr>
                         <td>{{ forloop.counter }}</td>
-                        <td><a id="logout_link" href="{% url 'customer:profile' user.username %}">{{ user.username }}</a></td>
+                        <td><a id="logout_link" href="{% url 'customer2:profile' user.username %}">{{ user.username }}</a></td>
                         <td>{{ user.bs_wp }} %</td>
                     </tr>
                 {% endfor %}
@@ -69,7 +69,7 @@
                 {% for user in wdp_users %}
                     <tr>
                         <td>{{ forloop.counter }}</td>
-                        <td><a id="logout_link" href="{% url 'customer:profile' user.username %}">{{ user.username }}</a></td>
+                        <td><a id="logout_link" href="{% url 'customer2:profile' user.username %}">{{ user.username }}</a></td>
                         <td>{{ user.wdp_wp }} %</td>
                     </tr>
                 {% endfor %}
@@ -86,7 +86,7 @@
                 {% for user in all_users %}
                     <tr>
                         <td>{{ forloop.counter }}</td>
-                        <td><a id="logout_link" href="{% url 'customer:profile' user.username %}">{{ user.username }}</a></td>
+                        <td><a id="logout_link" href="{% url 'customer2:profile' user.username %}">{{ user.username }}</a></td>
                         <td>{{ user.all_wp }} %</td>
                     </tr>
                 {% endfor %}

@@ -17,7 +17,7 @@ from django.db.models import Q
 from betting.models import Betting
 from team.models import Team
 from game.models import Game
-from customer.models import FakeNote
+from customer2.models import FakeNote
 from main.mixins import PageTitleMixin
 from betting.forms import FakeNoteForm
 

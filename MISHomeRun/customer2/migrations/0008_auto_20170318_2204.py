@@ -7,13 +7,13 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('customer', '0003_auto_20170303_2038'),
+        ('customer2', '0007_auto_20170318_1510'),
     ]
 
     operations = [
-        migrations.RenameField(
+        migrations.AlterField(
             model_name='fakenote',
-            old_name='wpd1',
-            new_name='wpd_num',
+            name='choice_team',
+            field=models.BooleanField(),
         ),
     ]

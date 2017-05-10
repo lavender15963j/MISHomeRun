@@ -1,0 +1,1 @@
+python manage.py dumpdata account betting customer2 forum_attachments forum_conversation forum forum_member forum_permission forum_polls forum_tracking game main social_auth team > initial_data.json

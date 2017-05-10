@@ -8,11 +8,11 @@ from django.contrib import messages
 from machina.core.db.models import get_model
 from machina.conf import settings as machina_settings
 
-from customer.models import RealNote, FakeNote
+from customer2.models import RealNote, FakeNote
 from main.models import User
 from betting.models import Betting
-from customer.forms import RealNoteForm, PurchaseForm
-from customer.models import PurchaseRecord, SystemGiveRecord
+from customer2.forms import RealNoteForm, PurchaseForm
+from customer2.models import PurchaseRecord, SystemGiveRecord
 from main.mixins import PageTitleMixin
 
 Forum = get_model('forum', 'Forum')
@@ -21,7 +21,7 @@ Post = get_model('forum_conversation', 'Post')
 Topic = get_model('forum_conversation', 'Topic')
 
 class ProfileView(PageTitleMixin, generic.TemplateView):
-    template_name = 'customer/profile.html'
+    template_name = 'customer2/profile.html'
     page_title = '個人資料'
     active_tab = 'profile'
 
@@ -33,13 +33,13 @@ class ProfileView(PageTitleMixin, generic.TemplateView):
         return ctx
 
 class RealNoteView(PageTitleMixin, FormView):
-    template_name = 'customer/real.html'
+    template_name = 'customer2/real.html'
     page_title = '真實投注筆記'
     active_tab = 'real'
     form_class = RealNoteForm
 
     def get_success_url(self):
-        return reverse_lazy('customer:real', 
+        return reverse_lazy('customer2:real', 
                             kwargs={'pk': self.request.user.id, })
 
     def form_valid(self, form):
@@ -63,7 +63,7 @@ class RealNoteView(PageTitleMixin, FormView):
         
 
 class FakeNoteView(PageTitleMixin, generic.TemplateView):
-    template_name = 'customer/fake.html'
+    template_name = 'customer2/fake.html'
     page_title = '虛擬投注記錄'
     active_tab = 'fake'
 
@@ -122,10 +122,10 @@ class PurchaseView(FormView):
         return super(PurchaseView, self).form_invalid(form)
 
     def get_success_url(self):
-        return reverse_lazy('customer:fake', args=(self.username,))
+        return reverse_lazy('customer2:fake', args=(self.username,))
 
 class CoinView(PageTitleMixin, generic.TemplateView):
-    template_name = 'customer/coin.html'
+    template_name = 'customer2/coin.html'
     page_title = '金幣花費資訊'
     active_tab = 'coin'
 
@@ -149,7 +149,7 @@ class CoinView(PageTitleMixin, generic.TemplateView):
         return ctx  
 
 class ForumView(PageTitleMixin, generic.TemplateView):
-    template_name = 'customer/forum.html'
+    template_name = 'customer2/forum.html'
     page_title = '發表文章'
     active_tab = 'forum'
 

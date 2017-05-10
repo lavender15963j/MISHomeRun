@@ -33,8 +33,8 @@ urlpatterns = [
     # main
     url(r'', include("main.urls", namespace='main')),
 
-    # customer
-    url(r'^customer/', include("customer.urls", namespace='customer')),
+    # customer2
+    url(r'^customer2/', include("customer2.urls", namespace='customer2')),
 
     # betting
     url(r'^betting/', include("betting.urls", namespace='betting')),

@@ -1,6 +1,6 @@
 from django import template
 
-from customer.models import FakeNote
+from customer2.models import FakeNote
 
 register = template.Library()
 

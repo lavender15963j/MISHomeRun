@@ -245,7 +245,7 @@ class SystemGiveRecord(models.Model):
     )
 
     note = models.ForeignKey(
-        'customer.FakeNote',
+        'customer2.FakeNote',
         on_delete=models.CASCADE,
         related_name='by_note',
         null=True,
@@ -270,7 +270,7 @@ class PurchaseRecord(models.Model):
     )
 
     buy_note = models.ForeignKey(
-        'customer.FakeNote',
+        'customer2.FakeNote',
         on_delete=models.CASCADE,
         related_name='buy_note',
     )

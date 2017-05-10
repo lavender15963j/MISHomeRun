@@ -1,4 +1,4 @@
-{% extends "customer/profile_layout.html" %}
+{% extends "customer2/profile_layout.html" %}
 
 {% load i18n %}
 
@@ -61,7 +61,7 @@
                         <p>{{ p.create_date }}</p>
                     </td>
                      <td>
-                        <a href="{% url 'customer:profile' note.user.username %}">{{ note.user }}</a>
+                        <a href="{% url 'customer2:profile' note.user.username %}">{{ note.user }}</a>
                     </td>
                      <td>
                         <p>No.{{ note.betting.game.game_no }}</p>
@@ -105,7 +105,7 @@
                         <p>{{ i.create_date }}</p>
                     </td>
                     <td>
-                        <a href="{% url 'customer:profile' i.buyer.username %}">{{ i.buyer }}</a>
+                        <a href="{% url 'customer2:profile' i.buyer.username %}">{{ i.buyer }}</a>
                     </td>
                      <td>
                         <p>No.{{ note.betting.game.game_no }}</p>

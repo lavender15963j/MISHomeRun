@@ -3,7 +3,7 @@
 
 from django.core.management.base import BaseCommand
 from main.models import User
-from customer.models import SystemGiveRecord
+from customer2.models import SystemGiveRecord
 
 class Command(BaseCommand):
     

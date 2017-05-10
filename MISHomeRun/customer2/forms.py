@@ -3,7 +3,7 @@
 
 from django import forms
 
-from customer.models import RealNote
+from customer2.models import RealNote
 
 class PurchaseForm(forms.Form):
     buy_for = forms.CharField(max_length=5)

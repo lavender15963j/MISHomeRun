@@ -10,7 +10,7 @@ class Migration(migrations.Migration):
     dependencies = [
         ('betting', '0001_initial'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('customer', '0001_initial'),
+        ('customer2', '0001_initial'),
     ]
 
     operations = [
@@ -32,7 +32,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='purchaserecord',
             name='buy_note',
-            field=models.ForeignKey(related_name='buy_note', to='customer.FakeNote'),
+            field=models.ForeignKey(related_name='buy_note', to='customer2.FakeNote'),
         ),
         migrations.AddField(
             model_name='purchaserecord',

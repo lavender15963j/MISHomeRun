@@ -5,7 +5,7 @@ import datetime
 
 from django.core.management.base import BaseCommand
 from django.utils import timezone
-from customer.models import PurchaseRecord, SystemGiveRecord, FakeNote
+from customer2.models import PurchaseRecord, SystemGiveRecord, FakeNote
 from main.models import User
 
 class Command(BaseCommand):

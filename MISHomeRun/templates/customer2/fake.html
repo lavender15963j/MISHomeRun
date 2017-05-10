@@ -1,4 +1,4 @@
-{% extends "customer/profile_layout.html" %}
+{% extends "customer2/profile_layout.html" %}
 
 {% load i18n %}
 {% load has_buyed %}
@@ -46,7 +46,7 @@
             <label>{% if betting.home_team_PN == False %}+{% else %}-{% endif %}{{ betting.let_point_number }}({{ betting.lp_away_team_odds }})</label>                            
             <input type="checkbox" disabled {% if note.lp_team == False %}checked{% endif %}>
         {% else %}
-            <form action="{% url 'customer:purchase' %}" method='POST' onsubmit="return CheckForm();">
+            <form action="{% url 'customer2:purchase' %}" method='POST' onsubmit="return CheckForm();">
                 {% csrf_token %}
                 <input type='hidden' value='lp' name='buy_for'/>
                 <input type='hidden' value='{{ note.id }}' name='buy_note'/>
@@ -64,7 +64,7 @@
             <label>({{ betting.nlp_away_team_odds }})</label>                            
             <input type="checkbox" disabled {% if note.nlp_team == False %}checked{% endif %}/>
         {% else %}
-            <form action="{% url 'customer:purchase' %}" method='POST' onsubmit="return CheckForm();">
+            <form action="{% url 'customer2:purchase' %}" method='POST' onsubmit="return CheckForm();">
                 {% csrf_token %}
                 <input type='hidden' value='nlp' name='buy_for'/>
                 <input type='hidden' value='{{ note.id }}' name='buy_note'/>
@@ -82,7 +82,7 @@
             <label>{{ betting.big_small_point_number }}({{ betting.small_odds }})</label>                            
             <input type="checkbox" disabled {% if note.b_or_s == False %}checked{% endif %}/>
         {% else %}
-            <form action="{% url 'customer:purchase' %}" method='POST' onsubmit="return CheckForm();">
+            <form action="{% url 'customer2:purchase' %}" method='POST' onsubmit="return CheckForm();">
                 {% csrf_token %}
                 <input type='hidden' value='bs' name='buy_for'/>
                 <input type='hidden' value='{{ note.id }}' name='buy_note'/>
@@ -126,7 +126,7 @@
                         {% endif %}
                     </select>
           {% else %}
-            <form action="{% url 'customer:purchase' %}" method='POST' onsubmit="return CheckForm();">
+            <form action="{% url 'customer2:purchase' %}" method='POST' onsubmit="return CheckForm();">
                 {% csrf_token %}
                 <input type='hidden' value='wdp' name='buy_for'/>
                 <input type='hidden' value='{{ note.id }}' name='buy_note'/>

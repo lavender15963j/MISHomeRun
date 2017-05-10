@@ -52,7 +52,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
 
     'main',
-    'customer',
+    'customer2',
     'game',
     'team',
     'betting',
