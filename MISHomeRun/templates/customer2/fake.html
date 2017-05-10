@@ -50,8 +50,8 @@
                 {% csrf_token %}
                 <input type='hidden' value='lp' name='buy_for'/>
                 <input type='hidden' value='{{ note.id }}' name='buy_note'/>
-                <input type='hidden' value='1' name='cost'/>
-                <input type='submit' value='1金幣購買'/>
+                <input type='hidden' value='{{ note.user.level }}' name='cost'/>
+                <input type='submit' value='{{ note.user.level }}金幣購買'/>
             </form>
         {% endif %}   
       </td>
@@ -68,8 +68,8 @@
                 {% csrf_token %}
                 <input type='hidden' value='nlp' name='buy_for'/>
                 <input type='hidden' value='{{ note.id }}' name='buy_note'/>
-                <input type='hidden' value='1' name='cost'/>
-                <input type='submit' value='1金幣購買'/>
+                <input type='hidden' value='{{ note.user.level }}' name='cost'/>
+                <input type='submit' value='{{ note.user.level }}金幣購買'/>
             </form>
         {% endif %}   
       </td>
@@ -86,8 +86,8 @@
                 {% csrf_token %}
                 <input type='hidden' value='bs' name='buy_for'/>
                 <input type='hidden' value='{{ note.id }}' name='buy_note'/>
-                <input type='hidden' value='1' name='cost'/>
-                <input type='submit' value='1金幣購買'/>
+                <input type='hidden' value='{{ note.user.level }}' name='cost'/>
+                <input type='submit' value='{{ note.user.level }}金幣購買'/>
             </form>
         {% endif %}   
       </td>
@@ -130,8 +130,8 @@
                 {% csrf_token %}
                 <input type='hidden' value='wdp' name='buy_for'/>
                 <input type='hidden' value='{{ note.id }}' name='buy_note'/>
-                <input type='hidden' value='1' name='cost'/>
-                <input type='submit' value='1金幣購買'/>
+                <input type='hidden' value='{{ note.user.level }}' name='cost'/>
+                <input type='submit' value='{{ note.user.level }}金幣購買'/>
             </form>
         {% endif %}   
       </td>
