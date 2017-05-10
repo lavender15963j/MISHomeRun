@@ -25,6 +25,10 @@ class StatisticsView(PageTitleMixin, generic.TemplateView):
     template_name = 'betting/statistics.html'
     page_title = '數據分析'
 
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(StatisticsView, self).dispatch(*args, **kwargs)
+
     def get_context_data(self, **kwargs):
         ctx = super(StatisticsView, self).get_context_data(**kwargs)
 
@@ -163,7 +167,8 @@ class PredictionView(PageTitleMixin, FormView):
         td = datetime.datetime.today()
         td = td + datetime.timedelta(days=1)
         td = td.strftime("%Y-%m-%d")
-        ctx['bettings'] = Betting.objects.filter(game__date__lt=td).order_by('-game__date')
+        #ctx['bettings'] = Betting.objects.filter(game__date__lt=td).order_by('-game__date')
+        ctx['bettings'] = Betting.objects.all().order_by('-game__date')
         return ctx
 
     def form_valid(self, form):

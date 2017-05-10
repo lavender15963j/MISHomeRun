@@ -34,8 +34,8 @@
           <p>{{ game.date }}</p>
       </td>
       <td>
-        <p>主場: {{ game.home_team }}{% if game.is_final %}:<span style="color:red;">{{ game.home_team_score }}{% if game.winner == True %}(勝){% endif %}{% endif %}</span></p>
-        <p>客場: {{ game.away_team }}{% if game.is_final %}:<span style="color:red;">{{ game.away_team_score }}{% if game.winner == False %}(勝){% endif %}{% endif %}</span></p>
+        <p>主場: {{ game.home_team }}{% if game.is_final %}:<span style="color:red;">{{ game.home_team_score|default:'' }}{% if game.winner == True %}(勝){% endif %}{% endif %}</span></p>
+        <p>客場: {{ game.away_team }}{% if game.is_final %}:<span style="color:red;">{{ game.away_team_score|default:'' }}{% if game.winner == False %}(勝){% endif %}{% endif %}</span></p>
       </td>
       <td>
         {% has_buyed request.user note 'lp' as lp %}
@@ -137,7 +137,11 @@
       </td>
       <td>
         {% if game.is_final %}
-            {{ note.get_coin }}
+            {% if game.home_team_score %}
+                {{ note.get_coin }}{% if note.is_1h %}(+1){% endif %}
+            {% else %}
+                <p>更新中</p>
+            {% endif %}
         {% else %}
             <p>尚未比賽</p>
         {% endif %}

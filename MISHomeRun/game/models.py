@@ -28,7 +28,7 @@ class Game(models.Model):
 
     @property
     def is_final(self):
-        if self.winner is None:
+        if self.winner is None and self.away_team_score is None and self.home_team_score is None:
             nowtime = timezone.now()
             if self.date < nowtime:
                 return True

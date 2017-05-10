@@ -20,8 +20,14 @@ from machina import get_apps as get_machina_apps
 from machina import MACHINA_MAIN_TEMPLATE_DIR
 from machina import MACHINA_MAIN_STATIC_DIR
 
+from oscar import get_core_apps
+from oscar import OSCAR_MAIN_TEMPLATE_DIR
+from oscar.defaults import *
+from django.utils.translation import ugettext_lazy as _
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+SITE_ID = 1
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
@@ -50,6 +56,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    'django.contrib.flatpages',
 
     'main',
     'customer2',
@@ -63,8 +70,11 @@ INSTALLED_APPS = [
     'mptt',
     'haystack',
     'widget_tweaks',
-] + get_machina_apps()
-
+    'paypal',
+    'ecpay',
+    'compressor',
+    'widget_tweaks',
+] + get_machina_apps() + get_core_apps(['checkout',])
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -77,6 +87,9 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.security.SecurityMiddleware',
 
     'machina.apps.forum_permission.middleware.ForumPermissionMiddleware',
+
+    'oscar.apps.basket.middleware.BasketMiddleware',
+    'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
 )
 
 ROOT_URLCONF = 'MISHomeRun.urls'
@@ -89,6 +102,7 @@ TEMPLATES = [
         'DIRS': [
                 os.path.join(BASE_DIR, 'templates'),
                 MACHINA_MAIN_TEMPLATE_DIR,
+                OSCAR_MAIN_TEMPLATE_DIR,
             ],
         'APP_DIRS': False,
         'OPTIONS': {
@@ -99,6 +113,12 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
 
                 'machina.core.context_processors.metadata',
+
+                'oscar.apps.search.context_processors.search_form',
+                'oscar.apps.promotions.context_processors.promotions',
+                'oscar.apps.checkout.context_processors.checkout',
+                'oscar.apps.customer.notifications.context_processors.notifications',
+                'oscar.core.context_processors.metadata',
             ],
             'loaders': [
                 'django.template.loaders.filesystem.Loader',
@@ -109,6 +129,89 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'MISHomeRun.wsgi.application'
+
+# Haystack
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.simple_backend.SimpleEngine',
+    },
+}
+
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.simple_backend.SimpleEngine',
+    },
+}
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'oscar.apps.customer.auth_backends.EmailBackend',
+)
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'mail.nuwainfo.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'test@nuwainfo.com'
+EMAIL_HOST_PASSWORD = 'test25025529'
+DEFAULT_FROM_EMAIL = 'test@nuwainfo.com'
+
+OSCAR_FROM_EMAIL = DEFAULT_FROM_EMAIL
+
+# http://www.xe.com/symbols.php
+OSCAR_DEFAULT_CURRENCY = 'TWD'
+
+OSCAR_HOMEPAGE = '/shop/catalogue/category/jin-bi_1/'
+
+# PayPal Config
+
+
+if SERVER_MODE == DEVELOPMENT:
+    PAYPAL_SANDBOX_MODE = True
+    
+    PAYPAL_API_USERNAME = 'lavender15963j-facilitator_api1.gmail.com'
+    PAYPAL_API_PASSWORD = 'QCC98A96EEYAVDNW'
+    PAYPAL_API_SIGNATURE = 'AFcWxV21C7fd0v3bYYYRCpSSRl31AxFCpDXkIQYcNt0ChAH0ixFH98NB'
+else:
+    PAYPAL_SANDBOX_MODE = False
+
+    PAYPAL_API_USERNAME = 'lavender15963j_api3.gmail.com'
+    PAYPAL_API_PASSWORD = '9UJS47NY997ZAGSD'
+    PAYPAL_API_SIGNATURE = 'AiPC9BjkCyDFQXbSkoZcgqH3hpacAK0h.O7u.6XDJVEojRRu7qvDICTz'
+    
+# ECPay
+if SERVER_MODE == DEVELOPMENT or SERVER_MODE == STAGE:
+    ECPAY_SANDBOX = True
+    MERCHANT_ID = '2000132'
+    HASH_KEY = '5294y06JbISpM5x9'
+    HASH_IV = 'v77hoKGq4kWxNNIS'
+else:
+    ECPAY_SANDBOX = True
+    MERCHANT_ID = '2000132'
+    HASH_KEY = '5294y06JbISpM5x9'
+    HASH_IV = 'v77hoKGq4kWxNNIS'
+    
+ALLPAY_AUTO_SEND_FORM = False
+
+# http://localhost:8000/ 會被 view 取代掉    
+RETURN_URL = 'http://localhost:8000/ecpay/preview/'
+CLIENT_BACK_URL = 'http://localhost:8000/'
+PAYMENT_INFO_URL = 'http://localhost:8000/feedback'
+    
+OSCAR_DASHBOARD_NAVIGATION += [
+    {
+        'label': _('PayPal'),
+        'icon': 'icon-globe',
+        'children':[
+            {
+                'label': _('Express transactions'),
+                'url_name': 'paypal-express-list',
+            },
+        ]
+    },
+    ]
+
 
 
 # Database

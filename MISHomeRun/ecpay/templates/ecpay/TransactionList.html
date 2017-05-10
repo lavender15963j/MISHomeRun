@@ -1,0 +1,71 @@
+{% extends 'dashboard/layout.html' %}
+{% load currency_filters %}
+{% load i18n %}
+{% load url from future %}
+
+{% block title %}
+    {% trans "ECPay transactions" %} | {{ block.super }}
+{% endblock %}
+
+{% block breadcrumbs %}
+    <ul class="breadcrumb">
+        <li>
+            <a href="{% url 'dashboard:index' %}">{% trans "Dashboard" %}</a>
+            <span class="divider">/</span>
+        </li>
+        <li>
+            ECPay <span class="divider">/</span>
+        </li>
+        <li class="active">{% trans "Transactions" %}</li>
+    </ul>
+{% endblock %}
+
+{% block headertext %}
+    {% trans "ECPay Express transactions" %}
+{% endblock %}
+
+{% block dashboard_content %}
+
+    {% if transactions %}
+        <table class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>{% trans "MerchantID" %}</th>
+                    <th>{% trans "MerchantTradeNo" %}</th>
+                    <th>{% trans "TradeNo" %}</th>
+                    <th>{% trans "TradeDate" %}</th>
+                    <th>{% trans "PaymentDate" %}</th>
+                    <th>{% trans "TradeAmt" %}</th>
+                    <th>{% trans "PayAmt" %}</th>
+                    <th>{% trans "RtnCode" %}</th>
+                    <th>{% trans "RtnMsg" %}</th>
+                    <th>{% trans "PaymentType" %}</th>
+                    <th>{% trans "SimulatePaid" %}</th>
+                    <th>{% trans "PaymentTypeChargeFee" %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for txn in transactions %}
+                    <tr>
+                        <td>{{ txn.merchantId|default:"-" }}</a></td>
+                        <td>{{ txn.merchantTradeNo }}</td>
+                        <td>{{ txn.tradeNo }}</td>
+                        <td>{{ txn.tradeDate }}</td>
+                        <td>{{ txn.paymentDate|default:'-' }}</td>
+                        <td>{{ txn.tradeAmt|default:'-' }}</td>
+                        <td>{{ txn.payAmt|default:'-' }}</td>
+                        <td>{{ txn.rtnCode }}</td>
+                        <td>{{ txn.rtnMsg }}</td>
+                        <td>{{ txn.paymentType }}</td>
+                        <td>{{ txn.simulatePaid }}</td>
+                        <td>{{ txn.paymentTypeChargeFee }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% include "partials/pagination.html" %}
+    {% else %}
+        <p>{% trans "No transactions have been made yet." %}</p>
+    {% endif %}
+
+{% endblock dashboard_content %}

@@ -1,0 +1,58 @@
+{% extends 'oscar/checkout/payment_details.html' %}
+{% load url from future %}
+{% load i18n %}
+
+{% block checkout_title %}付款資訊{% endblock %}
+
+{% block payment_details %}
+
+
+
+
+    <p>選擇付款方式並按下圖示進行付款</p>
+    
+    <div class="well">
+        <div class="sub-header">
+            <h3>PayPal</h3>
+        </div>
+        
+        <div style="overflow:auto">
+            <a href="{% url 'paypal-direct-payment' %}" title="{% trans "Pay with PayPal" %}" class="pay">
+                <img src="https://www.paypalobjects.com/images/shared/paypal-logo-129x32.svg" align="left" style="margin-right:7px;width:180px;height:120px">
+            </a>&nbsp;
+        </div>
+        <p>{{ url }}</p>
+    </div>
+    
+    <div class="well">
+        <div class="sub-header">
+            <h3>綠界科技</h3>
+        </div>
+        <div style="overflow:auto">
+            <a href="#" title="{% trans "Pay with ECPay" %}" id='ecpay' class="pay">
+                <img src="https://www.ecpay.com.tw/Content/Themes/WebStyle20131201/images/header_logo.png" align="left" style="margin-right:7px;width:180px;height:80px">
+            </a>&nbsp;
+        </div>
+    </div>
+    
+    <div id="allpay-form-div">
+        {{ form |safe }}
+	</div>
+    
+    <script>
+        
+		$(document).ready(function(){
+            
+            $('#ecpay').click(function(){
+                $('#allPay-Form').submit();
+            });
+            
+            if($(".pay").length==1){
+                $(".pay").click();
+            }; 
+        }); 
+	</script>
+    
+        
+
+{% endblock %}

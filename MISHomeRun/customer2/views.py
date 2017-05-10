@@ -5,6 +5,8 @@ from django.views import generic
 from django.views.generic.edit import FormView
 from django.core.urlresolvers import reverse_lazy
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 from machina.core.db.models import get_model
 from machina.conf import settings as machina_settings
 
@@ -24,6 +26,10 @@ class ProfileView(PageTitleMixin, generic.TemplateView):
     template_name = 'customer2/profile.html'
     page_title = '個人資料'
     active_tab = 'profile'
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(ProfileView, self).dispatch(*args, **kwargs)
 
     def get_context_data(self, **kwargs):
         ctx = super(ProfileView, self).get_context_data(**kwargs)
@@ -66,6 +72,10 @@ class FakeNoteView(PageTitleMixin, generic.TemplateView):
     template_name = 'customer2/fake.html'
     page_title = '虛擬投注記錄'
     active_tab = 'fake'
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(FakeNoteView, self).dispatch(*args, **kwargs)
 
     def get_context_data(self, **kwargs):
         ctx = super(FakeNoteView, self).get_context_data(**kwargs)

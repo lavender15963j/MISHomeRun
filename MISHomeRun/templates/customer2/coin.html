@@ -152,7 +152,7 @@
                         <p>{{ s.create_date }}</p>
                     </td>
                      <td>
-                        <p>No.{{ game.game_no }}</p>
+                        <p>{% if game %}No.{{ game.game_no }}{% endif %}</p>
                      </td>
                      <td>
                        {% if s.w_lp %}

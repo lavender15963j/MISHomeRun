@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import datetime
+
 from django.db import models
 
 class RealNote(models.Model):
@@ -182,58 +184,31 @@ class FakeNote(models.Model):
             return True
         return False
 
+    @property
+    def is_1h(self): 
+        if self.create_date < self.betting.game.date + datetime.timedelta(hours=-1):
+            return True
+        return False
 
-    """
+    
     @property
     def get_coin(self):
-        is_home_team_winner = self.betting.game.winner == True
-        is_away_team_winner = not is_home_team_winner
-        
         coins = 0
 
-        if self.betting.game.home_team_score > self.betting.game.away_team_score:
-            lp = self.betting.game.home_team_score - self.betting.game.away_team_score
-        else:
-            lp = self.betting.game.away_team_score - self.betting.game.home_team_score
+        if self.is_win_lp():
+            coins += 1
 
-        if lp > self.betting.let_point_number:
-            if self.lp_team == True:
-                if is_home_team_winner:
-                    coins = coins + 1
-            if self.lp_team == False:
-                if is_away_team_winner:
-                    coins = coins + 1
+        if self.is_win_nlp():
+            coins += 1
 
-        if self.nlp_team == True:
-            if is_home_team_winner:
-                coins = coins + 1
-        if self.nlp_team == False:
-            if is_away_team_winner:
-                coins = coins + 1
-
-        allScore = self.betting.game.home_team_score + self.betting.game.away_team_score
-        if allScore > self.betting.big_small_point_number:
-            bs = True
-        else:
-            bs = False
-        if bs == self.b_or_s:
-            coins = coins + 1
-
-        num = None
-        for i in range(1, 10):
-            if self.betting.game.home_team_score > self.betting.game.away_team_score:
-                temp = self.betting.game.home_team_score - self.betting.game.away_team_score
-            else:
-                temp = self.betting.game.away_team_score - self.betting.game.home_team_score
-            if  (temp > 0 and temp <=1) or (i == 9 and i > 1):
-                num = i
-                break
+        if self.is_win_bs():
+            coins += 1
         
-        if num == self.wpd_num:
-            coins = coins + 1
+        if self.is_win_wpd():
+            coins += 1
 
         return coins
-    """
+    
 
 
 

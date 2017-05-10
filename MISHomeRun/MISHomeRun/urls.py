@@ -21,8 +21,11 @@ from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
 from machina.app import board
+from oscar.app import application as shop
+# from paypal.express.dashboard.app import application
 
 from main import views as mainView
+from ecpay import views as ecpayView
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
@@ -44,5 +47,11 @@ urlpatterns = [
 
     # forum
     url(r'^forum/', include(board.urls)),
+
+    # shop
+    url(r'^shop/', include(shop.urls)),
+    url(r'^shop/checkout/paypal/', include('paypal.express.urls')),
+    url(r'^ecpay/preview', ecpayView.SuccessResponseView.as_view(), 
+                            name='ecpayPreview'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -30,8 +30,8 @@
                     <p>{{ game.date }}</p>
                 </td>
                 <td>
-                    <p>主場: {{ game.home_team }}{% if game.is_final %}:<span style="color:red;">{{ game.home_team_score }}{% if game.winner == True %}(勝){% endif %}{% endif %}</span></p>
-                    <p>客場: {{ game.away_team }}{% if game.is_final %}:<span style="color:red;">{{ game.away_team_score }}{% if game.winner == False %}(勝){% endif %}{% endif %}</span></p>
+                    <p>主場: {{ game.home_team }}{% if game.is_final %}:<span style="color:red;">{{ game.home_team_score|default:'' }}{% if game.winner == True %}(勝){% endif %}{% endif %}</span></p>
+                    <p>客場: {{ game.away_team }}{% if game.is_final %}:<span style="color:red;">{{ game.away_team_score|default:'' }}{% if game.winner == False %}(勝){% endif %}{% endif %}</span></p>
                 </td>
                 <td class="checkboxGroup change_lp">
                     {% if not note %}
@@ -154,7 +154,7 @@
                 </td>
                 <td>
                     {% if game.is_final %}
-                        <p>比賽結束</p>
+                        <p>投注結束</p>
                     {% else %}
                         {% if not note %}
                         <form action="{% url 'betting:prediction' %}" method="POST" onsubmit="return CheckForm();">
@@ -165,8 +165,8 @@
                             <input class='bs' type="hidden" name='bs' required/>
                             <input class='choice' type="hidden" name='choice' required/>
                             <input class='wdp' type="hidden" name='wpd' required/>
-                            <br />
-                            <input type='submit' value='花4金幣投注'/>
+                            
+                            <input class="btn btn-default" type='submit' value='花4金幣投注'/>
                         </form>
                         {% endif %}
                     {% endif %}
