@@ -54,4 +54,7 @@ urlpatterns = [
     url(r'^ecpay/preview', ecpayView.SuccessResponseView.as_view(), 
                             name='ecpayPreview'),
 
+    # ckeditor
+    url(r'^ckeditor/', include('ckeditor_uploader.urls')),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

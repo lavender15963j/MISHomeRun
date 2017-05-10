@@ -74,7 +74,23 @@ INSTALLED_APPS = [
     'ecpay',
     'compressor',
     'widget_tweaks',
-] + get_machina_apps() + get_core_apps(['checkout',])
+
+    'ckeditor',
+    'ckeditor_uploader',
+] + get_machina_apps(['apps.forum_conversation',]) + get_core_apps(['checkout',])
+
+CKEDITOR_JQUERY_URL = '//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js'
+CKEDITOR_IMAGE_BACKEND = "pillow"
+
+CKEDITOR_UPLOAD_PATH = "uploads/"
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full',
+        'height': 500,
+        'width': 1000,
+    },
+}
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -309,3 +325,7 @@ MACHINA_DEFAULT_AUTHENTICATED_USER_FORUM_PERMISSIONS = [
     'can_vote_in_polls',
     'can_download_file',
 ]
+
+MIGRATION_MODULES = {
+  'forum_conversation': 'machina.apps.forum_conversation.migrations',
+}

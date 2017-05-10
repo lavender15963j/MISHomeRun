@@ -31,6 +31,7 @@
     </div>
   </div>
 </div>
+
 <div class="row">
   <div class="col-xs-12">
     <div class="panel panel-default topic-review">
@@ -58,7 +59,11 @@
               {% endspaceless %}
               </small></p>
               <div class="post-content">
-                {{ post.content.rendered }}
+                {% if post.content2 %}
+                    {{ post.content2|safe }}
+                {% else %}
+                  {{ post.content.rendered }}
+                {% endif %}
               </div>
               {% include "forum_conversation/forum_attachments/attachments_detail.html" %}
             </div>
@@ -71,6 +76,7 @@
     </div>
   </div>
 </div>
+
 {% endblock content %}
 
 {% block onbodyload %}

@@ -4,8 +4,15 @@
 <div id="div_id_{{ field.html_name }}" class="form-group{% if field.errors %} has-error{% endif %}">
     <div class="controls">
         {% if field.label %}<label class="control-label" for="{{ field.auto_id }}">{{ field.label }}{% if not field.field.required %} <span class="text-muted">{% trans "(optional)" %}</span>{% endif %}</label>{% endif %}
+        {% if field.label == '描述' %}<br />{% endif %}
         {{ field|add_class:'form-control' }}
         {% if field.help_text %}<p class="help-block">{{ field.help_text }}</p>{% endif %}
         {% for error in field.errors %}<p class="error">{{ error }}</p>{% endfor %}
     </div>
+    {% if field.label == '訊息' %}
+    <script>
+        $('#div_id_content').attr('style', "display: none;");
+        $('#div_id_content textarea').val("ABC");
+    </script>
+    {% endif %}
 </div>
