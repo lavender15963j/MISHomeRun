@@ -11,4 +11,5 @@ urlpatterns = [
     url(r'^$', views.HomwView.as_view(), name='home'),
     url(r'^tbetting1/$', views.T1View.as_view(), name='t1'),
     url(r'^tbetting2/$', views.T2View.as_view(), name='t2'),
+    url(r'^tcoin/$', views.T3View.as_view(), name='t3'),
 ]

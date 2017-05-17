@@ -183,7 +183,9 @@
     {% else %}
         <p>今天沒有比賽</p>
     {% endif %}
-
+    <div style="padding-left:80%">
+    <a href="{% url 'main:t1'%}" >投注玩法</a> | <a href="{% url 'main:t3'%}" >虛擬投注玩法</a>
+    </div>
     <script>
         $('.checkboxGroup input').click(function(){
             if($(this).prop('checked')){

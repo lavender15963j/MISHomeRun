@@ -51,12 +51,12 @@
             {% if user == request.user %}
              <tr>
                 <th>金幣</th>
-                <td>{{ user.coin }} - <a href="/shop/catalogue/category/jin-bi_1/">購買金幣</a></td>
+                <td>{{ user.coin }} - <a href="/shop/catalogue/category/jin-bi_1/">購買金幣</a>|<a href="{% url 'main:t3'%}">何謂金幣</a></td>
             </tr>
             {% endif %}
             <tr>
                 <th>階級</th>
-                <td>LV {{ user.level }}</td>
+                <td>LV {{ user.level }} - <a href="{% url 'main:t3'%}">何謂等級</a></td>
             </tr>
             <tr>
                 <th>讓分勝率</th>

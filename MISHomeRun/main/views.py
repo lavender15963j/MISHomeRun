@@ -134,5 +134,9 @@ class T1View(PageTitleMixin, generic.TemplateView):
 class T2View(PageTitleMixin, generic.TemplateView):
     template_name = 'main/t_play.html'
     page_title = '投注單介紹'
+
+class T3View(PageTitleMixin, generic.TemplateView):
+    template_name = 'main/t_coin.html'
+    page_title = '金幣與階級介紹'
     
 

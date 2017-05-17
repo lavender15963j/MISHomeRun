@@ -10,6 +10,6 @@ from machina.models.fields import MarkupTextField
 # django-machina models
 
 class Post(AbstractPost):
-    content2 = RichTextUploadingField(_('Description'), default='', blank=True)
+    content2 = RichTextUploadingField(_('Description'))
 
 from machina.apps.forum_conversation.models import *  # noqa

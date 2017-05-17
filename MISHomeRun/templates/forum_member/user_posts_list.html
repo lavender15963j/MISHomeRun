@@ -54,7 +54,12 @@
                   </small>
                 </p>
                 <div class="post-content">
+                {% if post.content2 %}
+                    {{ post.content2|safe|truncatechars_html:250 }}
+                {% else %}
                   {{ post.content.rendered|truncatechars_html:250 }}
+                {% endif %}
+                  
                 </div>
             </div>
             <div class="col-md-2 post-sidebar">

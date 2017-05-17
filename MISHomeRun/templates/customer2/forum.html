@@ -53,7 +53,12 @@
                   </small>
                 </p>
                 <div class="post-content">
+                    {% if post.content2 %}
+                    {{ post.content2|safe|truncatechars_html:160 }}
+                {% else %}
                   {{ post.content.rendered|truncatechars_html:160 }}
+                {% endif %}
+                  
                 </div>
               </div>
             </div>
