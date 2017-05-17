@@ -36,42 +36,6 @@ class RealNoteForm(forms.ModelForm):
         widget=forms.NumberInput(attrs={'class': 'form-control',
                                         'value': 0,}))
 
-    wpd1 = forms.IntegerField(label='wpd1', min_value=0,
-        widget=forms.NumberInput(attrs={'class': 'form-control',
-                                        'value': 0,}))
-
-    wpd2 = forms.IntegerField(label='wpd2', min_value=0,
-        widget=forms.NumberInput(attrs={'class': 'form-control',
-                                        'value': 0,}))
-    
-    wpd3 = forms.IntegerField(label='wpd3', min_value=0,
-        widget=forms.NumberInput(attrs={'class': 'form-control',
-                                        'value': 0,}))
-    
-    wpd4 = forms.IntegerField(label='wpd4', min_value=0,
-        widget=forms.NumberInput(attrs={'class': 'form-control',
-                                        'value': 0,}))
-
-    wpd5 = forms.IntegerField(label='wpd5', min_value=0,
-        widget=forms.NumberInput(attrs={'class': 'form-control',
-                                        'value': 0,}))
-    
-    wpd6 = forms.IntegerField(label='wpd6', min_value=0,
-        widget=forms.NumberInput(attrs={'class': 'form-control',
-                                        'value': 0,}))                                    
-    
-    wpd7 = forms.IntegerField(label='wpd7', min_value=0,
-        widget=forms.NumberInput(attrs={'class': 'form-control',
-                                        'value': 0,}))
-
-    wpd8 = forms.IntegerField(label='wpd8', min_value=0,
-        widget=forms.NumberInput(attrs={'class': 'form-control',
-                                        'value': 0,}))
-    
-    wpd9 = forms.IntegerField(label='wpd9', min_value=0,
-        widget=forms.NumberInput(attrs={'class': 'form-control',
-                                        'value': 0,}))
-
     class Meta:
         model = RealNote
         fields = [
@@ -82,13 +46,4 @@ class RealNoteForm(forms.ModelForm):
             'nlp_away_team',
             'big',
             'small',
-            'wpd1',
-            'wpd2',
-            'wpd3',
-            'wpd4',
-            'wpd5',
-            'wpd6',
-            'wpd7',
-            'wpd8',
-            'wpd9',
         ]

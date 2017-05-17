@@ -1,0 +1,16 @@
+{% extends "customer2/profile_layout.html" %}
+
+{% load i18n %}
+
+{% block title %}
+    {{ page_title }}
+{% endblock %}
+
+{% block headertext %}{{ page_title }}{% endblock %}
+
+{% block right_content %}
+    <form action="" method="post">{% csrf_token %}
+        <legend>您確定要刪除賽事 No.{{ object.betting.game.game_no }} 的筆記嗎?</legend>
+        <button type="submit" class="btn btn-danger">刪除</button>
+    </form>
+{% endblock %}

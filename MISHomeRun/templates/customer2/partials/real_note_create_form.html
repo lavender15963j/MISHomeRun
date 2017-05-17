@@ -4,7 +4,7 @@
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
 
-      <div class="modal-header">
+      <div class="modal-header" style="background:#337ab7;">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title">記錄筆記</h4>
       </div>
@@ -12,7 +12,7 @@
       <form action="{% url 'customer2:real' request.user.username %}" method="post">
           {% csrf_token %}
 
-        <div class="modal-body">
+        <div class="modal-body" style="padding: 30px;">
             {{ form.non_field_errors }}
 
             <div class="form-group">
@@ -25,7 +25,7 @@
                 <li role="presentation" class="active"><a href="#lp" aria-controls="lp" role="tab" data-toggle="tab">讓分</a></li>
                 <li role="presentation"><a href="#nlp" aria-controls="nlp" role="tab" data-toggle="tab">不讓分</a></li>
                 <li role="presentation"><a href="#bs" aria-controls="bs" role="tab" data-toggle="tab">大小分</a></li>
-                <li role="presentation"><a href="#wpd" aria-controls="wpd" role="tab" data-toggle="tab">勝分差</a></li>
+                
             </ul>
 
              <div class="tab-content">
@@ -65,59 +65,8 @@
                         {{ form.small.errors }}
                     </div>                   
                 </div>
-                <div role="tabpanel" class="tab-pane row" id="wpd">
-                    <div class="col-md-6">
-                        <div class="form-group" style="padding-right: 50%;">
-                            <label for="{{ form.wpd1.id_for_wpd1 }}">投注勝分差1:</label>
-                            {{ form.wpd1 }}
-                            {{ form.wpd1.errors }}
-                        </div>
-                        <div class="form-group" style="padding-right: 50%;">
-                            <label for="{{ form.wpd2.id_for_wpd2 }}">投注勝分差2:</label>
-                            {{ form.wpd2 }}
-                            {{ form.wpd2.errors }}
-                        </div>
-                        <div class="form-group" style="padding-right: 50%;">
-                            <label for="{{ form.wpd3.id_for_wpd3 }}">投注勝分差3:</label>
-                            {{ form.wpd3 }}
-                            {{ form.wpd3.errors }}
-                        </div>
-                        <div class="form-group" style="padding-right: 50%;">
-                            <label for="{{ form.wpd4.id_for_wpd4 }}">投注勝分差4:</label>
-                            {{ form.wpd4 }}
-                            {{ form.wpd4.errors }}
-                        </div>
-                        <div class="form-group" style="padding-right: 50%;">
-                            <label for="{{ form.wpd5.id_for_wpd5 }}">投注勝分差5:</label>
-                            {{ form.wpd5 }}
-                            {{ form.wpd5.errors }}
-                        </div>
-                        
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group" style="padding-right: 50%;">
-                            <label for="{{ form.wpd6.id_for_wpd6 }}">投注勝分差6:</label>
-                            {{ form.wpd6 }}
-                            {{ form.wpd6.errors }}
-                        </div>
-                        <div class="form-group" style="padding-right: 50%;">
-                            <label for="{{ form.wpd7.id_for_wpd7 }}">投注勝分差7:</label>
-                            {{ form.wpd7 }}
-                            {{ form.wpd7.errors }}
-                        </div>
-                        <div class="form-group" style="padding-right: 50%;">
-                            <label for="{{ form.wpd8.id_for_wpd8 }}">投注勝分差8:</label>
-                            {{ form.wpd8 }}
-                            {{ form.wpd8.errors }}
-                        </div>
-                        <div class="form-group" style="padding-right: 50%;">
-                            <label for="{{ form.wpd9.id_for_wpd9 }}">投注勝分差9:</label>
-                            {{ form.wpd9 }}
-                            {{ form.wpd9.errors }}
-                        </div>
-                        
-                    </div>
-                </div>
+                
+                
             </div>
 
 

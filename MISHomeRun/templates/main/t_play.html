@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+{% load staticfiles %}
+
+{% block title %}
+    {{ page_title }}
+{% endblock %}
+
+{% block content %}
+<h1><b>一張投注單即可玩所有玩法:</b></h1>
+<img src="{% static 'images/main/1.png' %}" />
+<br />
+<hr />
+<h3>一、	劃記賽事編號</h3>
+<img src="{% static 'images/main/2.png' %}" />
+
+<br />
+<br />
+<h3>二、	劃記過關數</h3>
+<b> 基本觀念</b>
+<p>
+可以只選擇一種過關數或多種過關數； <img src="{% static 'images/main/r1.png' %}" />代表要猜中1場(單場)、 <img src="{% static 'images/main/r2.png' %}" />代表要
+猜中2場(過2關、 <img src="{% static 'images/main/r3.png' %}" />代表要猜中3場(過3關)… 以此類推。
+</p>
+<p>
+例如：買單場運彩，先劃記該場比賽的賽事編號及遊戲玩法，再於「過關數」
+欄位中劃記<img src="{% static 'images/main/r1.png' %}" />即可(如下圖所示)。同理，選擇兩場以上賽事想中兩關，劃記數字<img src="{% static 'images/main/r2.png' %}" />即可。
+</p>
+<br />
+<img src="{% static 'images/main/3.png' %}" />
+<br />
+<br />
+
+<h3>三、	計算投注金額</h3>
+<b> 基本觀念</b>
+<p>
+您可以只劃記一個金額，也可以劃記多個金額；若劃記多個金額，則每組(合)投注金額為劃記的金額數加總。
+</p>
+<b> 範例</b>
+<p>
+您選了3場比賽的運動彩券，過關數是過2關+過3關，運動彩券每張(筆)交易最低為新臺幣100元；這張彩券有4種組合─3場中過2關(三種)、三場全過(一種)，因此這張彩券要超過100元每個組合最低投注金額是30元。每個組合最低投注金額30元的劃法是分別在10和20處劃記，即代表這張彩券的投注金額為120元(4x30=120元)。
+</p>
+<br />
+<img src="{% static 'images/main/4.png' %}" />
+<br />
+<br />
+<p style="color:red;">
+您只要確認投注單的過關數，系統會自動幫您算出相對應的組合數
+</p>
+<br />
+<img src="{% static 'images/main/5.png' %}" />
+{% endblock %}

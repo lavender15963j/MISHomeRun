@@ -1,5 +1,5 @@
 {% load i18n %}
-<!--
+
 <ul class="breadcrumb">
     <li><a href="{% url 'forum:index' %}"><i class="fa fa-home">&nbsp;</i>{% trans "Forum index" %}</a></li>
     {% if forum %}
@@ -11,4 +11,4 @@
     {% if topic %}
         <li><a href="{% url 'forum_conversation:topic' forum.slug forum.id topic.slug topic.id %}">{{ topic.subject }}</a></li>
     {% endif %}
-</ul>-->
+</ul>

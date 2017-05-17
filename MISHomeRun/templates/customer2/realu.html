@@ -1,0 +1,65 @@
+{% extends "customer2/profile_layout.html" %}
+
+{% load i18n %}
+
+{% block title %}
+    {{ page_title }}
+{% endblock %}
+
+{% block headertext %}{{ page_title }}{% endblock %}
+
+{% block right_content %}
+    <form action="" method="post">{% csrf_token %}
+        <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#lp" aria-controls="lp" role="tab" data-toggle="tab">讓分</a></li>
+                <li role="presentation"><a href="#nlp" aria-controls="nlp" role="tab" data-toggle="tab">不讓分</a></li>
+                <li role="presentation"><a href="#bs" aria-controls="bs" role="tab" data-toggle="tab">大小分</a></li>
+                
+            </ul>
+
+             <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="lp">
+                    <br />
+                    <div class="form-group" style="padding-right: 80%;">
+                        <label for="{{ form.lp_home_team.id_for_lp_home_team }}">投注主場:</label>
+                        {{ form.lp_home_team }}
+                        {{ form.lp_home_team.errors }}
+                    </div>
+                    <div class="form-group" style="padding-right: 80%;">
+                        <label for="{{ form.lp_away_team.id_for_lp_away_team }}">投注客場:</label>
+                        {{ form.lp_away_team }}
+                        {{ form.lp_away_team.errors }}
+                    </div>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="nlp">
+                    <br />
+                    <div class="form-group" style="padding-right: 80%;">
+                        <label for="{{ form.nlp_home_team.id_for_nlp_home_team }}">投注主場:</label>
+                        {{ form.nlp_home_team }}
+                        {{ form.nlp_home_team.errors }}
+                    </div>
+                    <div class="form-group" style="padding-right: 80%;">
+                        <label for="{{ form.nlp_away_team.id_for_nlp_away_team }}">投注客場:</label>
+                        {{ form.nlp_away_team }}
+                        {{ form.nlp_away_team.errors }}
+                    </div>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="bs">
+                    <br />
+                    <div class="form-group" style="padding-right: 80%;">
+                        <label for="{{ form.big.id_for_big }}">投注大分:</label>
+                        {{ form.big }}
+                        {{ form.big.errors }}
+                    </div>
+                    <div class="form-group" style="padding-right: 80%;">
+                        <label for="{{ form.small.id_for_small }}">投注小分:</label>
+                        {{ form.small }}
+                        {{ form.small.errors }}
+                    </div>                   
+                </div>
+                
+                
+            </div>
+        <input type="submit"  class="btn btn-primary" value="更新筆記" />
+    </form>
+{% endblock %}

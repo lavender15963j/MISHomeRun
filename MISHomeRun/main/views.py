@@ -101,7 +101,7 @@ class HomwView(PageTitleMixin, generic.TemplateView):
             def dt(self):
                 time = 0
                 for g in self.games:
-                    if g.winner == None:
+                    if g.winner == None and g.away_team_score is not None and g.home_team_score is not None:
                         time += 1
                 return time
 
@@ -126,3 +126,13 @@ class HomwView(PageTitleMixin, generic.TemplateView):
 
 
         return ctx
+
+class T1View(PageTitleMixin, generic.TemplateView):
+    template_name = 'main/t_betting1.html'
+    page_title = '玩法介紹'
+
+class T2View(PageTitleMixin, generic.TemplateView):
+    template_name = 'main/t_play.html'
+    page_title = '投注單介紹'
+    
+

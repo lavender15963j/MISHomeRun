@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from django.views import generic
-from django.views.generic.edit import FormView
+from django.views.generic.edit import FormView, UpdateView, DeleteView
 from django.core.urlresolvers import reverse_lazy
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -46,7 +46,7 @@ class RealNoteView(PageTitleMixin, FormView):
 
     def get_success_url(self):
         return reverse_lazy('customer2:real', 
-                            kwargs={'pk': self.request.user.id, })
+                            kwargs={'username': self.request.user.username, })
 
     def form_valid(self, form):
         betting =  Betting.objects.get(id=self.request.POST.get('betting'))
@@ -66,6 +66,40 @@ class RealNoteView(PageTitleMixin, FormView):
         ctx = super(RealNoteView, self).get_context_data(**kwargs)
         ctx['notes'] = RealNote.objects.filter(user=self.request.user)
         return ctx
+
+class RealNoteUpdateView(PageTitleMixin, UpdateView):
+    model = RealNote
+    template_name = 'customer2/realu.html'
+    page_title = '編輯真實筆記'
+    fields = [
+            'lp_home_team', 
+            'lp_away_team', 
+            'nlp_home_team', 
+            'nlp_away_team',
+            'big',
+            'small',
+        ]
+
+    def get_success_url(self):
+        return reverse_lazy('customer2:real', 
+                            kwargs={'username': self.request.user.username, })
+
+    def form_valid(self, form):
+        messages.success(self.request, "編輯成功")
+        return super(RealNoteUpdateView, self).form_valid(form)
+
+class RealNoteDeleteView(PageTitleMixin, DeleteView):
+    model = RealNote
+    template_name = 'customer2/reald.html'
+    page_title = '刪除真實筆記'
+
+    def get_success_url(self):
+        return reverse_lazy('customer2:real', 
+                            kwargs={'username': self.request.user.username, })
+    
+    def form_valid(self, form):
+        messages.success(self.request, "刪除成功")
+        return super(RealNoteUpdateView, self).form_valid(form)
         
 
 class FakeNoteView(PageTitleMixin, generic.TemplateView):

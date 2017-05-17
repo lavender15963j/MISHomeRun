@@ -77,7 +77,7 @@ INSTALLED_APPS = [
 
     'ckeditor',
     'ckeditor_uploader',
-] + get_machina_apps(['apps.forum_conversation',]) + get_core_apps(['checkout',])
+] + get_machina_apps(['apps.forum_conversation']) + get_core_apps(['checkout',])
 
 CKEDITOR_JQUERY_URL = '//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js'
 CKEDITOR_IMAGE_BACKEND = "pillow"

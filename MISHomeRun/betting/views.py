@@ -68,6 +68,8 @@ class StatisticsView(PageTitleMixin, generic.TemplateView):
         lp_wt = []
         lp_lt = []
         for g in games:
+            if not g.is_final:
+                continue
             if g.winner == True:
                 winner = g.home_team
                 lp = g.home_team_score - g.away_team_score
@@ -95,6 +97,8 @@ class StatisticsView(PageTitleMixin, generic.TemplateView):
         # G2
         tp_dir = {}
         for g in games:
+            if not g.is_final:
+                continue
             total = g.away_team_score + g.home_team_score
             if str(total) in tp_dir:
                 tp_dir[str(total)] += 1
@@ -117,6 +121,8 @@ class StatisticsView(PageTitleMixin, generic.TemplateView):
         # G3
         w_t = [0, 0]
         for g in games:
+            if not g.is_final:
+                continue
             if g.winner == True:
                 winner = g.home_team
             elif g.winner == False:
@@ -133,6 +139,8 @@ class StatisticsView(PageTitleMixin, generic.TemplateView):
         # G4
         wpd = [0, 0, 0, 0, 0, 0, 0, 0, 0]
         for g in games:
+            if not g.is_final:
+                continue
             if g.winner == True:
                 winner = g.home_team
                 lp = g.home_team_score - g.away_team_score

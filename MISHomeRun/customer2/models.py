@@ -53,7 +53,7 @@ class RealNote(models.Model):
     a_wpd8 = models.IntegerField(default=0)
     a_wpd9 = models.IntegerField(default=0)
 
-    """
+   
     @property
     def get_money(self):
         is_home_team_winner = self.betting.game.winner == True
@@ -82,14 +82,15 @@ class RealNote(models.Model):
         else:
             money += self.small * self.betting.small_odds
 
-        wpd = [self.wpd1, self.wpd2, self.wpd3, self.wpd4, self.wpd5, self.wpd6, self.wpd7, self.wpd8, self.wpd9,]
-        odds = [self.betting.odds1, self.betting.odds2, self.betting.odds3, self.betting.odds4, self.betting.odds5, self.betting.odds6, self.betting.odds7, self.betting.odds8, self.betting.odds9,]
-        for i in range(1, 10):   
-            if lp > i:
-                 money += wpd[i - 1] * odds[i - 1]
+        return int(money)
 
-        return money
-    """
+    @property
+    def total(self):
+        return self.lp_home_team + self.lp_away_team + self.nlp_home_team + self.nlp_away_team + self.big + self.small
+    
+    @property
+    def income(self):
+        return self.get_money - self.total
 
     def __unicode__(self):
         return u"%s's Note For No.%d" % (self.user.username, 
