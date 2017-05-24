@@ -11,7 +11,8 @@
 
 {% block right_content %}
 {% if user == request.user %}
-    <a id href="{% url 'betting:prediction' %}" class="btn btn-primary btn-sm">虛擬投注</a>
+    <a id href="{% url 'betting:prediction' %}" class="btn btn-default btn-sm">虛擬投注</a>
+    <a href="{% url 'main:t1'%}" >投注玩法</a> | <a href="{% url 'main:t3'%}" >虛擬投注玩法</a>
 {% endif %}
 <br />
 <br />

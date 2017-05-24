@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: django-machina\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-12-11 16:03-0500\n"
-"PO-Revision-Date: 2017-05-17 19:32+0800\n"
+"PO-Revision-Date: 2017-05-24 13:47+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_TW\n"
@@ -574,7 +574,7 @@ msgstr "你提交的投票選項有問題。"
 
 #: apps/forum_conversation/views.py:572 apps/forum_conversation/views.py:657
 msgid "This message has been edited successfully."
-msgstr ""
+msgstr "編輯完成"
 
 #: apps/forum_conversation/views.py:694
 msgid "This message has been deleted successfully."

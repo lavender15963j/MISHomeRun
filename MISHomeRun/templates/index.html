@@ -42,13 +42,33 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 <!-- 額外的 JS -->
 {% block extrascript %}{% endblock %}
+<style>
+@font-face {
+    font-family: Font2;
+    src: url('/static/fonts/font2.TTC');
+}
 
+* {
+    font-family: Font2, serif;
+    font-weight:bold;
+    font-size:18px;
+}
+
+.btn-default{
+	background-color:#4fa9f7;
+	color: #FFFFFF;
+}
+.btn-default:hover{
+	background-color:#FFFFFF;
+}
+</style>
+</head>
 </head>
 	
 <body>
 <!-- banner -->
-	<div class="banner">
-		<div class="container">
+	<div class="banner" style="height: 700px;min-height: 700px;">
+		<div class="container" >
 			<div class="header">
 				<div class="w3_agile_logo">
                     <a href="{% url 'main:home' %}"><img src="{% static 'logo.png' %}" alt=" " class="img-responsive" style="float:left;"/></a>
@@ -64,11 +84,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				</div>
 				<div class="clearfix"> </div>
 			</div>
-			<div class="agile_banner_info">
+			<div class="agile_banner_info" style="margin-bottom: 0px;margin-top: 250px;">
 				<h3><span>Baseball</span>Luck is what happens when preparation meets opportunity.</h3>
 			</div>
 			
-			<div class="w3_agileits_social_media" style="padding-bottom:3%;">
+			<div class="w3_agileits_social_media" style="margin-top: 0%;padding-bottom: 1%;">
 				<ul>
 					<li class="agileinfo_share" style="color:#FFFFFF">Share On</li>
 					<li><a href="#" class="wthree_facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>

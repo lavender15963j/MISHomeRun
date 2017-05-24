@@ -1,0 +1,177 @@
+<div class="panel panel-default">
+    <ul class="nav nav-tabs panel-heading" role="tablist">
+        <li role="presentation" class="active"><a href="#out12" aria-controls="out12" role="tab" data-toggle="tab">讓分</a></li>
+        <li role="presentation"><a href="#out22" aria-controls="out22" role="tab" data-toggle="tab">不讓分</a></li>
+        <li role="presentation"><a href="#in2" aria-controls="in2" role="tab" data-toggle="tab">大小分</a></li>
+        <li role="presentation"><a href="#sys2" aria-controls="sys2" role="tab" data-toggle="tab">主隊勝分差</a></li>
+        <li role="presentation"><a href="#all2" aria-controls="all2" role="tab" data-toggle="tab">客隊勝分差</a></li>
+    </ul>
+
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="out12">
+            <div id="lp_chart1" style="float:left;width: 100%;"></div>
+        </div>
+
+        <div role="tabpanel" class="tab-pane" id="out22">
+            <div id="nlp_chart1" style="float:left;width: 100%;"></div>
+        </div>
+
+        <div role="tabpanel" class="tab-pane" id="in2">
+            <div id="bs_chart1" style="float:left;width: 100%;"></div>
+        </div>
+
+        <div role="tabpanel" class="tab-pane" id="sys2">
+            <div id="wdp1_chart1" style="float:left;width: 100%;"></div>
+        </div>
+
+        <div role="tabpanel" class="tab-pane" id="all2">
+            <div id="wdp2_chart1" style="float:left;width: 100%;"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+// lp
+ Highcharts.chart('lp_chart1', {
+
+    title: {
+        text: '賽事No.{{ game.game_no }}讓分投注情形(人數)'
+    },
+
+    xAxis: {
+        categories: ['{{ game.home_team }}', '{{ game.away_team }}']
+    },
+
+    yAxis: {
+        title: {
+            text: '人數'
+        }
+    },
+
+    series: [{
+        type: 'column',
+        colorByPoint: true,
+        data: [{{ h_lp }}, {{ a_lp }}],
+        showInLegend: false
+    }]
+
+});
+
+
+
+//nlp
+
+Highcharts.chart('nlp_chart1', {
+
+    title: {
+        text: '賽事No.{{ game.game_no }}不讓分投注情形(人數)'
+    },
+
+    xAxis: {
+        categories: ['{{ game.home_team }}', '{{ game.away_team }}']
+    },
+
+    yAxis: {
+        title: {
+            text: '人數'
+        }
+    },
+
+    series: [{
+        type: 'column',
+        colorByPoint: true,
+        data: [{{ h_nlp }}, {{ a_nlp }}],
+        showInLegend: false
+    }]
+
+});
+
+
+
+//bs
+
+Highcharts.chart('bs_chart1', {
+
+    title: {
+        text: '賽事No.{{ game.game_no }}大小分投注情形(人數)'
+    },
+
+    xAxis: {
+        categories: ['大分', '小分']
+    },
+
+    yAxis: {
+        title: {
+            text: '人數'
+        }
+    },
+
+    series: [{
+        type: 'column',
+        colorByPoint: true,
+        data: [{{ b }}, {{ s }}],
+        showInLegend: false
+    }]
+
+});
+
+
+
+//wdp1
+
+Highcharts.chart('wdp1_chart1', {
+
+    title: {
+        text: '賽事No.{{ game.game_no }}主隊勝分差投注情形(人數)'
+    },
+
+    xAxis: {
+        categories: ['勝分差1', '勝分差2', '勝分差3', '勝分差4', '勝分差5', '勝分差6', '勝分差7', '勝分差8', '勝分差9']
+    },
+
+    yAxis: {
+        title: {
+            text: '人數'
+        }
+    },
+
+    series: [{
+        type: 'column',
+        colorByPoint: true,
+        data: {{ h_wdp }},
+        showInLegend: false
+    }]
+
+});
+
+
+//wdp2
+
+Highcharts.chart('wdp2_chart1', {
+
+    title: {
+        text: '賽事No.{{ game.game_no }}主隊勝分差投注情形(人數)'
+    },
+
+    xAxis: {
+        categories: ['勝分差1', '勝分差2', '勝分差3', '勝分差4', '勝分差5', '勝分差6', '勝分差7', '勝分差8', '勝分差9']
+    },
+
+    yAxis: {
+        title: {
+            text: '人數'
+        }
+    },
+
+    series: [{
+        type: 'column',
+        colorByPoint: true,
+        data: {{ a_wdp }},
+        showInLegend: false
+    }]
+
+});
+
+
+
+</script>

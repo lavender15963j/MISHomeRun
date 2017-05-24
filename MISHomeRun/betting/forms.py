@@ -4,7 +4,7 @@
 from django import forms
 
 class FakeNoteForm(forms.Form):
-    betting = forms.CharField(max_length=1)
+    betting = forms.CharField(max_length=3)
     lp = forms.CharField(max_length=1)
     nlp = forms.CharField(max_length=1)
     bs = forms.CharField(max_length=1)

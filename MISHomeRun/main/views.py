@@ -10,6 +10,7 @@ from django.db.models import Q
 from main.models import User
 from team.models import Team
 from game.models import Game
+from customer2.models import FakeNote
 from betting.models import Betting
 
 Topic = get_model('forum_conversation', 'Topic')
@@ -122,6 +123,72 @@ class HomwView(PageTitleMixin, generic.TemplateView):
             ctx['bettings'] = bettings[:5]
         else:
             ctx['bettings'] = bettings
+
+        # 投注情形
+        for b in bettings:
+            if b.game.is_final:
+                betting = b
+                break
+        ctx['game'] = betting.game
+        notes = FakeNote.objects.filter(betting=betting)
+        ctx['num'] = len(notes)
+        # lp
+        ctx['h_lp'] = 0
+        ctx['a_lp'] = 0
+        ctx['h_lp_p'] = 0
+        ctx['a_lp_p'] = 0
+
+        # nlp
+        ctx['h_nlp'] = 0
+        ctx['a_nlp'] = 0
+        ctx['h_nlp_p'] = 0
+        ctx['a_nlp_p'] = 0
+
+        # bs
+        ctx['b'] = 0
+        ctx['s'] = 0
+        ctx['b_p'] = 0
+        ctx['s_p'] = 0
+
+        # wdp
+        ctx['h_wdp'] = [0, 0, 0, 0, 0, 0, 0, 0, 0,]
+        ctx['a_wdp'] = [0, 0, 0, 0, 0, 0, 0, 0, 0,]
+        ctx['h_wdp_p'] = [0, 0, 0, 0, 0, 0, 0, 0, 0,]
+        ctx['a_wdp_p'] = [0, 0, 0, 0, 0, 0, 0, 0, 0,]
+
+        if not ctx['num'] == 0:
+            for note in notes:
+                if note.lp_team == True:
+                    ctx['h_lp'] += 1
+                else:
+                    ctx['a_lp'] += 1
+
+                if note.nlp_team == True:
+                    ctx['h_nlp'] += 1
+                else:
+                    ctx['a_nlp'] += 1
+
+                if note.b_or_s == True:
+                    ctx['b'] += 1
+                else:
+                    ctx['s'] += 1
+
+                if note.choice_team == True:
+                    ctx['h_wdp'][note.wpd_num - 1] += 1
+                else:
+                    ctx['a_wdp'][note.wpd_num - 1] += 1
+
+            ctx['h_lp_p'] = float(ctx['h_lp']) / ctx['num'] * 100
+            ctx['a_lp_p'] = float(ctx['a_lp']) / ctx['num'] * 100
+
+            ctx['h_nlp_p'] = float(ctx['h_nlp']) / ctx['num'] * 100
+            ctx['a_nlp_p'] = float(ctx['a_nlp']) / ctx['num'] * 100
+
+            ctx['b_p'] = float(ctx['b']) / ctx['num'] * 100
+            ctx['s_p'] = float(ctx['s']) / ctx['num'] * 100
+
+            ctx['h_wdp_p'] = [float(wdp) / ctx['num'] * 100 for wdp in ctx['h_wdp']]
+            ctx['a_wdp_p'] = [float(wdp) / ctx['num'] * 100 for wdp in ctx['a_wdp']] 
 
 
 

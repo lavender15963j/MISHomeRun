@@ -8,16 +8,16 @@
     <div class="panel panel-default topiclist">
       <div class="panel-heading">
         <div class="row panel-row">
-          <div class="col-md-8 col-sm-9 col-xs-12 topic-name-col"><h3 class="panel-title"><i class="fa fa-comment"></i>最近熱門文章</h3></div>
+          <div class="col-md-5 col-sm-9 col-xs-12 topic-name-col"><h3 class="panel-title"><i class="fa fa-comment"></i>最近熱門文章</h3></div>
           <div class="col-md-1 topic-count-col hidden-sm hidden-xs">{% trans "Replies" %}</div>
           <div class="col-md-1 topic-count-col hidden-sm hidden-xs">{% trans "Views" %}</div>
-          <div class="col-md-2 col-sm-3 hidden-xs topic-last-post-col">{% trans "Last post" %}</div>
+          <div class="col-md-5 col-sm-3 hidden-xs topic-last-post-col">{% trans "Last post" %}</div>
         </div>
       </div>
       <div class="panel-body">{% if not force_all_unread and unread_topics == None %}{% get_unread_topics topics request.user as unread_topics %}{% endif %}
       {% for topic in topics %}
       <div class="row panel-row">
-        <div class="col-md-8 col-sm-9 col-xs-11 topic-name">
+        <div class="col-md-5 col-sm-9 col-xs-11 topic-name">
           <div class="topic-inline-pagination pull-right hidden-xs">{% topic_pages_inline_list topic %}</div>
           <table class="topic-data-table">
             <tr>
@@ -33,7 +33,7 @@
         </div>
         <div class="col-md-1 topic-count hidden-sm hidden-xs">{{ topic.posts_count|add:"-1" }}</div>
         <div class="col-md-1 topic-count hidden-sm hidden-xs">{{ topic.views_count }}</div>
-        <div class="col-md-2 col-sm-3 hidden-xs topic-last-post">
+        <div class="col-md-5 col-sm-3 hidden-xs topic-last-post">
         {% with last_post=topic.last_post %}
           {% if last_post.poster %}
             {% url 'forum_member:profile' last_post.poster_id as poster_url %}

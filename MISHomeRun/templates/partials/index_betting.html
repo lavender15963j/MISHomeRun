@@ -13,7 +13,7 @@
         {% for b in bettings %}
           <div class="row panel-row">
             <div class="col-md-1 col-sm-9 col-xs-12 topic-name-col"><a href="{% url 'betting:prediction' %}">No. {{ b.game.game_no }}</a><br /><br /></div>
-            <div class="col-md-2 topic-count-col hidden-sm hidden-xs"><a id href="{% url 'betting:prediction' %}" class="btn btn-default btn-sm" >前往虛擬投注頁</a></div>
+            <div class="col-md-2 topic-count-col hidden-sm hidden-xs"><a id href="{% url 'betting:prediction' %}" class="btn btn-default btn-sm" ><b>前往虛擬投注頁</b></a></div>
             <div class="col-md-3 topic-count-col hidden-sm hidden-xs">{{ b.game.date }}</div>
             <div class="col-md-3 topic-count-col hidden-sm hidden-xs">{{ b.game.home_team.name }}</div>
             <div class="col-md-3 topic-count-col hidden-sm hidden-xs">{{ b.game.away_team.name }}</div>
@@ -21,6 +21,7 @@
           </div>
         {% endfor %}
       </div>
+      
     </div>
   </div>
 </div>
