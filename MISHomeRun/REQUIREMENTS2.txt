@@ -1,0 +1,38 @@
+# PROJECT REQUIREMENTS LIST, PLEASE NOTE THIS FILE IS ALSO USED FOR PYTHON PIP,
+# SO ALL NON-PYTHON PACKAGES ARE MARKED AS COMMENTS.
+
+# ============ LIB ============
+
+./lib/mysqlclient-1.3.10-cp27-cp27m-win_amd64.whl
+
+# ============ Nuwa Developed ============
+
+#Iuppiter>=2.0.8.9686
+#Iuno==2.1.11.9716
+./lib/Iuppiter-2.0.17.9752.zip
+./lib/Iuno-2.1.11.9716.tar.gz
+
+# ============ Third Party ============
+
+# django (https://pypi.python.org/pypi/Django)
+django==1.8.4
+
+# python-social-auth (https://pypi.python.org/pypi/python-social-auth)
+python-social-auth==0.2.21
+
+# django-compressor (https://pypi.python.org/pypi/django-compressor/)
+django-compressor==2.1
+
+pillow
+
+django-machina
+
+django-ckeditor
+
+django-haystack==2.3.2
+
+django-oscar==1.1
+
+pyallpay==0.0.12.dev1
+
+django-oscar-paypal==0.9.7
